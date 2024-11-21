@@ -40,6 +40,8 @@ public class User {
 
     private String role;
 
+    private String description;
+
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<Orders> orders;
 
