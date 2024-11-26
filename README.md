@@ -11,6 +11,7 @@ Thymeleaf: Template engine giúp tạo giao diện web. Thymeleaf hỗ trợ k�
 MySQL Driver: Driver JDBC cho MySQL, giúp kết nối ứng dụng Spring Boot với cơ sở dữ liệu MySQL. Dependency này cần thiết để Spring Data JPA có thể làm việc với cơ sở dữ liệu MySQL.
 
 CÁC BƯỚC UPLOAD CODE LÊN GITHUB
+
 B1: Bắt đầu từ nhánh cá nhân sau khi có code mới thì đẩy code từ nhánh cá nhân ở local lên github
 	+ git add .
 	+ git commit -m 'content changed'
