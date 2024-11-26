@@ -45,4 +45,7 @@ public class Game {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
+    private Collection<ImageGame> imageGames;
 }
