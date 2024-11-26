@@ -13,6 +13,7 @@ MySQL Driver: Driver JDBC cho MySQL, giúp kết nối ứng dụng Spring Boot 
 CÁC BƯỚC UPLOAD CODE LÊN GITHUB
 
 B1: Bắt đầu từ nhánh cá nhân sau khi có code mới thì đẩy code từ nhánh cá nhân ở local lên github
+
 	+ git add .
 	+ git commit -m 'content changed'
 	+ git push origin tenNhanhCaNhan
@@ -21,14 +22,18 @@ B2: Compare pull request từ nhánh cá nhân qua nhanh dev trên github, sau �
 lúc này nhánh dev trên github đã có code mới.
 
 B3: Từ nhánh các nhân chuyển qua nhánh dev trên local
+
 	+git checkout dev
 	
 B4: Pull nhánh dev từ github về nhánh dev trên local
+
 	+ git pull origin dev
 lúc này nhánh dev local của bạn có code mới của bạn và những người khác
 
 B5: Từ nhánh dev trên local chuyển qua nhánh cá nhân trên local
+
 	+ git checkout tenNhanhCaNhan
 
 B6: Merge code mới từ nhánh dev vào nhánh cá nhân
+
 	+ git merge dev
