@@ -22,5 +22,6 @@ public class HomeController {
         List<AccountGame>  accountGames = accountGameService.getAllAccountGames();
         model.addAttribute("accountGames", accountGames);
         return "home";
+
     }
 }
