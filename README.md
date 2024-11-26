@@ -1,3 +1,5 @@
+KHÔNG CẦN BÁO CÁO HAY PP GÌ CẢ!!!!!!!!
+
 Lombok: Thư viện giúp giảm boilerplate code (các đoạn mã lặp lại) trong Java. Với Lombok, bạn có thể tạo getter, setter, constructor, và các phương thức khác bằng cách sử dụng các annotation như @Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor, @Builder
 
 Spring Boot DevTools: Bộ công cụ hỗ trợ phát triển, giúp tăng tốc quá trình phát triển ứng dụng Spring Boot. DevTools tự động reload ứng dụng khi có thay đổi code, hỗ trợ LiveReload và cung cấp thêm một số tính năng giúp cải thiện trải nghiệm phát triển.
