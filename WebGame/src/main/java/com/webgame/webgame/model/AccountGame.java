@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Collection;
@@ -22,7 +23,10 @@ public class AccountGame {
     @Column(name = "accountGame_id")
     private Long accountGameId;
 
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
 //    status = 0: chua ban, 1 la da ban

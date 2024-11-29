@@ -38,6 +38,7 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
     private String role;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.EAGER)

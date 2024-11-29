@@ -10,7 +10,7 @@
 </head>
 <body>
 <div>
-    <!--    header-->
+    <!-- header -->
     <header>
         <div class="top-header">
             <div class="top-icons">
@@ -29,7 +29,7 @@
                 <input type="text" name="inputName" autofocus placeholder="Bạn thích tựa game nào nhỉ ?">
                 <a href="#"><img th:src="@{/img/home/search.png}" alt="Lỗi hiển thị"></img></a>
             </div>
-            <a href="#">Theo dõi đơn hàng</a>
+            <a href="#" class="track-order">Đơn hàng của bạn</a>
         </div>
 
         <div class="main-header">
@@ -38,10 +38,13 @@
                 <p>BDLV <span>gaming</span></p>
             </div>
             <nav class="nav-menu">
-                <a href="#">Trang chủ</a>
-                <a href="#">Game bán chạy</a>
-                <a href="#">Game mới ra mắt</a>
-                <a href="#">Thể loại</a>
+                <a href="#best-seller">Game bán chạy</a>
+                <a href="#list-newest">Game mới ra mắt</a>
+                <a onclick="" class="main-header-category">
+                    <p>Thể loại</p>
+                    <img th:src="@{/img/home/arrowDown.png}" alt="">
+                    <div class="category-detail"></div>
+                </a>
             </nav>
             <div class="icons">
                 <a href="#"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></img></a>
@@ -50,10 +53,10 @@
         </div>
     </header>
 
-    <!--    banner-->
+    <!-- banner -->
     <div class="banner">
         <div class="banner-contents">
-            <h2>Luôn có tựa game bạn yêu thích</h2>
+            <h2>Luôn có tựa game bạn yêu thích !</h2>
             <p>
                 BDLV Gaming là web bán game đa nền tảng (Steam, Epic Games, EA Games, Ubisoft) với giá cực kỳ hợp lý.
                 Tại đây, người chơi có thể tìm thấy nhiều tựa game đa dạng thể loại, từ hành động, phiêu lưu đến thể
@@ -65,14 +68,239 @@
 
         <img th:src="@{/img/home/banner1.jpeg}" alt="Lỗi hiển thị">
 
-<!--        <div th:each="accountGame: ${accountGames}">-->
-<!--            <p th:text="accountGameId + ${accountGame.accountGameId}"></p>-->
-<!--            <p th:text="accountGameIdPass +${accountGame.password}"></p>-->
-<!--            <p th:text="${accountGame.status}"></p>-->
-<!--            <p th:text="gameId + ${accountGame.game.gameId}"></p>-->
-<!--            <p th:text="${accountGame.order.orderId}"></p>-->
-<!--        </div>-->
+        <!--        <div th:each="accountGame: ${accountGames}">-->
+        <!--            <p th:text="accountGameId + ${accountGame.accountGameId}"></p>-->
+        <!--            <p th:text="accountGameIdPass +${accountGame.password}"></p>-->
+        <!--            <p th:text="${accountGame.status}"></p>-->
+        <!--            <p th:text="gameId + ${accountGame.game.accountGames}"></p>-->
+        <!--            <p th:text="${accountGame.order.orderId}"></p>-->
+        <!--        </div>-->
     </div>
+
+    <!-- product -->
+    <div class="product">
+        <!-- category -->
+        <div class="category-menu">
+            <h1>Thể Loại</h1>
+            <p class="category-menu-text">
+                BDLV Gaming mang đến thế giới game đa dạng với nhiều thể loại hấp dẫn: Hành động kịch tính, phiêu lưu
+                đầy cuốn hút, chiến thuật đòi hỏi tư duy, nhập vai sâu sắc, kinh dị rùng rợn, thể thao sôi động, giải đố
+                sáng tạo và mô phỏng sống động. Dù bạn yêu thích thử thách, khám phá hay giải trí nhẹ nhàng, BDLV Gaming
+                đều có tựa game phù hợp, đáp ứng mọi phong cách và sở thích của bạn!
+            </p>
+            <div class="category-menu-list" id="category-menu-list">
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+                <a href="">
+                    <img class="ee" th:src="@{/img/category/action.jpg}" alt="hành động"/>
+                    <p class="category-name">
+                        Hành động
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+        <!-- product item -->
+        <div class="product-display" id="list-newest">
+            <h1>Danh Sách Game Mới Nhất</h1>
+            <div class="product-display-list">
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+            </div>
+            <a href="#">
+                <h3>Xem Thêm</h3>
+            </a>
+        </div>
+
+        <hr>
+        <!-- product item -->
+        <div class="product-display" id="best-seller">
+            <h1>Danh Sách Game Bán Chạy</h1>
+            <div class="product-display-list">
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+                <a class="product-item">
+                    <img th:src="@{/img/category/action.jpg}" alt="" class="product-item-image"/>
+                    <div class="product-item-infor">
+                        <p class="product-item-name">Elden ring eeeeeeeee</p>
+                        <p class="product-item-price">100000 Đ</p>
+                    </div>
+                </a>
+            </div>
+            <a href="#">
+                <h3>Xem Thêm</h3>
+            </a>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+
+    </footer>
 </div>
+
+<script>
+    // Tìm phần tử danh sách
+    const scrollList = document.getElementById("category-menu-list");
+
+    // Hàm xử lý sự kiện lăn chuột
+    const handleWheel = (event) => {
+        event.preventDefault(); // Ngăn chặn cuộn dọc mặc định
+        scrollList.scrollLeft += event.deltaY * 1.6; // Cuộn ngang
+    };
+
+    // Gán sự kiện 'wheel' vào phần tử
+    scrollList.addEventListener("wheel", handleWheel);
+</script>
 </body>
 </html>

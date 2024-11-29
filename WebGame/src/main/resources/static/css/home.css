@@ -13,6 +13,7 @@
 
 :root{
     --main-color: rgb(30, 165, 195);
+    --text-color: rgb(1, 96, 109);
     --fontSize-main: 16px;
     --banner-color: rgb(217, 235, 254);
 }
@@ -22,6 +23,7 @@ body{
     flex-direction: column;
     justify-content: center;
     color: var(--main-color);
+    background: linear-gradient(-45deg, rgba(34, 199, 237, 0.05), rgba(203, 166, 51, 0.05));
 }
 
 /*header*/
@@ -57,6 +59,14 @@ a:hover{
     text-decoration: none;
     margin-right: 15px;
     transition: all 0.4s ease-in-out;
+    border-radius: 5px;
+
+}
+
+.top-header .track-order{
+    font-weight: 500;
+    padding: 14px;
+    background: linear-gradient(90deg, rgba(14, 203, 245, 0.2), rgba(62, 233, 249, 0.2));
 }
 
 .top-header a:hover {
@@ -112,6 +122,7 @@ a:hover{
     align-items: center;
     font-size: var(--fontSize-main);
     font-weight: bold;
+    background: linear-gradient(90deg, rgba(14, 203, 245, 0.2), rgba(62, 233, 249, 0.2));
 }
 .main-header .logo{
     display: flex;
@@ -137,7 +148,7 @@ a:hover{
     width: 80px;
     height: 80px;
     position: absolute;
-    top: 8%;
+    top: 8.5%;
     left: -8%; /* Bắt đầu từ ngoài bên trái */
     animation: enterAndExit 8s ease-in-out infinite 1s;
 }
@@ -153,8 +164,18 @@ a:hover{
 .main-header .nav-menu{
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 60px;
+}
 
+.main-header-category{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.main-header-category img {
+    width: 20px;
+    margin-left: 5px;
 }
 
 .main-header .icons{
@@ -210,3 +231,161 @@ a:hover{
     line-height: 1.8;
     color: rgb(5, 54, 61);
 }
+
+
+/*Product*/
+
+.product{
+    padding: 1.5% 4%;
+    padding-left: 6%;
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+    flex-direction: column;
+}
+
+.category-menu{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.category-menu p{
+    width: 90%;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.category-menu-list{
+    width: 100%;
+    display: flex;
+    gap: 50px;
+    overflow-x: scroll;
+    padding: 7px 0 ;
+    border-radius: 10px;
+}
+.category-menu-list::-webkit-scrollbar{
+    display: none;
+}
+
+.category-menu-list a{
+    /*padding: 5px;*/
+    height: 150px;
+    flex: 0.2;
+    min-width: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    background:  linear-gradient(45deg, rgba(0, 199, 251, 0.4), rgba(62, 233, 249, 0.2));
+    box-shadow: 5px 5px 4px rgb(1, 76, 89, 0.2);
+}
+
+.category-menu-list a img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.category-menu-text {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.category-menu-list p{
+    width: 100%;
+    margin-top: 6px;
+    font-weight: bold;
+    text-align: center;
+}
+
+hr{
+    width: 100%;
+    border: 1px solid rgba(1, 96, 109,0.3);
+}
+
+/*product- item*/
+.product-display{
+    margin-top: 30px;
+}
+.product-display a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(14, 203, 245,0.2), rgba(62, 233, 249, 0.2))
+}
+.product-display a h3{
+    font-size: 25px;
+    text-align: center;
+    margin: 50px 0;
+    padding: 15px 0;
+
+
+}
+
+.product-display h2{
+    font-size: max(2vw, 24px);
+    font-weight: 600;
+}
+
+.product-display-list{
+    display: grid;
+    /* repeat(auto-fill, minmax(240px, 1fr)): Hàm repeat() 
+    cho phép bạn lặp lại mẫu cột nhiều lần. 
+    auto-fill là một từ khóa để trình duyệt 
+    sẽ tự động lặp lại các cột cho đến khi 
+    không còn đủ không gian trong hàng để 
+    chứa thêm cột nào nữa. 
+    đối số thứ 2 trong repeat TH này là kích thước của cột
+
+    minmax cho ta chọn giá trị tối thiểu và tối đa, 1fr nó
+    là đơn vị trong grid nó chiếm 1 phần của không gian còn lại
+    kiểu giống như flex:1, flex:2 ấy*/
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    margin-top: 30px;
+    gap: 30px;
+    row-gap: 50px;
+}
+.product-display-list a{
+    color: var(--main-color);
+    cursor: pointer;
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 1), rgba(251, 206, 105, 0.4));
+}
+
+.product-item{
+    width: 100%;
+    min-height: 200px;
+    margin-top: auto;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 37, 45, 0.3);
+    transition: 0.3s ease-in-out;
+    animation: fadeIn 1s
+}
+
+.product-item-image{
+    width: 100%;
+    /* để 4 thông số thì 2 thông số đầu
+    là phía trên còn 2 thông số sau phía dưới */
+    border-radius: 15px 15px 0 0;
+}
+
+.product-item-infor{
+    width: 100%;
+    padding: 0 6px;
+}
+.product-item-name{
+    font-size: 23px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.product-item-price{
+    color: var(--text-color);
+    font-size: 22px;
+    font-weight: 500;
+    align-items: center;
+    text-align: center;
+    margin: 10px 0;
+}
+

@@ -19,6 +19,7 @@ public class Review {
     @Column(name = "review_id")
     private Long reviewId;
 
+    @Column(nullable = false)
     private Integer score;
     private String comment;
 

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -31,10 +32,10 @@ public class Game {
     @Column(nullable = false)
     private BigDecimal price;
 
-    private String gameType;
-
+    @Column(nullable = false)
     private Integer quantity;
 
+    @CreationTimestamp
     private Date createDate;
 
     @OneToMany(mappedBy = "game",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -45,4 +46,10 @@ public class Game {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
+    private Collection<ImageGame> imageGames;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
+    private Collection<CategoryGame> categoryGames;
 }
