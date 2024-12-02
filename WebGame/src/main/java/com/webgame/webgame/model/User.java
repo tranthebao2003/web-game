@@ -46,4 +46,13 @@ public class User {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<Review> reviews;
+
+    public User(String email, String password,String role,String fullName, String phone) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.fullName = fullName;
+        this.phone = phone;
+
+    }
 }
