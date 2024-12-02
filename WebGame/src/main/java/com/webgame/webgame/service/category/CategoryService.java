@@ -1,7 +1,6 @@
-package com.webgame.webgame.sevice.category;
+package com.webgame.webgame.service.category;
 
 import com.webgame.webgame.model.Category;
-import com.webgame.webgame.model.Game;
 
 import java.util.List;
 

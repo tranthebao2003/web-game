@@ -1,18 +1,14 @@
-package com.webgame.webgame.sevice.game;
+package com.webgame.webgame.service.game;
 
-import com.webgame.webgame.model.AccountGame;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
-import com.webgame.webgame.repository.AccountGameRepository;
 import com.webgame.webgame.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
