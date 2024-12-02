@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Collection;
 
@@ -17,6 +18,7 @@ public class Cart {
     private Long cartId;
     private int sumPrice;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "cart", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
 
