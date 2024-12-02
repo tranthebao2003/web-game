@@ -1,6 +1,5 @@
-package com.webgame.webgame.sevice.game;
+package com.webgame.webgame.service.game;
 
-import com.webgame.webgame.model.AccountGame;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
 import org.springframework.data.domain.Page;

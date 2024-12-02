@@ -1,9 +1,7 @@
-package com.webgame.webgame.sevice.category;
+package com.webgame.webgame.service.category;
 
 import com.webgame.webgame.model.Category;
-import com.webgame.webgame.model.Game;
 import com.webgame.webgame.repository.CategoryRepository;
-import com.webgame.webgame.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

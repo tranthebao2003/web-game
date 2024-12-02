@@ -120,6 +120,10 @@ a:hover{
     color: #025f74;
     background: linear-gradient(90deg, rgba(14, 203, 245,0.2), rgba(62, 233, 249, 0.2))
 }
+.search input::placeholder{
+    color: var(--main-color);
+    font-weight: 500;
+}
 
 .search img{
     top: 20%;
@@ -273,8 +277,8 @@ a:hover{
 }
 
 .banner img{
-    height: 100%;
-    object-fit: contain;
+    width: 60%;
+    object-fit: cover;
 }
 
 @keyframes fadeIn {
@@ -532,4 +536,123 @@ hr{
     margin: 20px 0;
     background-color: var(--main-color);
     border: none;
+}
+
+@media (max-width: 1050px) {
+    .banner img{
+        width: 40%;
+        object-fit: cover;
+    }
+
+    .main-header{
+        justify-content: center;
+        gap: 28px;
+        padding-right: 5%;
+        padding-left: 4%;
+    }
+    .main-header .nav-menu{
+        gap: 14px;
+    }
+
+    .main-header .logo img{
+        top: -20px;
+        width: 60px;
+        height: 60px;
+    }
+    .main-header .logo p{
+        font-size: 20px;
+    }
+    .nav-menu a, p{
+        font-size: 15px;
+    }
+    .footer-content-left{
+        flex-direction: column;
+    }
+    .top-header a{
+        font-size: 16px;
+    }
+    .product-item-name{
+        font-size: 20px;
+    }
+    .banner{
+        height: 32vh;
+    }
+}
+@media (max-width: 750px) {
+    .top-header{
+        padding: 10px 5px;
+    }
+    .top-icons .icons img{
+        width: 20px;
+        height: 20px;
+    }
+    .top-icons a{
+        margin-right: 0;
+    }
+    .search img{
+        display: none;
+    }
+    .top-header .track-order{
+        margin-right: 0;
+        padding: 10px;
+        font-weight: 400;
+        font-size: 15px;
+    }
+    .search input{
+        font-size: 15px;
+        height: 80%;
+        margin-top: 4px;
+    }
+    .search input::placeholder {
+        opacity: 0;
+    }
+    .main-header .nav-menu{
+        display: none;
+    }
+    .main-header {
+        justify-content: space-between;
+        padding-right: 10%;
+        padding-left: 16%;
+    }
+    .main-header .logo img{
+        top: -12px;
+        width: 45px;
+        height: 45px;
+    }
+    .top-icons{
+        margin-top: 2px;
+    }
+    .banner img{
+        display: none;
+    }
+
+    .product-display a h3{
+        font-size: 20px;
+    }
+
+    .banner-contents p{
+        padding: 10px 5px;
+        padding-right: 10px;
+    }
+
+    .footer-content{
+        display: flex;
+        flex-direction: column;
+    }
+    .footer-content h2{
+        font-size: 20px;
+    }
+    .footer-content-left{
+        width: 100%;
+        align-items: start;
+    }
+    h1{
+        font-size: 24px;
+    }
+    .banner-contents h2{
+        font-size: 22px;
+    }
+    .banner{
+        height: auto;
+    }
 }
