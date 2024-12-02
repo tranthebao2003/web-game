@@ -16,6 +16,7 @@
     --text-color: rgb(1, 96, 109);
     --fontSize-main: 16px;
     --banner-color: rgb(217, 235, 254);
+    --color-text-a: #232323;
 }
 
 body{
@@ -23,7 +24,24 @@ body{
     flex-direction: column;
     justify-content: center;
     color: var(--main-color);
-    background: linear-gradient(-45deg, rgba(34, 199, 237, 0.05), rgba(203, 166, 51, 0.05));
+    background: linear-gradient(-45deg, rgba(34, 199, 237, 0.1), rgba(203, 166, 51, 0.1));
+}
+
+#home{
+    position: relative;
+}
+/*home -float*/
+.home-float{
+    width: 50px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 10px;
+}
+
+.home-float img {
+    width: 100%;
+    object-fit: contain;
 }
 
 /*header*/
@@ -37,7 +55,7 @@ header {
 
 a{
     transition: all 0.5s ease-in-out;
-    color: #232323;
+    color: var(--color-text-a);
 }
 a:hover{
     transform: scale(1.04);
@@ -90,6 +108,10 @@ a:hover{
     border-radius: 5px;
     overflow: hidden;
 }
+.search form{
+    width: 100%;
+    height: 100%;
+}
 .search input{
     font-size: var(--fontSize-main);
     padding: 5px 10px;
@@ -112,7 +134,12 @@ a:hover{
    transform: scale(1.08);
 }
 
+.search button{
+    cursor: pointer;
+}
+
 .main-header{
+    position: relative;
     padding: 1.5% 4%;
     padding-left: 6%;
     /*border: 1px black solid;*/
@@ -125,22 +152,23 @@ a:hover{
     background: linear-gradient(90deg, rgba(14, 203, 245, 0.2), rgba(62, 233, 249, 0.2));
 }
 .main-header .logo{
+    position: relative;
     display: flex;
     align-items: center;
 }
 
 @keyframes enterAndExit {
     0% {
-        left: -8%;
+        left: -120%;
     }
     50%{
-        left: 2%;
+        left: -35%;
     }
-    55%,95%{
-        left: 0; /* Thoát ra khỏi bên phải */
+    52%,96%{
+        left: -52%; /* Thoát ra khỏi bên phải */
     }
     100%{
-        left: -8%;
+        left: -120%;
     }
 }
 
@@ -148,13 +176,17 @@ a:hover{
     width: 80px;
     height: 80px;
     position: absolute;
-    top: 8.5%;
-    left: -8%; /* Bắt đầu từ ngoài bên trái */
-    animation: enterAndExit 8s ease-in-out infinite 1s;
+    top: -25px;
+    left: -100%; /* Bắt đầu từ ngoài bên trái */
+    animation: enterAndExit 5s ease-in-out infinite 1s;
 }
 
 .main-header .logo p {
     font-size: 26px;
+}
+
+.logo a{
+    color: var(--main-color);
 }
 
 .main-header .logo span{
@@ -176,6 +208,43 @@ a:hover{
 .main-header-category img {
     width: 20px;
     margin-left: 5px;
+}
+
+.category-detail-toggle {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-a);
+    transition: all 0.4s ease-in-out;
+}
+
+.category-detail-toggle:hover{
+    color: var(--main-color);
+    transform: scale(1.05);
+}
+
+/*phụ thuộc vị trí của main-header*/
+.category-detail{
+    width: 100%;
+    left: 0;
+    padding: 30px;
+    position: absolute;
+    top: 100%;
+    z-index: 2;
+    background: linear-gradient(45deg, rgba(200, 241, 248, 0.95), rgba(214, 249, 241, 0.95));
+    font-weight: 500;
+    font-size: 20px;
+    display: none;
+}
+
+
+.category-detail.toggle-category{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    row-gap: 30px;
+}
+
+.category-detail a{
+    text-align: center;
 }
 
 .main-header .icons{
@@ -271,9 +340,8 @@ a:hover{
 
 .category-menu-list a{
     /*padding: 5px;*/
-    height: 150px;
     flex: 0.2;
-    min-width: 150px;
+    min-width: 200px;
     border-radius: 10px;
     overflow: hidden;
     background:  linear-gradient(45deg, rgba(0, 199, 251, 0.4), rgba(62, 233, 249, 0.2));
@@ -341,16 +409,21 @@ hr{
     minmax cho ta chọn giá trị tối thiểu và tối đa, 1fr nó
     là đơn vị trong grid nó chiếm 1 phần của không gian còn lại
     kiểu giống như flex:1, flex:2 ấy*/
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     margin-top: 30px;
     gap: 30px;
     row-gap: 50px;
 }
+.product-display-list.best-seller a{
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 1), rgba(105, 236, 251, 0.4));
+}
+
 .product-display-list a{
     color: var(--main-color);
     cursor: pointer;
     background: linear-gradient(-45deg, rgba(255, 255, 255, 1), rgba(251, 206, 105, 0.4));
 }
+
 
 .product-item{
     width: 100%;
@@ -361,6 +434,7 @@ hr{
     transition: 0.3s ease-in-out;
     animation: fadeIn 1s
 }
+
 
 .product-item-image{
     width: 100%;
@@ -389,3 +463,73 @@ hr{
     margin: 10px 0;
 }
 
+/*footer*/
+.footer{
+    margin-top: 70px;
+    color: var(--main-color);
+    background-color: rgba(100, 177, 199, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 6vw;
+    padding-top: 60px;
+    font-size: 18px;
+}
+
+.footer-content{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.2fr;
+    gap: 50px;
+}
+
+.footer-content-left img{
+    width:100px;
+}
+
+.footer-content-right,
+.footer-content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+}
+
+.footer-content-left{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-content-left li,
+.footer-content-right li,
+.footer-content-center li{
+    list-style: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.footer-content-right li{
+    cursor:default
+}
+
+.footer-content-left li:hover,
+.footer-content-center li:hover{
+    color: var(--main-color);
+}
+
+.footer-content-left h2,
+.footer-content-center h2{
+    color: var(--main-color);
+}
+
+.footer hr{
+    width: 100%;
+    height: 2px;
+    margin: 20px 0;
+    background-color: var(--main-color);
+    border: none;
+}
