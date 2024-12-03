@@ -16,16 +16,12 @@
 <div class="container" id="container">
     <div class="form-container sign-up">
         <form
-        th:action="@{/register}"
+        th:action="@{/register_login}"
         method="post"
         role="form"
         th:object="${user}"
         >
             <h1>Tạo tài khoản mới </h1>
-            <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-            </div>
             <input th:field="*{username}" type="text" id="name_regis" placeholder="Enter your name">
             <input th:field="*{phone}" type="tel" id="phone_regis" placeholder="Enter your phone number">
             <input th:field="*{email}" type="email" id="email_regis" placeholder="Enter your email">
@@ -34,7 +30,9 @@
         </form>
     </div>
     <div class="form-container sign-in">
-        <form>
+        <form
+                th:action="@{/login}"
+                method="post" >
             <div class="message" th:if="${message}!=null">
                 [[${message}]]
             </div>
@@ -43,10 +41,10 @@
                 <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
+            <input type="email" id="username" name="username" placeholder="Enter your email">
+            <input type="password" id="password" name="password" placeholder="Password">
             <a href="#">Quên mật khẩu ? </a>
-            <button>Đăng nhập</button>
+            <button type="submit" value="login">Đăng nhập</button>
         </form>
     </div>
     <div class="toggle-container">

@@ -1,6 +1,6 @@
 package com.webgame.webgame.sevice.user;
 
-import dto.UserLoginDto;
+import com.webgame.webgame.dto.UserLoginDto;
 import org.springframework.stereotype.Service;
 
 @Service

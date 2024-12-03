@@ -1,4 +1,4 @@
-package dto;
+package com.webgame.webgame.dto;
 
 public class UserLoginDto {
     private String email;
