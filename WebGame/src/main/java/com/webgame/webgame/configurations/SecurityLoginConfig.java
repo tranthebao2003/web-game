@@ -32,7 +32,7 @@ public class SecurityLoginConfig {
         http.csrf(c -> c.disable())
                 .authorizeHttpRequests(requests -> requests.requestMatchers("/admin")
                         .hasAuthority("admin").requestMatchers("/home").permitAll()
-                        .requestMatchers("/register_login", "/css/**","/img/**","/").permitAll()
+                        .requestMatchers("/register_login", "/css/**","/img/**","/", "/cart","/user_info","/user").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
                         .successHandler(customSuccessHandler).permitAll())
