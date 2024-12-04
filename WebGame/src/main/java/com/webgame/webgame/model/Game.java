@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -44,12 +45,18 @@ public class Game {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<Review> reviews;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<ImageGame> imageGames;
 
+    // đối với cột có qua hệ nhìu nhìu với cột khác thì
+    // thêm dòng @ToString.Exclude bỏ ToString đi
+    // tránh vòng lặp vô hạn
+    // ở đây game N-N category bảng trung gian là categoryGame
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
 }
