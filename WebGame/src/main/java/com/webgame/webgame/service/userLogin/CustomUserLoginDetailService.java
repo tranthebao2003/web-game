@@ -1,4 +1,4 @@
-package com.webgame.webgame.sevice.user;
+package com.webgame.webgame.service.userLogin;
 
 import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.UserRepository;
@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class CustomUserLoginDetailService implements UserDetailsService {

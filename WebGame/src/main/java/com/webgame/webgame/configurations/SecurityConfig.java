@@ -1,7 +1,7 @@
 package com.webgame.webgame.configurations;
 
-import com.webgame.webgame.sevice.user.CustomSuccessHandler;
-import com.webgame.webgame.sevice.user.CustomUserLoginDetailService;
+import com.webgame.webgame.service.userLogin.CustomSuccessLoginHandler;
+import com.webgame.webgame.service.userLogin.CustomUserLoginDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
     @Autowired
-    CustomSuccessHandler customSuccessHandler;
+    CustomSuccessLoginHandler customSuccessHandler;
 
     @Autowired
     CustomUserLoginDetailService customUserLoginDetailService;
@@ -32,7 +32,7 @@ public class SecurityConfig {
         http.csrf(c -> c.disable())
                 .authorizeHttpRequests(requests -> requests.requestMatchers("/admin")
                         .hasAuthority("admin").requestMatchers("/home").permitAll()
-                        .requestMatchers("/register_login", "/css/**","/img/**").permitAll()
+                        .requestMatchers("/register_login", "/css/**","/img/**","/").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
                         .successHandler(customSuccessHandler).permitAll())

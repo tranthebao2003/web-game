@@ -1,4 +1,4 @@
-package com.webgame.webgame.sevice.user;
+package com.webgame.webgame.service.userLogin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class CustomSuccessHandler implements AuthenticationSuccessHandler {
+public class CustomSuccessLoginHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         var authorities = authentication.getAuthorities();
@@ -19,7 +19,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         if (roles.orElse("").equals("admin")) {
             response.sendRedirect("/admin");
         } else if (roles.orElse("").equals("user")) {
-            response.sendRedirect("/home");
+            response.sendRedirect("/");
         } else {
             response.sendRedirect("/error");
         }

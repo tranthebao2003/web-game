@@ -1,4 +1,4 @@
-package com.webgame.webgame.sevice.user;
+package com.webgame.webgame.service.userLogin;
 
 import com.webgame.webgame.model.User;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,6 +1,6 @@
 package com.webgame.webgame.controller;
 
-import com.webgame.webgame.sevice.user.UserService;
+import com.webgame.webgame.service.userLogin.UserLoginService;
 import com.webgame.webgame.dto.UserLoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ public class UserLoginController {
 
 
     @Autowired
-    private UserService userService;
+    private UserLoginService userService;
 
     @GetMapping("/register_login")
     public String Register(@ModelAttribute("user") UserLoginDto userLoginDto) {

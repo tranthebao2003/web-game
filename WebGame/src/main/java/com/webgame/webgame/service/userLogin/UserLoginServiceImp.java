@@ -1,4 +1,4 @@
-package com.webgame.webgame.sevice.user;
+package com.webgame.webgame.service.userLogin;
 
 import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.UserRepository;
@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserLoginServiceImp implements UserLoginService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;

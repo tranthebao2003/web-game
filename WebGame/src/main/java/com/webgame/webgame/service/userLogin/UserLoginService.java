@@ -1,10 +1,10 @@
-package com.webgame.webgame.sevice.user;
+package com.webgame.webgame.service.userLogin;
 
 import com.webgame.webgame.dto.UserLoginDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserService {
+public interface UserLoginService {
 
     void save(UserLoginDto userLoginDto);
 }
