@@ -21,7 +21,7 @@ import java.util.Date;
 public class AccountGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "accountGame_id")
+    @Column(name = "account_game_id")
     private Long accountGameId;
 
     @Column(nullable = false)

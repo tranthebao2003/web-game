@@ -22,6 +22,12 @@ public class Category {
     @Column(nullable = false)
     private String categoryName;
 
+    private String categoryImg;
+
+    // đối với cột có qua hệ nhìu nhìu với cột khác thì
+    // thêm dòng @ToString.Exclude bỏ ToString đi
+    // tránh vòng lặp vô hạn
+    // ở đây category N-N game bảng trung gian là categoryGame
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "category", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
