@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CartRepository extends JpaRepository<Game, Long> {
+public interface CartRepository extends JpaRepository<Cart, Long> {
 }
