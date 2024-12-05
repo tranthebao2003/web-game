@@ -22,6 +22,7 @@ public class Cart {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "cart", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

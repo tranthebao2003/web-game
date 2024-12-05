@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -21,10 +22,14 @@ public class CategoryGame {
     @Column(name = "game_id")
     private Long gameId;
 
+
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
 
+
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

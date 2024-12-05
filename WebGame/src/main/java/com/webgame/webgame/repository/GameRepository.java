@@ -1,6 +1,7 @@
 package com.webgame.webgame.repository;
 
 
+
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
 import org.springframework.data.domain.Page;
@@ -17,4 +18,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     // ko phân biệt hoa thường
     List<Game> findGamesByGameNameContainingIgnoreCase(String searchInput);
     List<Game> findByCategoryGames_Category(Category category);
+  
 }
