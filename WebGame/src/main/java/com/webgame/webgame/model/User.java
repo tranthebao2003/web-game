@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(
         uniqueConstraints = {@UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "phone")}
+                @UniqueConstraint(columnNames = "phone")}
 )
 public class User {
     @Id
@@ -41,9 +42,11 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<Orders> orders;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<Review> reviews;
 }

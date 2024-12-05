@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Entity
@@ -16,6 +17,7 @@ public class ImageGame {
     private Long imgGameId;
     private String imgGameLink;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;

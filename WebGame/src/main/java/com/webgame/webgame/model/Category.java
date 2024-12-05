@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Collection;
 
@@ -16,9 +17,12 @@ public class Category {
     @Column(name = "category_id")
     private Long categoryId;
 
+
+
     @Column(nullable = false)
     private String categoryName;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "category", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
 

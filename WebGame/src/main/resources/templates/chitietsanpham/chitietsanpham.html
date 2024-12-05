@@ -8,39 +8,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail Page</title>
     <link rel="stylesheet" th:href="@{/chitietsanpham/style.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/home.css}">-->
+
 </head>
 <body>
-
 
 <div class="chitietsanpham">
     <div class="product-container">
         <div class="image-section">
-            <img id="main-image" src="https://down-vn.img.susercontent.com/file/vn-11134258-7ras8-m35bdplluaj25f" alt="Main Product Image">
-            <div class="thumbnail-container">
-                <img src="https://down-vn.img.susercontent.com/file/vn-11134258-7ras8-m35bdplluaj25f" alt="Thumbnail 1" onclick="updateMainImage(this)">
-                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7qvfw-lj5pfdczca2f5a.webp" alt="Thumbnail 2" onclick="updateMainImage(this)">
-                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7qvei-lj5pfgn6jbk99f.webp" alt="Thumbnail 3" onclick="updateMainImage(this)">
-                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7qvg5-lj5pfdxshu9ffc.webp" alt="Thumbnail 4" onclick="updateMainImage(this)">
-            </div>
+
+            <img id="main-image" th:src="${game.gameImg}" alt="Game Image">
+<!--            <div class="thumbnail-container">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/vn-11134258-7ras8-m35bdplluaj25f" alt="Thumbnail 1" onclick="updateMainImage(this)">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7qvfw-lj5pfdczca2f5a.webp" alt="Thumbnail 2" onclick="updateMainImage(this)">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7qvei-lj5pfgn6jbk99f.webp" alt="Thumbnail 3" onclick="updateMainImage(this)">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7qvg5-lj5pfdxshu9ffc.webp" alt="Thumbnail 4" onclick="updateMainImage(this)">-->
+<!--            </div>-->
         </div>
 
         <div class="info-section">
-            <h1>Product Name</h1>
-            <p>5 sao +120 lược đánh giá</p>
-            <p>Product description goes here. Add detailed information about the product.
-                chi tiết sản phẩm
-                chi tiết sản phấm Product description goes here. Add detailed information about the product.
-                chi tiết sản phẩm
-                chi tiết sản phấm Product description goes here. Add detailed information about the product.
-                chi tiết sản phẩm
-                chi tiết sản phấm
+            <h1 th:text="${game.gameName}" ></h1>
+            <p th:text="${getAverageScore} + ' ★ | ' + ${getTotalReviews} + ' lượt đánh giá'"
+               style="color: #e58d4a; font-size: 0.95em;"></p>
+
+            <p th:text="${game.description}">
             </p>
 
-            <p><strong>Số lượng trong kho</strong> $180</p>
-            <p><strong>Price:</strong> $180</p>
+            <p  style="color: #e58d4a; font-size: 0.95em;">
+                Số lượng trong kho còn
+                <span th:text="${soluonggamechuaban}"></span>
+            </p>
+
+            <p><strong>Price:</strong> <span th:text="${game.price}"> </span></p>
             <div class="nut">
-                <button class="add-to-cart">Add to Cart</button>
-                <button class="buy-now">Buy Now</button>
+                <button class="add-to-cart">Thêm vào giỏ hàng</button>
+                <button class="buy-now">Mua ngay</button>
             </div>
 
         </div>
@@ -50,69 +52,41 @@
     <div class="container">
         <div class="header">
             <div class="rating">
-                <strong>5.0</strong><span>trên 5 ★★★★★</span>
+                <strong th:text="${getAverageScore}+ ' trên'"></strong> <span style="color: #f48036; font-size: 1.1em; padding:0px 0px 5px 0px;">★★★★★</span>
             </div>
             <div class="filter">
                 <button class="filter-button active" data-rating="all">Tất Cả</button>
-                <button class="filter-button" data-rating="5">5 Sao (122)</button>
-                <button class="filter-button" data-rating="4">4 Sao (2)</button>
-                <button class="filter-button" data-rating="3">3 Sao (0)</button>
-                <button class="filter-button" data-rating="2">2 Sao (0)</button>
-                <button class="filter-button" data-rating="1">1 Sao (0)</button>
+                <button class="filter-button" data-rating="5">5 Sao </button>
+                <button class="filter-button" data-rating="4">4 Sao </button>
+                <button class="filter-button" data-rating="3">3 Sao </button>
+                <button class="filter-button" data-rating="2">2 Sao </button>
+                <button class="filter-button" data-rating="1">1 Sao </button>
             </div>
         </div>
 
+
+
+
         <div class="container_review">
-            <div class="review">
+            <div th:each="review : ${reviews}" class="review"  th:attr="data-rating=${review.score}">
                 <div class="review-header">
-                    <div class="tennguoidanhgia"> <strong>Đồng Trần </strong> </div>
-                    <div class="review-date">2023-12-20</div>
+                    <div class="tennguoidanhgia">
+                        <strong th:text="${review.user.fullName}">Người dùng</strong>
+                    </div>
+                    <div class="review-date" th:text="${#dates.format(review.createDate, 'yyyy-MM-dd')}">2023-12-20</div>
                 </div>
                 <div class="review-content">
-                    <div class="review-rating">★★★★★</div>
-                    <div>nội dung đánh giá nằm ở đây...</div>
+                    <div class="review-rating">
+                        <span th:text="${'★★★★★'.substring(0, review.score)}">★★★★★</span>
+                    </div>
+                    <div th:text="${review.comment}">Nội dung đánh giá nằm ở đây...</div>
                 </div>
-            </div>
-            <div class="review">
-                <div class="review-header">
-                    <div class="tennguoidanhgia"> <strong>Đồng Trần </strong> </div>
-                    <div class="review-date">2023-12-20</div>
-                </div>
-                <div class="review-content">
-                    <div class="review-rating">★★★★★</div>
-                    <div>nội dung đánh giá nằm ở đây...</div>
-                </div>
-            </div>
-            <div class="review">
-                <div class="review-header">
-                    <div class="tennguoidanhgia"> <strong>Đồng Trần </strong> </div>
-                    <div class="review-date">2023-12-20</div>
-                </div>
-                <div class="review-content">
-                    <div class="review-rating">★★★★★</div>
-                    <div>nội dung đánh giá nằm ở đây...</div>
-                </div>
-            </div>        <div class="review">
-            <div class="review-header">
-                <div class="tennguoidanhgia"> <strong>Đồng Trần </strong> </div>
-                <div class="review-date">2023-12-20</div>
-            </div>
-            <div class="review-content">
-                <div class="review-rating">★★★★★</div>
-                <div>nội dung đánh giá nằm ở đây...</div>
-            </div>
-        </div>        <div class="review">
-            <div class="review-header">
-                <div class="tennguoidanhgia"> <strong>Đồng Trần </strong> </div>
-                <div class="review-date">2023-12-20</div>
-            </div>
-            <div class="review-content">
-                <div class="review-rating">★★★★★</div>
-                <div>nội dung đánh giá nằm ở đây...</div>
             </div>
         </div>
-        </div>
+        
     </div>
+
+
 
 </div>
 

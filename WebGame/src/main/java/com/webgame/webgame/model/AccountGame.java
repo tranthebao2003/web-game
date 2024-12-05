@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,10 +33,12 @@ public class AccountGame {
 //    status = 0: chua ban, 1 la da ban
     private boolean status;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Orders order;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
