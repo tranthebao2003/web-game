@@ -30,6 +30,6 @@ public class CartGame {
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "user_id")
+    private User user;
 }

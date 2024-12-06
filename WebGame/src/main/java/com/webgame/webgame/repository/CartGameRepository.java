@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 public interface CartGameRepository extends JpaRepository<CartGame, Long> {
 
-    boolean existsByCartIdAndGameId(Long cartId, Long gameId);
-
-    // Truy vấn tính tổng tiền cho một Cart dựa trên giá của game trong giỏ hàng
-    @Query("SELECT SUM(c.game.price) FROM CartGame c WHERE c.cart.cartId = :cartId")
-    BigDecimal calculateTotalPriceByCartId(Long cartId);
+//    boolean existsByCartIdAndGameId(Long cartId, Long gameId);
+//
+//    // Truy vấn tính tổng tiền cho một Cart dựa trên giá của game trong giỏ hàng
+//    @Query("SELECT SUM(c.game.price) FROM CartGame c WHERE c.cart.cartId = :cartId")
+//    BigDecimal calculateTotalPriceByCartId(Long cartId);
 }
