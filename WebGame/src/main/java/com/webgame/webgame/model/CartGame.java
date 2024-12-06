@@ -15,8 +15,8 @@ public class CartGame {
 //    vi 2 thuoc tinh cartId, gameId nhan gia tri tu 2 bang khac
 //    nen ko can tu dau generate nua
     @Id
-    @Column(name = "cart_id")
-    private Long cartId;
+    @Column(name = "cart_game_id")
+    private Long cartGameId;
 
     @Id
     @Column(name = "game_id")
