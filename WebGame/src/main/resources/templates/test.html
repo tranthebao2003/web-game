@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng</title>
+</head>
+<body>
+<h1>Giỏ hàng của bạn</h1>
+
+<div>
+    <p>Tổng giá: <span th:text="${cart.sumPrice}"></span></p>
+</div>
+
+<h2>Danh sách trò chơi:</h2>
+<ul>
+    <!-- Hiển thị các trò chơi trong giỏ hàng -->
+    <li th:each="game : ${cart.cartGames}">
+        <p th:text="${game.name}"></p>
+    </li>
+</ul>
+
+</body>
+</html>
+s

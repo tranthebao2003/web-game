@@ -22,7 +22,6 @@ public class CartGame {
     @Column(name = "game_id")
     private Long gameId;
 
-    private int quantity;
 
     @ToString.Exclude
     @ManyToOne
