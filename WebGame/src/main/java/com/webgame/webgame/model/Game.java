@@ -15,9 +15,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-        uniqueConstraints = {@UniqueConstraint(columnNames = "game_name")}
-)
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +30,13 @@ public class Game {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(nullable = false)
-    private Integer quantity;
+    private Integer quantity = 0;
 
     @CreationTimestamp
     private Date createDate;
 
     @ToString.Exclude
+   //Điều này nói cho JPA biết rằng accountGames liên kết với Game qua khóa ngoại gameId.
     @OneToMany(mappedBy = "game",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Collection<AccountGame> accountGames;
 
@@ -51,7 +48,6 @@ public class Game {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
 
-
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<ImageGame> imageGames;
@@ -62,6 +58,6 @@ public class Game {
     // tránh vòng lặp vô hạn
     // ở đây game N-N category bảng trung gian là categoryGame
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
 }

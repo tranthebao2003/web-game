@@ -12,7 +12,7 @@
 }
 
 :root{
-    --main-color: rgb(30, 165, 195);
+    --main-color: rgb(0, 174, 215);
     --text-color: rgb(1, 96, 109);
     --fontSize-main: 16px;
     --banner-color: rgb(217, 235, 254);
@@ -402,12 +402,12 @@ hr{
 
 .product-display-list{
     display: grid;
-    /* repeat(auto-fill, minmax(240px, 1fr)): Hàm repeat() 
-    cho phép bạn lặp lại mẫu cột nhiều lần. 
-    auto-fill là một từ khóa để trình duyệt 
-    sẽ tự động lặp lại các cột cho đến khi 
-    không còn đủ không gian trong hàng để 
-    chứa thêm cột nào nữa. 
+    /* repeat(auto-fill, minmax(240px, 1fr)): Hàm repeat()
+    cho phép bạn lặp lại mẫu cột nhiều lần.
+    auto-fill là một từ khóa để trình duyệt
+    sẽ tự động lặp lại các cột cho đến khi
+    không còn đủ không gian trong hàng để
+    chứa thêm cột nào nữa.
     đối số thứ 2 trong repeat TH này là kích thước của cột
 
     minmax cho ta chọn giá trị tối thiểu và tối đa, 1fr nó
