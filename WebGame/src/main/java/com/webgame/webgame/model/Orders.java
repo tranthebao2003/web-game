@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -27,10 +28,12 @@ public class Orders {
 
     private BigDecimal sumPrice;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Collection<AccountGame> accountGames;
 }

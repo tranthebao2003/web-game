@@ -30,4 +30,5 @@ public class Category {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "category", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
 
+
 }
