@@ -13,7 +13,9 @@ import java.util.Date;
 
 // vi order la tu khoa trong mysql nen phai thay thanh orders
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

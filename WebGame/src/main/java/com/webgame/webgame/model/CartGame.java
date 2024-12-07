@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -14,10 +15,12 @@ public class CartGame {
     @Column(name = "cart_game_id")
     private Long cartGameId;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -14,11 +15,15 @@ public class CategoryGame {
     @EmbeddedId
     private CategoryGameId id; // Composite key
 
+
+    @ToString.Exclude
     @ManyToOne
     @MapsId("gameId") // Tham chiếu đến gameId trong CategoryGameId
     @JoinColumn(name = "game_id")
     private Game game;
 
+
+    @ToString.Exclude
     @ManyToOne
     @MapsId("categoryId") // Tham chiếu đến categoryId trong CategoryGameId
     @JoinColumn(name = "category_id")

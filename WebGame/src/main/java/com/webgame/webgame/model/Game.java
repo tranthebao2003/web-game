@@ -36,7 +36,7 @@ public class Game {
     private Date createDate;
 
     @ToString.Exclude
-    //Điều này nói cho JPA biết rằng accountGames liên kết với Game qua khóa ngoại gameId.
+   //Điều này nói cho JPA biết rằng accountGames liên kết với Game qua khóa ngoại gameId.
     @OneToMany(mappedBy = "game",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Collection<AccountGame> accountGames;
 
@@ -51,6 +51,7 @@ public class Game {
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<ImageGame> imageGames;
+
 
     // đối với cột có qua hệ nhìu nhìu với cột khác thì
     // thêm dòng @ToString.Exclude bỏ ToString đi

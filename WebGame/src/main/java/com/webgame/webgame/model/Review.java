@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 
@@ -24,10 +25,13 @@ public class Review {
     @CreationTimestamp
     private Date createDate;
 
+
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
