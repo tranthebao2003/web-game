@@ -240,3 +240,19 @@ body{
     border-radius: 5px;
     z-index: 2000;
 }
+a.disabled {
+    pointer-events: none; /* Ngừng kích hoạt sự kiện click */
+    color: gray; /* Đổi màu của liên kết */
+    text-decoration: none; /* Xóa gạch chân */
+}
+.message2 {
+    background-color: rgb(250, 62, 62);
+    text-align: center;
+    color: white;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    z-index: 2000;
+}
