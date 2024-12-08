@@ -1,6 +1,6 @@
 package com.webgame.webgame.service.accountGame;
 
-import com.webgame.webgame.dto.GameSaleDto;
+import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import org.springframework.data.domain.Page;
 
 public interface AccountGameService {
