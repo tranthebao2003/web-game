@@ -45,10 +45,10 @@ public class UserLoginController {
         return "home";
     }
 
-    @GetMapping("admin")
-    public String adminPage(){
-        return "admin";
-    }
+//    @GetMapping("admin")
+//    public String adminPage(){
+//        return "admin";
+//    }
 
     @RequestMapping("forgot-password")
     public String forgotPassword() {
