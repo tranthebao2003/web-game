@@ -42,4 +42,14 @@ public interface GameRepository extends JpaRepository<Game, Long> {
         WHERE cg.game.gameId = :gameId
         """)
     List<Category> findCategoriesByGameId(@Param("gameId") Long gameId);
+
+    //vy thêm
+    // Sử dụng JPQL để kết hợp ba bảng orders, account_game, và game
+    @Query(value = "SELECT g.* " +
+            "FROM game g " +
+            "JOIN account_game ag ON g.game_id = ag.game_id " +
+            "JOIN orders o ON ag.order_id = o.order_id " +
+            "WHERE o.user_id = :userId", nativeQuery = true)
+    List<Game> findGamesByUserId(@Param("userId") Long userId);
+
 }

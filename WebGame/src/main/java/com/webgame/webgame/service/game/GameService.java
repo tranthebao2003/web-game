@@ -29,4 +29,7 @@ public interface GameService {
     void updateGame(Long id, GameFormDto gameFormDto) throws IOException;
 
     List<Category> findCategoriesByGameId(Long gameId);
+
+    //mới thêm
+    List<Game> getGamesByUser(Long userId);
 }
