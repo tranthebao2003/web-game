@@ -1,6 +1,6 @@
 package com.webgame.webgame.controller;
 
-import com.webgame.webgame.dto.GameSaleDto;
+import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
 import com.webgame.webgame.service.accountGame.AccountGameService;

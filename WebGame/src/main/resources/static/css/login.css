@@ -12,12 +12,20 @@
     /*min-height: 100vh;*/
 }
 
+/*:root{*/
+/*    --main-color: rgb(37, 211, 250);*/
+/*    --text-color: rgb(1, 96, 109);*/
+/*    --fontSize-main: 16px;*/
+/*    --banner-color: rgb(95, 172, 244);*/
+/*}*/
 :root{
-    --main-color: rgb(37, 211, 250);
-    --text-color: rgb(1, 96, 109);
-    --fontSize-main: 16px;
-    --banner-color: rgb(95, 172, 244);
-}
+     --main-color: rgb(0, 174, 215);
+     --text-color: rgb(1, 96, 109);
+     --fontSize-main: 16px;
+     --banner-color: rgb(217, 235, 254);
+     --color-text-a: #232323;
+ }
+
 
 body{
     background-color: #c9d6ff;
@@ -74,7 +82,8 @@ body{
 
 .container button.hidden{
     background-color: transparent;
-    border-color: #fff;
+    border-color: rgb(85, 174, 251);
+    color: rgb(79, 166, 244);
 }
 
 .container form{
@@ -173,10 +182,10 @@ body{
 }
 
 .toggle{
-    background-color: var(--main-color);
+    background-color: var(--banner-color);
     height: 100%;
-    background: linear-gradient(to right, rgb(95, 172, 244), #8aadfa);
-    color: #fff;
+    background: linear-gradient(to left, var(--banner-color),rgb(166, 214, 251));
+    color: rgb(88, 174, 255);
     position: relative;
     left: -100%;
     height: 100%;
@@ -231,6 +240,22 @@ body{
 }
 .message {
     background-color: rgb(95, 172, 244);
+    text-align: center;
+    color: white;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    z-index: 2000;
+}
+a.disabled {
+    pointer-events: none; /* Ngừng kích hoạt sự kiện click */
+    color: gray; /* Đổi màu của liên kết */
+    text-decoration: none; /* Xóa gạch chân */
+}
+.message2 {
+    background-color: rgb(250, 62, 62);
     text-align: center;
     color: white;
     padding: 10px;

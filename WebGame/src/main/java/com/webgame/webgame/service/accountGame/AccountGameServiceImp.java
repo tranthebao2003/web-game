@@ -1,6 +1,6 @@
 package com.webgame.webgame.service.accountGame;
 
-import com.webgame.webgame.dto.GameSaleDto;
+import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.repository.AccountGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

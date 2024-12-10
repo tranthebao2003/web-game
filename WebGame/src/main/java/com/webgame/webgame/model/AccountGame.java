@@ -1,15 +1,9 @@
 package com.webgame.webgame.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Data

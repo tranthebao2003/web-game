@@ -1,6 +1,5 @@
-package com.webgame.webgame.dto;
+package com.webgame.webgame.dto.gameDto;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

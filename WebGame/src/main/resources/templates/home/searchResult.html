@@ -78,7 +78,7 @@
             <h1>Kết quả tìm kiếm: [[${searchInput}]]</h1>
             <div class="product-display-list">
                 <a class="product-item" th:each="game: ${gameListSearchResult}">
-                    <img th:src="@{'/img/game/' + ${game.gameImg}}" alt="lỗi hiển thị" class="product-item-image"/>
+                    <img th:src="@{'/uploadImgGame/' + ${game.gameImg}}" alt="lỗi hiển thị" class="product-item-image"/>
                     <div class="product-item-infor">
                         <p class="product-item-name" th:text="${game.gameName}"></p>
                         <p class="product-item-price"
@@ -132,7 +132,7 @@
     // toggle category detail
     const listCategory = document.querySelector(".category-detail")
     const btnToggleCategory = document.querySelector(".category-detail-toggle")
-    const toggleCategoryDetail = (event) => {
+    const toggleCategoryDetail = () => {
         listCategory.classList.toggle("toggle-category")
     }
     btnToggleCategory.addEventListener("click", toggleCategoryDetail)

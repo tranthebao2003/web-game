@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
+//tìm kiếm nguười dùng dựa trên email
+//trả về đối tượng customuserlogindetail
+
 @Service
 public class CustomUserLoginDetailService implements UserDetailsService {
 

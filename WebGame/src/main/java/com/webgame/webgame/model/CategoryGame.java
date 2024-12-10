@@ -10,27 +10,28 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(CategoryGame.class)
 public class CategoryGame {
-    //    vi 2 thuoc tinh cartId, gameId nhan gia tri tu 2 bang khac
-//    nen ko can tu dau generate nua
-    @Id
-    @Column(name = "category_id")
-    private Long categoryId;
 
-    @Id
-    @Column(name = "game_id")
-    private Long gameId;
+    @EmbeddedId
+    private CategoryGameId id; // Composite key
 
 
     @ToString.Exclude
     @ManyToOne
+    @MapsId("gameId") // Tham chiếu đến gameId trong CategoryGameId
     @JoinColumn(name = "game_id")
     private Game game;
 
 
     @ToString.Exclude
     @ManyToOne
+    @MapsId("categoryId") // Tham chiếu đến categoryId trong CategoryGameId
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public CategoryGame(Game game, Category category) {
+        this.id = new CategoryGameId(game.getGameId(), category.getCategoryId());
+        this.game = game;
+        this.category = category;
+    }
 }
