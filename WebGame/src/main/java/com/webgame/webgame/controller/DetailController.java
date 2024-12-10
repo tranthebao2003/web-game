@@ -21,7 +21,7 @@ public class DetailController {
     public String getGameDetails(@PathVariable Long gameId, Model model) {
 
         // Tìm game theo ID
-        Game game = detailGameService.getGameById(gameId);
+        Game game = detailGameService.findGameById(gameId);
 
         if (game == null) {
             // Nếu không tìm thấy game, chuyển hướng đến trang lỗi
