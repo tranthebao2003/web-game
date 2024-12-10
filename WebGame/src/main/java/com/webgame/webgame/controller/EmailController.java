@@ -35,7 +35,7 @@ public class EmailController {
 
         while (user == null) {
             model.addAttribute("error", "Email chưa đăng kí hoặc không tồn tại !");
-            return "confirmEmail"; // Quay lại trang xác nhận email với thông báo lỗi
+            return "login/confirmEmail"; // Quay lại trang xác nhận email với thông báo lỗi
         }
 
         // Tạo mật khẩu mới
@@ -59,10 +59,10 @@ public class EmailController {
 
             model.addAttribute("message","Kiểm tra Email \n để nhận password mới !");
             // Trả về login.html nếu gửi mail thành công
-            return "login"; // Tên file login.html
+            return "login/login"; // Tên file login.html
         } catch (MailException e) {
             model.addAttribute("error", "Error sending email: " + e.getMessage());
-            return "forgot-password"; // Quay lại trang xác nhận email với thông báo lỗi
+            return "login/forgot-password"; // Quay lại trang xác nhận email với thông báo lỗi
         }
     }
 

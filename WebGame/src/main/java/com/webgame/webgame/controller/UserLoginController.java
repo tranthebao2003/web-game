@@ -5,13 +5,10 @@ import com.webgame.webgame.repository.UserRepository;
 import com.webgame.webgame.service.userLogin.UserLoginService;
 import com.webgame.webgame.dto.UserLoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @Controller
 public class UserLoginController {
@@ -23,7 +20,7 @@ public class UserLoginController {
 
     @GetMapping("/register_login")
     public String Register(@ModelAttribute("user") UserLoginDto userLoginDto) {
-        return "login";
+        return "login/login";
     }
 
     @PostMapping("/register_login")
@@ -33,11 +30,11 @@ public class UserLoginController {
         }
         userLoginService.save(userLoginDto);
         model.addAttribute("message","Tạo tài khoản thành công !");
-        return "login";
+        return "login/login";
     }
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "login/login";
     }
 
     @GetMapping("user")
@@ -52,7 +49,7 @@ public class UserLoginController {
 
     @RequestMapping("forgot-password")
     public String forgotPassword() {
-        return "confirmEmail";
+        return "login/confirmEmail";
     }
 
     //lấy token
@@ -78,7 +75,7 @@ public class UserLoginController {
             if (phone == null) {
                 model.addAttribute("name",name);
                 model.addAttribute("email",email);
-                return "loginEmail";
+                return "login/loginEmail";
             } else {
                 UserLoginDto newUser = new UserLoginDto(
                         email,"GOOGLE","user",name,phone);
@@ -92,7 +89,7 @@ public class UserLoginController {
         model.addAttribute("message","Đăng nhập bằng Google thành công !");
         model.addAttribute("password","GOOGLE");
         model.addAttribute("username",email);
-        return "login";
+        return "login/login";
     }
     @RequestMapping("/save-phone")
     public String savePhone(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("phone") String phone, Model model,@ModelAttribute("user") UserLoginDto userLoginDto) {
@@ -104,7 +101,7 @@ public class UserLoginController {
         model.addAttribute("message","Đăng nhập bằng Google thành công !");
         model.addAttribute("password","GOOGLE");
         model.addAttribute("username",email);
-        return "login";
+        return "login/login";
     }
 
 }
