@@ -3,11 +3,15 @@ package com.webgame.webgame.controller;
 import com.webgame.webgame.dto.gameDto.GameFormDto;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
+import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.UserRepository;
+import com.webgame.webgame.service.admin.ListUserService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +63,20 @@ public class AdminController {
 
         model.addAttribute("listGame", listGame);
 
-        model.addAttribute("admin", userRepository.findByRole("admin"));
+//        model.addAttribute("admin", userRepository.findByRole("admin"));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
+
+        // Tìm uer từ email
+        User user = userRepository.findByEmail(email);
+
+        // check kĩ tránh lỗi, không có cũng được
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        model.addAttribute("admin", user);
 
         return "admin/admin";
     }
@@ -154,5 +171,16 @@ public class AdminController {
         }
         return "redirect:/admin";
     }
+
+    @Autowired
+    private ListUserService listUserService;
+
+    @GetMapping("listUsers")
+    public String listUsers(Model model) {
+        List<User> users = listUserService.getAllUsers();
+        model.addAttribute("users", users);
+        return "admin/listUser";
+    }
+
 
 }
