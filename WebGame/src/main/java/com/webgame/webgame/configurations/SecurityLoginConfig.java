@@ -51,6 +51,7 @@ public class SecurityLoginConfig {
                         .anyRequest()
                         .permitAll())
                 .formLogin(form -> form.loginPage("/register_login").loginProcessingUrl("/login")
+
                         .successHandler(customSuccessHandler).permitAll())
                 .oauth2Login(oauth2login->{
                     oauth2login.successHandler(new AuthenticationSuccessHandler() {
