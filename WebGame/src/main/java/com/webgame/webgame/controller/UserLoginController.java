@@ -105,7 +105,6 @@ public class UserLoginController {
         model.addAttribute("password","GOOGLE");
         model.addAttribute("username",email);
         return "login";
-
     }
 
 }
