@@ -31,4 +31,15 @@ public interface AccountGameRepository extends JpaRepository<AccountGame, Long> 
             "GROUP BY ag.game.gameId, ag.game.gameName, ag.game.price, ag.game.gameImg " +
             "ORDER BY COUNT(ag.game.gameId) DESC")
     Page<GameSaleDto> findTopSellingGames(Pageable pageable);
+
+
+//    lấy danh sách acccount chưa bán để showw cho khách hàng
+    @Query("SELECT a FROM AccountGame a WHERE a.game.gameId = :gameId AND a.status = false ORDER BY a.accountGameId ASC")
+    List<AccountGame> timListAccountchuaban(@Param("gameId") Long gameId);
+
+
+//    Đếm số lượng game chưa bán của một game
+    @Query("SELECT COUNT(a) FROM AccountGame a WHERE a.game.gameId = :gameId AND a.status = false")
+    long countGamechuaban(@Param("gameId") Long gameId);
+
 }

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,5 +20,9 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     // ko phân biệt hoa thường
     List<Game> findGamesByGameNameContainingIgnoreCase(String searchInput);
     List<Game> findByCategoryGames_Category(Category category);
-  
+
+
+    @Query("SELECT g FROM Game g WHERE g.gameId = :gameId")
+    Game findGameById(@Param("gameId") Long gameId);
+
 }
