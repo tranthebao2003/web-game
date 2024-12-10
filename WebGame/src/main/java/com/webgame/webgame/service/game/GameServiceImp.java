@@ -148,12 +148,4 @@ public class GameServiceImp implements GameService {
     public List<Category> findCategoriesByGameId(Long gameId) {
         return gameRepository.findCategoriesByGameId(gameId);
     }
-
-    //mới thêm
-    @Override
-    public List<Game> getGamesByUser(Long userId) {
-        return gameRepository.findGamesByUserId(userId);
-    }
-
-
 }

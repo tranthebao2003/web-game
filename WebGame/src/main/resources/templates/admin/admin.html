@@ -46,11 +46,6 @@
                     <img th:src="@{/img/admin/add.png}" alt="Lỗi hiển thị"/>
                     <p>Thêm game</p>
                 </a>
-<!--them, xoa, sua account game-->
-<!--                <a th:href='@{/addAccountGame}' class="sidebar-option">-->
-<!--                    <img th:src="@{/img/admin/add.png}" alt="Lỗi hiển thị"/>-->
-<!--                    <p>Account game</p>-->
-<!--                </a>-->
             </div>
         </div>
 
@@ -134,10 +129,8 @@ là alias của cột COUNT(ag.account_game_id)-->
                         <a th:href="@{/showFormForUpdate/{id}(id=${game[3]})}" class="btn btn-danger">
                             <img th:src="@{/img/admin/update.png}" alt="Lỗi hiển thị">
                         </a>
-                        <a th:href="@{/listAccountGame/{id}(id=${game[3]})}" class="btn btn-danger">
-                            <img th:src="@{/img/admin/addAccount.png}" alt="Lỗi hiển thị">
-                        </a>
                     </div>
+
                 </div>
             </div>
             <div th:if="${totalPages > 1}" class="container text-center">
