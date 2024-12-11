@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Orders</title>
+</head>
+<body>
+<h1>Danh sách đơn hàng</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Tên Game</th>
+    <th>Tài khoản</th>
+    <th>Mật khẩu</th>
+    <th>Giá tiền</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Lặp qua danh sách đơn hàng -->
+  <tr th:each="orderDetail : ${orderDetailsList}">
+    <td th:text="${orderDetail.gameName}"></td>
+    <td th:text="${orderDetail.username}"></td>
+    <td th:text="${orderDetail.password}"></td>
+    <td th:text="${orderDetail.price}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
