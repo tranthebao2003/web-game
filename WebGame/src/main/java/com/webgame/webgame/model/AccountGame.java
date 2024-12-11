@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
-        uniqueConstraints = {@UniqueConstraint(columnNames = "username")}
+//        uniqueConstraints = {@UniqueConstraint(columnNames = "username")}
 )
 public class AccountGame {
     @Id
