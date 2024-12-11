@@ -27,8 +27,8 @@ public class DetailGameService {
 
 
     // Tìm game theo ID
-    public Game getGameById(Long gameId) {
-        return gameRepository.findById(gameId).orElse(null);
+    public Game findGameById(Long gameId) {
+        return gameRepository.findGameById(gameId);
     }
 
 
@@ -50,6 +50,7 @@ public class DetailGameService {
         // Tính trung bình điểm và làm tròn 1 chữ số thập phân
         return reviews.size() > 0 ? Math.round((totalScore / reviews.size()) * 10.0) / 10.0 : 0.0;
     }
+
 
     // Trả về tổng số lượt đánh giá của game
     public int getTotalReviews(Long gameId) {

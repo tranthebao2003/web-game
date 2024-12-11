@@ -1,12 +1,13 @@
 package com.webgame.webgame.controller;
 
+import com.webgame.webgame.dto.OrderDetailsDto;
 import com.webgame.webgame.dto.UserDto;
 import com.webgame.webgame.dto.UserLoginDto;
 import com.webgame.webgame.dto.gameDto.GameFormDto;
 import com.webgame.webgame.dto.gameDto.GameSaleDto;
-import com.webgame.webgame.model.Category;
-import com.webgame.webgame.model.Game;
-import com.webgame.webgame.model.User;
+import com.webgame.webgame.model.*;
+import com.webgame.webgame.repository.OrderRepository;
+import com.webgame.webgame.repository.UserRepository;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
@@ -37,51 +38,6 @@ public class UserController {
     @Autowired
     GameService gameService;
 
-
-    //show duoc thong tin người dùng
-//    @GetMapping("/user_info")
-//    public String getUser(Model model,
-//                          RedirectAttributes redirectAttributes) {
-//        // Lấy đối tượng User hiện tại từ SecurityContextHolder
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        String email = userDetails.getUsername(); // Giả sử email là username
-//
-//        // Lấy thông tin chi tiết của người dùng từ cơ sở dữ liệu bằng email
-//        User user = userService.getUserByEmail(email);
-//        System.out.println("Thông tin người dùng từ database: " + user);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
-//        }
-//
-//        // Đưa thông tin người dùng vào model
-//        model.addAttribute("userInfo", user);
-//
-//        return "user"; // Tên template Thymeleaf
-//    }
-//
-//    @PostMapping("/update_user")
-//    public String updateUserInfo(@ModelAttribute("userInfo") UserDto userDto,
-//                                 RedirectAttributes redirectAttributes) {
-//
-//        try {
-//            // Lấy email của người dùng hiện tại từ SecurityContextHolder
-//            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//            String email = userDetails.getUsername();
-//
-//            // Gọi service để cập nhật thông tin người dùng
-//            userService.updateUser(email, userDto);
-//
-//            // Thêm thông báo thành công
-//            redirectAttributes.addFlashAttribute("success", "Cập nhật thông tin thành công!");
-//        } catch (Exception e) {
-//            // Thêm thông báo lỗi
-//            redirectAttributes.addFlashAttribute("error", "Cập nhật thông tin thất bại: " + e.getMessage());
-//        }
-//
-//        // Chuyển hướng về trang thông tin người dùng
-//        return "redirect:/user_info";
-//    }
-    //hết phần show
 
     @GetMapping("/userInfo")
     public String showFormUpdateUser(Model model, RedirectAttributes redirectAttributes) {
@@ -144,24 +100,44 @@ public class UserController {
         return "redirect:/userInfo";
     }
 
-    //Don mua
-    @GetMapping("/purchasedGames")
-    public String getPurchasedGames(Model model, RedirectAttributes redirectAttributes) {
-        try {
-            // Lấy email người dùng từ Spring Security
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
-            // Gọi service để lấy danh sách game
-            List<Game> games = gameService.getGamesByUser(email);
+    @GetMapping("/user/orders")
+    public String getUserOrders(Model model) {
+        // Lấy email của người dùng đã đăng nhập
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
 
-            // Đưa danh sách game vào model để hiển thị trên giao diện
-            model.addAttribute("games", games);
-
-            return "user"; // Tên template Thymeleaf để hiển thị danh sách game
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Lỗi khi lấy danh sách game: " + e.getMessage());
-            return "redirect:/error"; // Chuyển hướng đến trang lỗi
+        // Tìm user từ email
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("Không tìm thấy người dùng với email: " + email);
         }
+
+        // Lấy danh sách đơn hàng của người dùng
+        List<Orders> orders = orderRepository.findByUser(user);
+
+        // Lấy thông tin mỗi ordẻ
+        List<OrderDetailsDto> orderDetailsList = new ArrayList<>();
+        for (Orders order : orders) {
+            for (AccountGame accountGame : order.getAccountGames()) {
+                // Tạo dto để trả về thông tin game, tài khoản, mật khẩu và giá tiền
+                OrderDetailsDto details = new OrderDetailsDto();
+                details.setGameName(accountGame.getGame().getGameName());
+                details.setUsername(accountGame.getUsername());
+                details.setPassword(accountGame.getPassword());
+                details.setPrice(accountGame.getGame().getPrice()); // Lấy giá từ Game
+                orderDetailsList.add(details);
+            }
+        }
+
+        model.addAttribute("orderDetailsList", orderDetailsList);
+
+        return "orders";
     }
+
 
 }

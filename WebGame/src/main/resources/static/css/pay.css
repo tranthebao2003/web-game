@@ -266,10 +266,17 @@ hr {
     color: white;
 }
 
+.btn-order-confirm {
+    display: flex;
+    justify-content: space-between; /* Căn khoảng cách giữa các nút */
+    margin-top: 20px; /* Thêm khoảng cách phía trên nếu cần */
+    max-width: 80%;
+    margin: auto;
+}
+
 .btn-order-confirm button {
     width: 150px;
     height: 60px;
-    margin-left: 80%;
     margin-top: 30px;
     background-color: #00afcf;
     border: 1px solid #ccc;

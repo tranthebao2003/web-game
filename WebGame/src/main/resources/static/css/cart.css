@@ -228,6 +228,10 @@ th, td {
 
     padding: 15px;
     text-align: left;
+
+}
+
+tr{
     border-bottom: 1px solid #e2e2e2;
 }
 
