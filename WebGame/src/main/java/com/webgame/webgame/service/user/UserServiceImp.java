@@ -50,27 +50,40 @@ public class UserServiceImp implements UserService {
 //
 //        return user;
 //    }
+
+    //lay thon tin user qua email
+//    @Override
+//    public void updateUser(String email, UserDto userDto) throws IOException {
+//        // Tìm người dùng bằng email
+//        User user = getUserByEmail(email);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
+//        }
+//
+//        System.out.println("Người dùng trước cập nhật: " + user);
+//        // Cập nhật các thông tin từ DTO vào entity
+////        user.setFullName(userLoginDto.getUsername());
+////        user.setPhone(userLoginDto.getPhone());
+////        user.setEmail(userLoginDto.getEmail());
+//
+//        user.setFullName(userDto.getUsername());
+//        user.setPhone(userDto.getPhone());
+//        user.setEmail(userDto.getEmail());
+//        System.out.println("Người dùng sau cập nhật: " + user);
+//
+//        // Lưu lại thay đổi
+//        userRepository.save(user);
+//        System.out.println("Đã lưu người dùng vào cơ sở dữ liệu.");
+//    }
+
     @Override
-    public void updateUser(String email, UserDto userDto) throws IOException {
-        // Tìm người dùng bằng email
-        User user = getUserByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
-        }
-
-        System.out.println("Người dùng trước cập nhật: " + user);
-        // Cập nhật các thông tin từ DTO vào entity
-//        user.setFullName(userLoginDto.getUsername());
-//        user.setPhone(userLoginDto.getPhone());
-//        user.setEmail(userLoginDto.getEmail());
-
+    public void updateUser(Long id, UserDto userDto) throws IOException {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Không tìm thấy người dùng với ID: " + id)
+        );
         user.setFullName(userDto.getUsername());
-        user.setPhone(userDto.getPhone());
         user.setEmail(userDto.getEmail());
-        System.out.println("Người dùng sau cập nhật: " + user);
-
-        // Lưu lại thay đổi
+        user.setPhone(userDto.getPhone());
         userRepository.save(user);
-        System.out.println("Đã lưu người dùng vào cơ sở dữ liệu.");
     }
 }

@@ -76,8 +76,8 @@
           </a>
         </div>
         <nav class="nav-menu">
-          <a href="#best-seller">Game bán chạy</a>
-          <a href="#list-newest">Game mới ra mắt</a>
+          <a href="">Game bán chạy</a>
+          <a href="">Game mới ra mắt</a>
           <div class="main-header-category">
             <div class="category-detail-toggle">
               <p>Thể loại</p>
@@ -107,7 +107,7 @@
         <div class="profile">
           <a href="#"><img th:src="@{/img/user/avt2.jpg}" alt="Profile" class="profile-img"></a>
 
-          <p class="username" th:text="${userInfo.fullName}"></p>
+          <p class="username" th:text="${userInfo.username}"></p>
           <a href="#" class="edit-profile">Sửa Hồ Sơ</a>
         </div>
 
@@ -134,13 +134,13 @@
         <div id="profile" class="tab-pane">
           <h2>Hồ Sơ Của Tôi</h2>
           <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
-          <form id="profile-form" action="/update_user" method="post" th:object="${userInfo}">
+          <form id="profile-form" th:action="@{/updateUserInfo}" method="post" th:object="${userInfo}">
 
             <div class="col1">
               <div class="col2">
                 <label for="username">Tên đăng nhập</label>
 <!--                <input type="text" id="username" th:value="${userInfo.fullName}">-->
-                <input type="text" id="username" th:field="*{fullName}" required>
+                <input type="text" id="username" th:field="*{username}" required>
 
 <!--                <label for="name">Đổi mật khẩu</label>-->
 <!--                <input type="text" id="name" th:value="${userInfo.password}">-->
@@ -156,13 +156,16 @@
                   <input type="text" id="phone" th:field="*{phone}" required>
                 </div>
 
+<!--            <a th:href="@{/showFormUpdateUser}">-->
+<!--              <button type="submit" class="save-btn">Chỉnh sửa</button>-->
+<!--            </a>-->
             <button type="submit" class="save-btn">Lưu</button>
 
           </form>
         </div>
 
         <div id="orders" class="tab-pane active">
-          <h2>Đơn Mua</h2>
+          <a th:href="@{/purchasedGames}"><h2>Đơn Mua</h2></a>
           <div class="order" th:each="game : ${games}">
             <div class="order-header">
               <span th:text="${game.gameName}">Tên Game</span>
@@ -170,11 +173,6 @@
               <a href="#" class="view-shop">Xem Shop</a>
             </div>
             <div class="order-details">
-              <a href="#"><img th:src="${game.gameImg}" alt="Lỗi hiển thị" class="product-img">Hình ảnh</a>
-              <div class="product-info">
-                <p th:text="${game.description}">Mô tả</p>
-                <span th:each="category : ${game.categoryGames}" th:text="${category.category.categoryName}">Danh mục</span>
-              </div>
               <div class="price">
                 <p><span class="new-price" th:text="${game.price}"></span></p>
               </div>

@@ -124,15 +124,8 @@ public class AccountGameServiceImp implements AccountGameService {
 
     @Override
     public void deleteAccount(Long id) {
+        System.out.println("Đang thực hiện xóa tài khoản: " + id);
         this.accountGameRepository.deleteById(id);
     }
-
-//    public Long deleteAccount(Long accountId) {
-//        AccountGame accountGame = accountGameRepository.findById(accountId)
-//                .orElseThrow(() -> new IllegalArgumentException("Account không tồn tại"));
-//        Long gameId = accountGame.getGame().getGameId(); // Lấy gameId để redirect sau khi xóa
-//        accountGameRepository.delete(accountGame);
-//        return gameId;
-//    }
 
 }

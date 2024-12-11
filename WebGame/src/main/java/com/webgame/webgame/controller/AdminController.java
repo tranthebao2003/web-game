@@ -5,7 +5,7 @@ import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
 import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.UserRepository;
-import com.webgame.webgame.service.admin.ListUserService;
+//import com.webgame.webgame.service.admin.ListUserService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,15 +172,15 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @Autowired
-    private ListUserService listUserService;
-
-    @GetMapping("listUsers")
-    public String listUsers(Model model) {
-        List<User> users = listUserService.getAllUsers();
-        model.addAttribute("users", users);
-        return "admin/listUser";
-    }
+//    @Autowired
+//    private ListUserService listUserService;
+//
+//    @GetMapping("listUsers")
+//    public String listUsers(Model model) {
+//        List<User> users = listUserService.getAllUsers();
+//        model.addAttribute("users", users);
+//        return "admin/listUser";
+//    }
 
 
 }

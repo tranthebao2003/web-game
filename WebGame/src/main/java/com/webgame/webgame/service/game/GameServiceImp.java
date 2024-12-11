@@ -4,9 +4,11 @@ import com.webgame.webgame.dto.gameDto.GameFormDto;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.CategoryGame;
 import com.webgame.webgame.model.Game;
+import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.CategoryGameRepository;
 import com.webgame.webgame.repository.CategoryRepository;
 import com.webgame.webgame.repository.GameRepository;
+import com.webgame.webgame.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,10 @@ public class GameServiceImp implements GameService {
 
     @Autowired
     CategoryGameRepository categoryGameRepository;
+
+    //Vy them
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Page<Game> getGameList(int page, int size, String sortField) {
@@ -149,11 +155,16 @@ public class GameServiceImp implements GameService {
         return gameRepository.findCategoriesByGameId(gameId);
     }
 
-    //mới thêm
-    @Override
-    public List<Game> getGamesByUser(Long userId) {
-        return gameRepository.findGamesByUserId(userId);
-    }
+    //Vy them
+    public List<Game> getGamesByUser(String email) {
+        // Lấy thông tin user từ email
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("Không tìm thấy người dùng với email: " + email);
+        }
 
+        // Lấy danh sách game của user
+        return gameRepository.findGamesByUserId(user.getUserId());
+    }
 
 }

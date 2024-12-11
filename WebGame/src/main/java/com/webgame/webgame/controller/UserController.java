@@ -37,37 +37,101 @@ public class UserController {
     @Autowired
     GameService gameService;
 
-    @GetMapping("/user_info")
-    public String getUser(Model model,
-                          RedirectAttributes redirectAttributes) {
-        // Lấy đối tượng User hiện tại từ SecurityContextHolder
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = userDetails.getUsername(); // Giả sử email là username
 
-        // Lấy thông tin chi tiết của người dùng từ cơ sở dữ liệu bằng email
-        User user = userService.getUserByEmail(email);
-        System.out.println("Thông tin người dùng từ database: " + user);
-        if (user == null) {
-            throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
+    //show duoc thong tin người dùng
+//    @GetMapping("/user_info")
+//    public String getUser(Model model,
+//                          RedirectAttributes redirectAttributes) {
+//        // Lấy đối tượng User hiện tại từ SecurityContextHolder
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String email = userDetails.getUsername(); // Giả sử email là username
+//
+//        // Lấy thông tin chi tiết của người dùng từ cơ sở dữ liệu bằng email
+//        User user = userService.getUserByEmail(email);
+//        System.out.println("Thông tin người dùng từ database: " + user);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
+//        }
+//
+//        // Đưa thông tin người dùng vào model
+//        model.addAttribute("userInfo", user);
+//
+//        return "user"; // Tên template Thymeleaf
+//    }
+//
+//    @PostMapping("/update_user")
+//    public String updateUserInfo(@ModelAttribute("userInfo") UserDto userDto,
+//                                 RedirectAttributes redirectAttributes) {
+//
+//        try {
+//            // Lấy email của người dùng hiện tại từ SecurityContextHolder
+//            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            String email = userDetails.getUsername();
+//
+//            // Gọi service để cập nhật thông tin người dùng
+//            userService.updateUser(email, userDto);
+//
+//            // Thêm thông báo thành công
+//            redirectAttributes.addFlashAttribute("success", "Cập nhật thông tin thành công!");
+//        } catch (Exception e) {
+//            // Thêm thông báo lỗi
+//            redirectAttributes.addFlashAttribute("error", "Cập nhật thông tin thất bại: " + e.getMessage());
+//        }
+//
+//        // Chuyển hướng về trang thông tin người dùng
+//        return "redirect:/user_info";
+//    }
+    //hết phần show
+
+    @GetMapping("/userInfo")
+    public String showFormUpdateUser(Model model, RedirectAttributes redirectAttributes) {
+        try {
+            // Lấy thông tin người dùng từ Spring Security
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            // Lấy thông tin người dùng từ cơ sở dữ liệu bằng email
+            User userExist = userService.getUserByEmail(email);
+
+            if (userExist == null) {
+                redirectAttributes.addFlashAttribute("error", "Không tìm thấy thông tin người dùng!");
+                return "redirect:/register_login"; // Hoặc một trang khác phù hợp
+            }
+
+            // Chuyển đổi User thành UserDto để dễ xử lý trong form
+            UserDto userDto = new UserDto();
+            userDto.setUsername(userExist.getFullName());
+            userDto.setEmail(userExist.getEmail());
+            userDto.setPhone(userExist.getPhone());
+
+            // Đưa thông tin vào model
+            model.addAttribute("userInfo", userDto);
+            model.addAttribute("userExist", userExist);
+
+            return "user"; // Tên template Thymeleaf
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Lỗi khi lấy thông tin người dùng: " + e.getMessage());
+            return "redirect:/register_login"; // Hoặc một trang khác phù hợp
         }
-
-        // Đưa thông tin người dùng vào model
-        model.addAttribute("userInfo", user);
-
-        return "user"; // Tên template Thymeleaf
     }
 
-    @PostMapping("/update_user")
+
+    @PostMapping("/updateUserInfo")
     public String updateUserInfo(@ModelAttribute("userInfo") UserDto userDto,
                                  RedirectAttributes redirectAttributes) {
-
         try {
-            // Lấy email của người dùng hiện tại từ SecurityContextHolder
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String email = userDetails.getUsername();
+            // Lấy thông tin người dùng từ Spring Security
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            // Lấy người dùng hiện tại từ cơ sở dữ liệu
+            User userExist = userService.getUserByEmail(email);
+
+            if (userExist == null) {
+                redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng để cập nhật!");
+                return "redirect:/register_login"; // Hoặc một trang khác phù hợp
+            }
 
             // Gọi service để cập nhật thông tin người dùng
-            userService.updateUser(email, userDto);
+            userService.updateUser(userExist.getUserId(), userDto);
 
             // Thêm thông báo thành công
             redirectAttributes.addFlashAttribute("success", "Cập nhật thông tin thành công!");
@@ -77,22 +141,27 @@ public class UserController {
         }
 
         // Chuyển hướng về trang thông tin người dùng
-        return "redirect:/user_info";
+        return "redirect:/userInfo";
     }
 
-    @GetMapping("/user_games")
-    public String getUserGames(Model model) {
-        // Lấy user id từ SecurityContext hoặc bất kỳ phương thức nào khác
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long userId = ((User) userDetails).getUserId();
+    //Don mua
+    @GetMapping("/purchasedGames")
+    public String getPurchasedGames(Model model, RedirectAttributes redirectAttributes) {
+        try {
+            // Lấy email người dùng từ Spring Security
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // Lấy danh sách game mà user đã mua
-        List<Game> games = gameService.getGamesByUser(userId);
+            // Gọi service để lấy danh sách game
+            List<Game> games = gameService.getGamesByUser(email);
 
-        // Thêm danh sách game vào model
-        model.addAttribute("games", games);
+            // Đưa danh sách game vào model để hiển thị trên giao diện
+            model.addAttribute("games", games);
 
-        return "user"; // Tên của view mà bạn sẽ hiển thị thông tin game
+            return "user"; // Tên template Thymeleaf để hiển thị danh sách game
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Lỗi khi lấy danh sách game: " + e.getMessage());
+            return "redirect:/error"; // Chuyển hướng đến trang lỗi
+        }
     }
 
 }

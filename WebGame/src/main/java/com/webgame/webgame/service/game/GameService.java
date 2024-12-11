@@ -30,6 +30,7 @@ public interface GameService {
 
     List<Category> findCategoriesByGameId(Long gameId);
 
-    //mới thêm
-    List<Game> getGamesByUser(Long userId);
+    //Vy them
+    List<Game> getGamesByUser(String email);
+
 }

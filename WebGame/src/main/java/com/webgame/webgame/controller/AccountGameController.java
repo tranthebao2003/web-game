@@ -31,9 +31,10 @@ public class AccountGameController {
 
     @GetMapping("/listAccountGame/{gameId}")
     public String accountGame(@PathVariable ("gameId") Long gameId, Model model) {
-        model.addAttribute("admin", userRepository.findByRole("admin"));
 
         model.addAttribute("listAccount", accountGameService.listAccountByGameId(gameId));
+
+        model.addAttribute("admin", userRepository.findByRole("admin"));
         return "accountGame/listGameAccount";
     }
 
@@ -145,15 +146,15 @@ public class AccountGameController {
 //        Long gameId = accountGameService.deleteAccount(accountId); // Gọi service để xóa và trả về gameId
 //        return "redirect:/listAccountGame/" + gameId;
 //    }
+
+
     @GetMapping("/deleteAccount/{gameId}/{accountId}")
     public String deleteAccount(@PathVariable("gameId") Long gameId,
             @PathVariable("accountId") Long accountId, RedirectAttributes redirectAttributes) {
 //        Long gameId = accountGameService.deleteAccount(accountId); // Lấy gameId sau khi xóa
         accountGameService.deleteAccount(accountId);
+        System.out.println("Xóa tài khoản với ID: " + accountId);
+
         return "redirect:/listAccountGame/" + gameId;
     }
-
-
-
-
 }
