@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+<!--    header-->
+<header>
+    <div class="top-header">
+        <div class="top-icons">
+            <a href="#" class="icons">
+                <img src="/img/home/facebook.png" alt="Lỗi hiển thị">
+            </a>
+            <a href="#" class="icons">
+                <img src="/img/home/tiktok.png" alt="Lỗi hiển thị">
+            </a>
+            <a href="#" class="icons">
+                <img src="/img/home/twitter.png" alt="Lỗi hiển thị">
+            </a>
+        </div>
+        <div class="search">
+            <input type="text" name="inputName" autofocus placeholder="Bạn thích tựa game nào nhỉ ?">
+            <a href="#"><img src="/img/home/search.png" alt="Lỗi hiển thị"></a>
+        </div>
+        <a href="#">Theo dõi đơn hàng</a>
+    </div>
+
+    <div class="main-header">
+        <div class="logo">
+            <img src="/img/home/logo.png" alt="logo">
+            <p>BDLV <span>gaming</span></p>
+        </div>
+        <nav class="nav-menu">
+            <a href="#">Trang chủ</a>
+            <a href="#">Game bán chạy</a>
+            <a href="#">Game mới ra mắt</a>
+            <a href="#">Thể loại</a>
+        </nav>
+        <div class="icons">
+            <a href="/user_info"><img src="/img/home/user.png" alt="Lỗi hiển thị"></a>
+            <a href="/cart"><img src="/img/home/cart.png" alt="Lỗi hiển thị"></a>
+        </div>
+    </div>
+</header>
+
+<div class="header-cart">
+    <h1>Giỏ hàng</h1>
+    <div class="breadcrumb">
+        <a href="/">Trang chủ</a> | <a href="/cart">Giỏ hàng</a>
+    </div>
+</div>
+
+<div class="cart-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Phân loại</th>
+            <th>Giá tiền</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Lặp qua danh sách cartGames -->
+        <tr th:each="cartGame : ${cartGames}">
+            <td class="img-game">
+                <div style="display: flex; align-items: center;">
+                    <!-- Hiển thị ảnh của game -->
+                    <a href="">
+                        <img th:src="${cartGame.game.gameImg}" alt="Lỗi hiển thị" style="display: inline-block;">
+                    </a>
+                </div>
+                <!-- Hiển thị tên game -->
+                <span th:text="${cartGame.game.gameName}"></span>
+            </td>
+            <!-- Hiển thị miêu tả -->
+            <td th:text="${cartGame.game.description}">Miêu tả</td>
+            <!-- Hiển thị giá tiền -->
+            <td th:text="${cartGame.game.price} + ' VNĐ'">Giá tiền</td>
+            <td></td>
+            <td>
+                <div class="edit-control">
+                    <div class="edit-control">
+                        <button type="button" class="btn-delete">
+                            <a th:href="@{/cart/delete(gameId=${cartGame.getGame().getGameId()})}">Xóa</a>
+                        </button>
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+
+<!-- Phần tổng thanh toán -->
+<div class="cart-section">
+    <div class="cart-item">
+        <p>
+            Tổng thanh toán (<span th:text="${soluonggame}">0</span> sản phẩm):
+        </p>
+        <p class="price" th:text="${tongtien} + ' VNĐ'">0 VNĐ</p>
+    </div>
+</div>
+
+<div class="btn-order">
+    <a href="/cart/pay"><button>Mua hàng</button></a>
+</div>
+
+</body>
+</html>

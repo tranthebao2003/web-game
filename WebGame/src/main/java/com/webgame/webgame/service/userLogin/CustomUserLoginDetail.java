@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+
+// cung cấp thông tin người dùng
 public class CustomUserLoginDetail implements UserDetails {
 
     private User user;
