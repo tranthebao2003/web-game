@@ -77,7 +77,7 @@
         <div class="product-display" id="list-newest">
             <h1>Kết quả tìm kiếm: [[${searchInput}]]</h1>
             <div class="product-display-list">
-                <a class="product-item" th:each="game: ${gameListSearchResult}">
+                <a th:href="@{/game/{id}(id=${game.gameId})}" class="product-item" th:each="game: ${gameListSearchResult}">
                     <img th:src="@{'/uploadImgGame/' + ${game.gameImg}}" alt="lỗi hiển thị" class="product-item-image"/>
                     <div class="product-item-infor">
                         <p class="product-item-name" th:text="${game.gameName}"></p>
