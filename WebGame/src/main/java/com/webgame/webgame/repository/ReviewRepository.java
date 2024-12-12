@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    @Query("SELECT r FROM Review r WHERE r.game.gameId = :gameId")
+    @Query("SELECT r FROM Review r WHERE r.game.gameId = :gameId ORDER BY r.createDate DESC")
     List<Review> findReviewsByGameId(@Param("gameId") Long gameId);
 }
 
