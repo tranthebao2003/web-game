@@ -336,3 +336,15 @@ hr {
     height: 50px;
     margin-right: 20px;
 }
+
+/*!* CSS cho nút mua hàng *!*/
+.btn-purchase:disabled {
+    background-color: #ccc; /* Màu nền xám cho nút disabled */
+    opacity: 0.6; /* Giảm độ sáng của nút disabled */
+}
+
+ /*Vô hiệu hóa hiệu ứng hover cho nút bị disabled*/
+.btn-purchase:disabled:hover {
+    background-color: #ccc; /* Màu nền xám cho nút disabled */
+    opacity: 0.6; /* Giảm độ sáng của nút disabled */
+}

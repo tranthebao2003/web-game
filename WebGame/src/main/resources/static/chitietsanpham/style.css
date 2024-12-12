@@ -22,7 +22,7 @@ body {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 
@@ -59,7 +59,8 @@ body {
 }
 
 .info-section {
-    max-width: 400px; /* Increased maximum width for the info section */
+    width: 350px; /* Increased maximum width for the info section */
+    color: #000000;
 }
 
 h1 {
@@ -94,7 +95,7 @@ button {
     display: flex; /* Enables Flexbox */
     justify-content: space-between; /* Ensures even spacing between buttons */
     width: 100%; /* Makes the container take full width for better alignment */
-    margin-top: 20px; /* Adds spacing above the buttons (optional) */
+    margin-top: 60px; /* Adds spacing above the buttons (optional) */
 }
 
 .nut button {
@@ -239,12 +240,7 @@ button {
 
 
 /* Styling for the "Add to Cart" and "Buy Now" buttons */
-.nut {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 20px;
-}
+
 
 .add-to-cart, .buy-now {
     padding: 10px 20px;
@@ -258,26 +254,28 @@ button {
 
 /* Add to Cart button styles */
 .add-to-cart {
-    background-color: #ff9800;
+    background-color: #f4a022;
     color: white;
 }
 
 .add-to-cart:hover {
-    background-color: #e68a00;
+    background-color: rgba(244, 159, 34, 0.8);
     transform: translateY(-3px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
 }
 
 /* Buy Now button styles */
 .buy-now {
-    background-color: #4caf50;
+    background-color: #00afcf;
     color: white;
 }
 
 .buy-now:hover {
-    background-color: #43a047;
+    background-color: rgba(67, 157, 160, 0.7);
     transform: translateY(-3px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
 }
 
 /* Active state */
@@ -285,4 +283,60 @@ button {
     transform: translateY(1px) scale(0.98);
     opacity: 0.8;
     box-shadow: none;
+}
+
+
+.nut a {
+    display: inline-block; /* Đảm bảo thẻ <a> hiển thị như nút */
+    padding: 10px 20px; /* Giữ khoảng cách bên trong giống như nút */
+    font-size: 1rem; /* Kích thước chữ */
+    font-weight: bold; /* Làm chữ đậm */
+    border-radius: 5px; /* Bo góc */
+    border: none; /* Không viền */
+    text-decoration: none; /* Loại bỏ gạch chân */
+    color: white; /* Màu chữ */
+    cursor: pointer; /* Hiển thị con trỏ dạng tay */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+}
+
+.star-rating {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+    transition: color 0.3s;
+    font-size: 39px;
+}
+
+.star.selected,
+.star:hover,
+.star:hover ~ .star {
+    color: #f39c12;
+}
+
+.star:hover ~ .star {
+    color: #ccc; /* Chỉ các sao sau sẽ được reset màu */
+}
+
+.star:hover ~ .star:not(.selected) {
+    color: #ccc; /* Không sáng màu sao không được chọn */
+}
+
+#comment{
+    padding:20px;
+}
+
+.submit-button{
+    background: #00afcf;
+}
+
+.submit-button:hover{
+    background-color: rgba(67, 157, 160, 0.7);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
 }
