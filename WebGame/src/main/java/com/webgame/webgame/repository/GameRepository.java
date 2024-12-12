@@ -31,7 +31,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     // ở đây là mình tương tác trực tiếp với database ko phải thực thể vì nativeQuery = true
     @Query(value = """
-    SELECT g.game_img, g.game_name, g.description, g.game_id, g.price,COUNT(ag.account_game_id) AS quantity,
+    SELECT g.game_img, g.game_name, g.description, g.game_id, g.price,COUNT(DISTINCT ag.account_game_id) AS quantity,
            GROUP_CONCAT(DISTINCT c.category_name SEPARATOR ', ') AS category_list
     FROM game g
     LEFT JOIN account_game ag ON g.game_id = ag.game_id
