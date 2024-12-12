@@ -301,3 +301,31 @@ hr {
     height: 50px;
     margin-right: 20px;
 }
+
+/**/
+
+
+.pay-item {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: #333;
+}
+
+.pay-item p {
+    margin: 10px 10px;
+    font-weight: bold;
+}
+
+.pay-item .price {
+    font-size: 24px;
+    color: #e74c3c;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pay-item .price span {
+    font-size: 28px;
+    color: #27ae60;
+    font-weight: 800;
+}

@@ -9,9 +9,9 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-        uniqueConstraints = {@UniqueConstraint(columnNames = "username")}
-)
+//@Table(
+//        uniqueConstraints = {@UniqueConstraint(columnNames = "username")}
+//)
 public class AccountGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

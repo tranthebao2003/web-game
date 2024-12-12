@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 public class BuyService {
@@ -26,66 +26,101 @@ public class BuyService {
     @Autowired
     private CartGameRepository cartGameRepository;
 
-    public String buyNow(Long gameId, Long userId) {
-        try {
-            // Tìm người dùng
-            User user = userRepository.findUserById(userId);
+//    public String buyNow(Long gameId, Long userId) {
+//
+//            // Tìm người dùng
+//            User user = userRepository.findUserById(userId);
+//
+//            // Tìm danh sach tai khoản game chưa bán
+//            List<AccountGame> listAccountGame = accountGameRepository.timListAccountchuaban(gameId);
+//            if (listAccountGame == null) {
+//                return "Game này đã hết trong kho";
+//            }
+//            AccountGame accountGame =listAccountGame.get(0);
+//
+//
+//            // Tạo đơn hàng
+//            Orders order = new Orders();
+//            order.setUser(user);
+//            order.setPayAt(new Date());
+//            order.setSumPrice(accountGame.getGame().getPrice());
+//
+//            // Cập nhật trạng thái của tài khoản game
+//            accountGame.setStatus(true);
+//            accountGame.setOrder(order);
+//
+//            // Lưu đơn hàng và tài khoản game đã cập nhật
+//            ordersRepository.save(order);
+//            accountGameRepository.save(accountGame);
+//
+//            // Trả về thông báo thành công
+//            return "Đã ghi vào csdl";
+//
+//    }
 
-            // Tìm danh sach tai khoản game chưa bán
-            List<AccountGame> listAccountGame = accountGameRepository.timListAccountchuaban(gameId);
-            if (listAccountGame == null) {
-                return "Game này đã hết trong kho";
-            }
-            AccountGame accountGame =listAccountGame.get(0);
-
-
-            // Tạo đơn hàng
-            Orders order = new Orders();
-            order.setUser(user);
-            order.setPayAt(new Date());
-            order.setSumPrice(accountGame.getGame().getPrice());
-
-            // Cập nhật trạng thái của tài khoản game
-            accountGame.setStatus(true);
-            accountGame.setOrder(order);
-
-            // Lưu đơn hàng và tài khoản game đã cập nhật
-            ordersRepository.save(order);
-            accountGameRepository.save(accountGame);
-
-            // Trả về thông báo thành công
-            return "Đã ghi vào csdl";
-        } catch (ResponseStatusException e) {
-            // Xử lý lỗi từ ResponseStatusException và trả về thông báo lỗi
-            return "Error: " + e.getReason();
-        } catch (Exception e) {
-            // Xử lý các lỗi không mong muốn khác và trả về thông báo lỗi chung
-            return "An unexpected error occurred: " + e.getMessage();
+    public String buyInCart(Long userId, List<Long> idGames) {
+        if (idGames == null || idGames.isEmpty()) {
+            return "Không có game nào được chọn";
         }
-    }
-
-    public String buyInCart(Long userId){
-
+        // Tìm người dùng theo userId
         User user = userRepository.findUserById(userId);
 
-//        lấy danh sách đối tượng cartgame có userid=??
-        List<CartGame> listGameInCart =cartGameRepository.findGamesInCartByUserId(userId);
+        // Lấy danh sách CartGame theo userId
+        List<CartGame> listGameInCart = cartGameRepository.findGamesInCartByUserId(userId);
 
+        // Tạo một danh sách mới để chứa các game đã chọn
+        List<CartGame> selectedGames = new ArrayList<>();
+
+        // Duyệt qua danh sách giỏ hàng và kiểm tra nếu gameId có trong idGames
+        for (CartGame cartGame : listGameInCart) {
+            if (idGames.contains(cartGame.getGame().getGameId())) {
+                selectedGames.add(cartGame); // Thêm vào danh sách selectedGames nếu gameId trùng
+            }
+        }
+
+        // Tạo một đơn hàng mới
         Orders order = new Orders();
         order.setUser(user);
         order.setPayAt(new Date());
-        order.setSumPrice(cartGameRepository.calculateTotalPriceCartByUserId(userId));
+        order.setSumPrice(cartGameRepository.calculateTotalPriceCartByUserId(userId)); // Tổng tiền
         ordersRepository.save(order);
-//        cho lập qua từng đối tượng game trong giỏ  hàng xong rồi ta từ đó lấy ra dược cái account thứ nhất trong sách đối tượng game đó
-        for (CartGame cartGame : listGameInCart) {
-            AccountGame accountGame=accountGameRepository.timListAccountchuaban(cartGame.getGame().getGameId()).get(0);
+
+        // Lặp qua các game đã chọn và cập nhật trạng thái của accountGame
+        for (CartGame cartGame : selectedGames) {
+            AccountGame accountGame = accountGameRepository.timListAccountchuaban(cartGame.getGame().getGameId()).get(0);
             accountGame.setStatus(true);
             accountGame.setOrder(order);
             accountGameRepository.save(accountGame);
+            // Xóa game khỏi giỏ hàng theo gameId
+            cartGameRepository.deleteGameIncart(cartGame.getGame().getGameId(), userId);
         }
 
-        cartGameRepository.deleteAllGamesInCartByUserId(userId);
-        return "Đã ghi vào cơ sở dữ order và xóa trong giỏ hàng" ;
+        // Xóa tất cả các game trong giỏ hàng của người dùng
+
+        return "Đã ghi vào cơ sở dữ liệu đơn hàng và xóa trong giỏ hàng";
     }
+
+
+
+//    cái này dùng kiễu dữ liệu map để mà trả về kiểu như json (trả về nhiều giá trị cùng lúc)
+    public Map<String, Object> xacNhanDonHang(List<Long> idGames) {
+        Map<String, Object> result = new HashMap<>();
+        if (idGames == null || idGames.isEmpty()) {
+            result.put("message", "Không có game nào được chọn");
+            return result;
+        }
+        BigDecimal tongia = BigDecimal.ZERO;
+        List<Game> selectedGames = new ArrayList<>();
+        for (Long id : idGames) {
+            Game game = gameRepository.findGameById(id);
+            selectedGames.add(game);
+            tongia = tongia.add(game.getPrice());
+        }
+
+        result.put("tongia", tongia);
+        result.put("selectedGames", selectedGames);
+        return result;
+    }
+
 
 }
