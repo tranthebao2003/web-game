@@ -48,10 +48,7 @@
 </header>
 
 <div class="header-pay">
-    <h1>Thông tin đơn hàng</h1>
-    <div class="breadcrumb">
-        <a href="/">Trang chủ</a> | <a href="/cart">Giỏ hàng</a>
-    </div>
+    <h1>XÁC NHẬN THÔNG TIN ĐƠN HÀNG</h1>
 </div>
 
 <div class="checkout-container">
@@ -61,22 +58,33 @@
             <th>Sản phẩm</th>
             <th>Phân loại</th>
             <th>Giá tiền</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="img-game"><a href=""><img src="/img/imgGame/game1.jpg" alt="Lỗi hiển thị"></a>Minimalistic shop for multipurpose use</td>
-            <td>Bắn súng, Đối kháng, Sinh tồn</td>
-            <td>$360.00</td>
-        </tr>
-        <tr>
-            <td class="img-game"><a href=""><img src="/img/imgGame/game2.jpg" alt="Lỗi hiển thị"></a>Minimalistic shop for multipurpose use</td>
-            <td>Bắn súng, Đối kháng, Sinh tồn</td>
-            <td>$360.00</td>
+        <!-- Lặp qua danh sách cartGames -->
+        <tr th:each="game : ${result.selectedGames}">
+            <td class="img-game">
+                <div style="display: flex; align-items: center;">
+
+                    <!-- Hiển thị ảnh của game -->
+                    <a href="">
+                        <img th:src="${'/uploadImgGame/'+game.gameImg}" alt="Lỗi hiển thị" style="display: inline-block;">
+                    </a>
+                </div>
+                <!-- Hiển thị tên game -->
+                <span th:text="${game.gameName}"></span>
+            </td>
+            <!-- Hiển thị miêu tả -->
+            <td th:text="${game.description}">Miêu tả</td>
+            <!-- Hiển thị giá tiền -->
+            <td th:text="${game.price} + ' VNĐ'">Giá tiền</td>
             <td></td>
         </tr>
         </tbody>
     </table>
+
 
 </div>
 
@@ -84,15 +92,17 @@
 
 <div class="pay-section">
     <div class="pay-item">
-        <p>Tổng thanh toán (2 sản phẩm):</p> <p class="price">$2100.00</p>
+
+        <p>Tổng thanh toán (<span th:text="${result.selectedGames.size()}"></span> sản phẩm):</p>
+        <p class="price" th:text="${result.tongia}+' VNĐ'"></span> sản phẩm)>$2100.00</p>
     </div>
 </div>
 
 <div class="btn-order-confirm">
-    <button>Hủy thanh toán</button>
-    <button>Thanh toán</button>
-
+    <button onclick="window.location.href='/huythanhtoan'">Hủy thanh toán</button>
+    <button onclick="window.location.href='/thanhtoan'">Thanh toán</button>
 </div>
+
 
 </body>
 </html>

@@ -38,4 +38,9 @@ public interface CartGameRepository extends JpaRepository<CartGame, Long> {
 //   Đếm số lượng game trong một giỏ hàng
     @Query("SELECT COUNT(c) FROM CartGame c WHERE c.user.userId = :userId")
     long countGamesByUserIdInCart(Long userId);
+
+
+//    Kiểm tra xem game đó đã tồn tại trong cartgame chưa
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM CartGame c WHERE c.game.gameId = :gameId AND c.user.userId = :userId")
+    boolean existsByGameAndUser(@Param("gameId") Long gameId, @Param("userId") Long userId);
 }

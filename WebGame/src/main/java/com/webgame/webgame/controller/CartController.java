@@ -23,7 +23,7 @@ public class CartController {
     @GetMapping("/cart")
     public String viewCart(Model model) {
 
-        Long userId=25L;
+        Long userId=26L;
         List<CartGame> cartGames = cartGameService.getCartGamesByUserId(userId);
 //        cartGameService.saveCartGame(10L,userId);
 //        cartGameService.deleteCartGame(10L,userId);
@@ -42,9 +42,9 @@ public class CartController {
 
     @GetMapping("/cart/delete")
     public String deleteGameinCart(@RequestParam("gameId") Long gameId, Model model ) {
-        Long userId=25L;
+        Long userId=26L;
         cartGameService.deleteCartGame(gameId,userId);
-        return "giohang/cart";
+        return "redirect:/cart";
     }
 
 }
