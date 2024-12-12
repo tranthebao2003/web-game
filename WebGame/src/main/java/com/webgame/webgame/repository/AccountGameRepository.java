@@ -31,4 +31,5 @@ public interface AccountGameRepository extends JpaRepository<AccountGame, Long> 
             "GROUP BY ag.game.gameId, ag.game.gameName, ag.game.price, ag.game.gameImg " +
             "ORDER BY COUNT(ag.game.gameId) DESC")
     Page<GameSaleDto> findTopSellingGames(Pageable pageable);
+
 }

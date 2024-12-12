@@ -8,6 +8,9 @@
 <table>
   <thead>
   <tr>
+    <th>Order ID</th>
+    <th>User ID</th>
+    <th>Full Name</th>
     <th>Tên Game</th>
     <th>Tài khoản</th>
     <th>Mật khẩu</th>
@@ -17,6 +20,9 @@
   <tbody>
   <!-- Lặp qua danh sách đơn hàng -->
   <tr th:each="orderDetail : ${orderDetailsList}">
+    <td th:text="${orderDetail.orderId}"></td>
+    <td th:text="${orderDetail.userId}"></td>
+    <td th:text="${orderDetail.fullName}"></td>
     <td th:text="${orderDetail.gameName}"></td>
     <td th:text="${orderDetail.username}"></td>
     <td th:text="${orderDetail.password}"></td>

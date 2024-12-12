@@ -73,7 +73,7 @@ public class UserController {
         // Lấy danh sách đơn hàng của người dùng
         List<Orders> orders = orderRepository.findByUser(user);
 
-        // Lấy thông tin mỗi ordẻ
+        // Lấy thông tin mỗi order
         List<OrderDetailsDto> orderDetailsList = new ArrayList<>();
         for (Orders order : orders) {
             for (AccountGame accountGame : order.getAccountGames()) {
