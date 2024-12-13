@@ -4,8 +4,11 @@ import com.webgame.webgame.model.Game;
 import com.webgame.webgame.model.Review;
 import com.webgame.webgame.repository.CartGameRepository;
 import com.webgame.webgame.service.cart.CartGameService;
+import com.webgame.webgame.service.userLogin.CustomUserLoginDetail;
 import com.webgame.webgame.sevice.detailGame.DetailGameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,7 +64,11 @@ public class DetailController {
 
     @GetMapping("/game/add/{gameId}")
     public String addGame(@PathVariable Long gameId, Model model) {
-        Long userId=26L;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
+        Long userId= userDetails.getId();
+
         if (!cartGameRepository.existsByGameAndUser(gameId, userId)) {
             model.addAttribute("message","Game đã được thêm vào giỏ hàng trước đó rồi");
             cartGameService.saveCartGame(gameId, userId);

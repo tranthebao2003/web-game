@@ -17,6 +17,9 @@ public class CustomUserLoginDetail implements UserDetails {
         this.user = user;
     }
 
+    public Long getId() {
+        return user.getUserId(); // Giả sử `id` là kiểu `Long` trong entity `User`
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

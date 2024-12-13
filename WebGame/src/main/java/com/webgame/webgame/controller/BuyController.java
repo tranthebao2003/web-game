@@ -5,8 +5,11 @@ import com.webgame.webgame.repository.GameRepository;
 import com.webgame.webgame.service.game.GameService;
 import com.webgame.webgame.service.thanhtoan.BuyService;
 import com.webgame.webgame.service.user.UserService;
+import com.webgame.webgame.service.userLogin.CustomUserLoginDetail;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,11 @@ public class BuyController {
 
     @GetMapping("/xacnhandonhang")
     public String xacnhanbuyincart(@RequestParam(value = "selectedGames", required = false) List<Long> selectedGames, Model model, HttpSession session){
-        Long userId = 26L;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
+        Long userId= userDetails.getId();
         session.setAttribute("selectedGames", selectedGames);
         System.out.println(selectedGames);
 //        [1, 3]
@@ -37,12 +44,16 @@ public class BuyController {
 
     @GetMapping("/thanhtoan")
     public String buyNow( Model model, HttpSession session){
-        Long userId = 26L;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
+        Long userId= userDetails.getId();
+
         List<Long> selectedGames = (List<Long>) session.getAttribute("selectedGames");
         System.out.println("cai nay o cai thanh toan" +selectedGames);
         String result = buyService.buyInCart(userId, selectedGames);
         model.addAttribute("message", result);
-        return "redirect:/cart";
+        return "redirect:/user_info";
     }
 
     @GetMapping("/huythanhtoan")
