@@ -34,10 +34,6 @@
   </script>
 </head>
 <body>
-    <a th:class="home-float" href="#" class="icons">
-      <img th:src="@{/img/home/homeFloat.png}" alt="Lỗi hiển thị">
-    </a>
-
     <!-- header -->
     <header>
       <div class="top-header">
@@ -94,7 +90,7 @@
           </div>
         </nav>
         <div class="icons">
-          <a th:href="@{/user_info}"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
+          <a th:href="@{/userInfo}"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
           <a th:href="@{/cart}"><img th:src="@{/img/home/cart.png}" alt="Lỗi hiển thị"></a>
         </div>
       </div>
@@ -102,105 +98,73 @@
 
     <!-- Tab Navigation -->
     <div class="tab-container">
-      <aside class="tab-menu">
-        <!-- Tên, chỉnh sửa hồ sơ -->
-        <div class="profile">
-          <a href="#"><img th:src="@{/img/user/avt2.jpg}" alt="Profile" class="profile-img"></a>
+        <!-- Thẻ container để hiển thị nội dung tabs -->
+        <aside class="tab-menu">
 
-          <p class="username" th:text="${userInfo.username}"></p>
-          <a href="#" class="edit-profile">Sửa Hồ Sơ</a>
-        </div>
+            <!-- Tên, chỉnh sửa hồ sơ -->
+            <div class="profile">
+                <a href="#"><img th:src="@{/img/user/avt2.jpg}" alt="Profile" class="profile-img"></a>
 
-        <!-- Menu -->
-        <ul>
-          <li data-tab="profile" >
-            <i class="icon user-icon"></i>
-            Tài Khoản Của Tôi
-          </li>
-          <li data-tab="orders" class="active">
-            <i class="icon orders-icon"></i>
-            Đơn Mua
-          </li>
-          <li data-tab="notifications">
-            <i class="icon notifications-icon"></i>
-            Thông Báo
-          </li>
-        </ul>
-      </aside>
-
-      <!-- Tab Content -->
-      <main class="tab-content">
-        <!-- Tài Khoản Của Tôi -->
-        <div id="profile" class="tab-pane">
-          <h2>Hồ Sơ Của Tôi</h2>
-          <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
-          <form id="profile-form" th:action="@{/updateUserInfo}" method="post" th:object="${userInfo}">
-
-            <div class="col1">
-              <div class="col2">
-                <label for="username">Tên đăng nhập</label>
-<!--                <input type="text" id="username" th:value="${userInfo.fullName}">-->
-                <input type="text" id="username" th:field="*{username}" required>
-
-<!--                <label for="name">Đổi mật khẩu</label>-->
-<!--                <input type="text" id="name" th:value="${userInfo.password}">-->
-
-                <label for="email">Email</label>
-<!--                <input type="text" id="email" th:value="${userInfo.email}">-->
-                <input type="text" id="email" th:field="*{email}" required>
-              </div>
-            </div>
-                <label for="phone">Số điện thoại</label>
-                <div class="phone-container">
-<!--                  <input type="text" id="phone" th:value="${userInfo.phone}">-->
-                  <input type="text" id="phone" th:field="*{phone}" required>
-                </div>
-
-<!--            <a th:href="@{/showFormUpdateUser}">-->
-<!--              <button type="submit" class="save-btn">Chỉnh sửa</button>-->
-<!--            </a>-->
-            <button type="submit" class="save-btn">Lưu</button>
-
-          </form>
-        </div>
-
-        <div id="orders" class="tab-pane active">
-          <a th:href="@{/purchasedGames}"><h2>Đơn Mua</h2></a>
-          <div class="order" th:each="game : ${games}">
-            <div class="order-header">
-              <span th:text="${game.gameName}">Tên Game</span>
-              <a href="#" class="chat">Chat</a>
-              <a href="#" class="view-shop">Xem Shop</a>
-            </div>
-            <div class="order-details">
-              <div class="price">
-                <p><span class="new-price" th:text="${game.price}"></span></p>
-              </div>
+                <p class="username" th:text="${userInfo.username}"></p>
+                <a href="#" class="edit-profile">Sửa Hồ Sơ</a>
             </div>
 
-            <hr>
+            <!-- Menu -->
+            <ul>
+                <li th:classappend="${activeTab == 'profile' ? 'active' : ''}">
+                    <a th:href="@{/userInfo(activeTab='profile')}">
+                        <i class="icon user-icon"></i>
+                        Tài Khoản Của Tôi
+                    </a>
+                </li>
+                <li th:classappend="${activeTab == 'orders' ? 'active' : ''}">
+                    <a th:href="@{/userInfo(activeTab='orders')}">
+                        <i class="icon orders-icon"></i>
+                        Đơn Mua
+                    </a>
+                </li>
+            </ul>
+        </aside>
 
-            <div class="order-footer">
-              <div class="order-total">
-                <p>Thành tiền: <span class="total-price" th:text="${game.price}"></span></p>
-              </div>
-
-              <div class="order-actions">
-                <button class="rate-button">Đánh Giá</button>
-                <button class="contact-button">Liên Hệ Người Bán</button>
-                <button class="reorder-button">Mua Lại</button>
-              </div>
+        <main class="tab-content">
+            <!-- Tab tài khoản -->
+            <div th:if="${activeTab == 'profile'}">
+                <h2>Hồ Sơ Của Tôi</h2>
+                <form id="profile-form" th:action="@{/updateUserInfo}" method="post" th:object="${userInfo}">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" th:field="*{username}" required>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" th:field="*{email}" required>
+                    <label for="phone">Số điện thoại</label>
+                    <input type="text" id="phone" th:field="*{phone}" required>
+                    <button type="submit" class="save-btn">Lưu</button>
+                </form>
             </div>
-          </div>
 
-        </div>
+            <!-- Tab đơn mua -->
+            <div th:if="${activeTab == 'orders'}">
+                <h2>Đơn Mua</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Tên Game</th>
+                        <th>Tài khoản</th>
+                        <th>Mật khẩu</th>
+                        <th>Giá tiền</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="orderDetail : ${orderDetailsList}">
+                        <td th:text="${orderDetail.gameName}"></td>
+                        <td th:text="${orderDetail.username}"></td>
+                        <td th:text="${orderDetail.password}"></td>
+                        <td th:text="${orderDetail.price}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
 
-        <!-- Thông Báo -->
-        <div id="notifications" class="tab-pane">
-          <h2>Thông Báo</h2>
-          <p>Không có thông báo nào!</p>
-        </div>
-      </main>
     </div>
 </body>
 </html>

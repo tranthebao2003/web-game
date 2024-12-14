@@ -18,5 +18,5 @@ public interface AccountGameService {
     void saveAccount(AccountGameDto accountGameDto) throws IOException;
     AccountGameDto getAccountById(Long id);
     void updateAccount(Long id, AccountGameDto accountGameDto);
-    void deleteAccount(Long id);
+    void deleteAccountGameById(Long id);
 }

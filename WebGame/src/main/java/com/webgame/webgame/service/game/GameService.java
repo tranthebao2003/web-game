@@ -31,6 +31,6 @@ public interface GameService {
     List<Category> findCategoriesByGameId(Long gameId);
 
     //Vy them
-    List<Game> getGamesByUser(String email);
+//    List<Game> getGamesByUser(String email);
 
 }

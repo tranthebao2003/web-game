@@ -53,63 +53,38 @@
             </div>
         </div>
 
+
         <!-- Popup -->
         <div class="popup-overlay" id="popup">
             <div class="popup-box">
                 <h2>Thông báo</h2>
-<!--                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>-->
-<!--                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>-->
+                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>
+                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>
             </div>
         </div>
 
-        <form class="list-user" action="#">
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Full Name</th>
-                <th>Phone Number</th>
-                <th>Role</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Duyệt qua danh sách người dùng -->
-            <tr th:each="user : ${users}">
-                <td th:text="${user.userId}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.fullName}"></td>
-                <td th:text="${user.phone}"></td>
-                <td th:text="${user.role}"></td>
-            </tr>
-            </tbody>
-        </table>
-        </form>
-        <div class="edit-user">
-            <h1>Danh sách User</h1>
-            <div>
-                <form
-                th:action="@{/findUserById}"
-                method="get"
-                >
-                    <input name="id" type="text" placeholder="Tìm kiếm bằng ID">
-                    <button type="submit">Tìm kiếm</button>
-                </form>
+        <div class="listGameAdmin" style="position: relative;">
+            <p>Danh sách account game hiện có</p>
+            <a th:href="@{/addAccount/{gameId}(gameId=${gameId})}"><button>Add account</button></a>
 
-                <form
-                      th:action="@{/findUserByRole}"
-                      method="get">
-                    <input type="text" name="role" placeholder="Tìm kiếm bằng role" />
-                    <button type="submit">Tìm kiếm</button>
-                </form>
+            <div class="list-table">
+                <div class="list-table-format title">
+                    <h3>Username</h3>
+                    <div class="field-name">Password</div>
+                </div>
+                <div class='list-table-format' th:each="account:${listAccount}">
+                    <p th:text="${account.username}"></p>
+                    <p th:text="${account.password}"></p>
 
-                <p>Cấp quyền Admin</p>
-                <form
-                th:action="@{/addAdmin}"
-                method="get">
-                    <input type="text" name="id" placeholder="Nhập ID User">
-                    <button type="submit" >Cấp quyền</button>
-                </form>
+                    <div class="update-remove">
+                        <a  th:href="@{/deleteAccount/{accountId}(accountId=${account.accountGameId})}"  class="btn btn-primary">
+                            <img th:src="@{/img/admin/remove.png}" alt="Lỗi hiển thị">
+                        </a>
+                        <a th:href="@{/showFormEditAccount/{accountId}(accountId=${account.accountGameId})}" class="btn btn-danger">
+                            <img th:src="@{/img/admin/update.png}" alt="Lỗi hiển thị">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -152,31 +127,5 @@
     </footer>
 
 </div>
-
-<script>
-    const imageInput = document.getElementById("imageInput");
-    const imagePreview = document.getElementById("imagePreview");
-
-    // Khi chọn file
-    imageInput.addEventListener("change", (event) => {
-        const file = event.target.files[0]; // Lấy file đã chọn
-        if (file) {
-            const reader = new FileReader();
-
-            // Đọc file và hiển thị trong div
-            reader.onload = (e) => {
-                imagePreview.style.backgroundImage = `url('${e.target.result}')`;
-                imagePreview.style.border = "none"; // Xóa viền khi có ảnh
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Khi nhấp vào ảnh, mở input để chọn lại ảnh
-    imagePreview.addEventListener("click", () => {
-        imageInput.click();
-    });
-</script>
 </body>
 </html>

@@ -42,31 +42,6 @@ public class AccountGameServiceImp implements AccountGameService {
         return accountGameRepository.accountGameByGameId(gameId);
     }
 
-//    public AccountGame getAccountFromDto(AccountGame accountGame, AccountGameDto accountGameDto, Game game) {
-//        accountGame.setUsername(accountGameDto.getUsername());
-//        accountGame.setPassword(accountGameDto.getPassword());
-//        accountGame.setGame(game); // Liên kết AccountGame với Game đã lấy từ database
-//        return accountGame;
-//    }
-//
-//
-//    @Override
-//    public void saveAccount(AccountGameDto accountGameDto) throws IOException {
-//        // Lấy Game từ database dựa trên gameId
-//        Optional<Game> optionalGame = gameRepository.findById(accountGameDto.getGameId());
-//        if (optionalGame.isEmpty()) {
-//            throw new IllegalArgumentException("Game với ID " + accountGameDto.getGameId() + " không tồn tại.");
-//        }
-//        Game game = optionalGame.get();
-//
-//        // Tạo AccountGame mới
-//        AccountGame accountGame = new AccountGame();
-//        accountGame = getAccountFromDto(accountGame, accountGameDto, game);
-//
-//        // Lưu AccountGame vào database
-//        accountGameRepository.save(accountGame);
-//    }
-
     public AccountGameDto getAccountById(Long id) {
         AccountGame accountGame = accountGameRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Account không tồn tại"));
@@ -123,9 +98,10 @@ public class AccountGameServiceImp implements AccountGameService {
     }
 
     @Override
-    public void deleteAccount(Long id) {
+    public void deleteAccountGameById(Long id) {
         System.out.println("Đang thực hiện xóa tài khoản: " + id);
-        this.accountGameRepository.deleteById(id);
+        accountGameRepository.deleteAccountGamrById(id);
     }
+
 
 }

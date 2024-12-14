@@ -156,15 +156,15 @@ public class GameServiceImp implements GameService {
     }
 
     //Vy them
-    public List<Game> getGamesByUser(String email) {
-        // Lấy thông tin user từ email
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new IllegalArgumentException("Không tìm thấy người dùng với email: " + email);
-        }
-
-        // Lấy danh sách game của user
-        return gameRepository.findGamesByUserId(user.getUserId());
-    }
+//    public List<Game> getGamesByUser(String email) {
+//        // Lấy thông tin user từ email
+//        User user = userRepository.findByEmail(email);
+//        if (user == null) {
+//            throw new IllegalArgumentException("Không tìm thấy người dùng với email: " + email);
+//        }
+//
+//        // Lấy danh sách game của user
+//        return gameRepository.findGamesByUserId(user.getUserId());
+//    }
 
 }

@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/userInfo")
 public class UserController {
     @Autowired
     UserService userService;
@@ -38,37 +37,57 @@ public class UserController {
     @Autowired
     GameService gameService;
 
+    @Autowired
+    CategoryService categoryService;
 
-    @GetMapping("/userInfo")
-    public String showFormUpdateUser(Model model, RedirectAttributes redirectAttributes) {
-        try {
-            // Lấy thông tin người dùng từ Spring Security
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-            // Lấy thông tin người dùng từ cơ sở dữ liệu bằng email
-            User userExist = userService.getUserByEmail(email);
+@GetMapping("/userInfo")
+public String showFormUpdateUser(
+        @RequestParam(value = "activeTab", defaultValue = "profile") String activeTab,
+        Model model,
+        RedirectAttributes redirectAttributes) {
+    try {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userExist = userService.getUserByEmail(email);
 
-            if (userExist == null) {
-                redirectAttributes.addFlashAttribute("error", "Không tìm thấy thông tin người dùng!");
-                return "redirect:/register_login"; // Hoặc một trang khác phù hợp
-            }
-
-            // Chuyển đổi User thành UserDto để dễ xử lý trong form
-            UserDto userDto = new UserDto();
-            userDto.setUsername(userExist.getFullName());
-            userDto.setEmail(userExist.getEmail());
-            userDto.setPhone(userExist.getPhone());
-
-            // Đưa thông tin vào model
-            model.addAttribute("userInfo", userDto);
-            model.addAttribute("userExist", userExist);
-
-            return "user"; // Tên template Thymeleaf
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Lỗi khi lấy thông tin người dùng: " + e.getMessage());
-            return "redirect:/register_login"; // Hoặc một trang khác phù hợp
+        if (userExist == null) {
+            redirectAttributes.addFlashAttribute("error", "Không tìm thấy thông tin người dùng!");
+            return "redirect:/register_login";
         }
+
+        UserDto userDto = new UserDto();
+        userDto.setUsername(userExist.getFullName());
+        userDto.setEmail(userExist.getEmail());
+        userDto.setPhone(userExist.getPhone());
+        model.addAttribute("userInfo", userDto);
+
+        if ("orders".equals(activeTab)) {
+            List<Orders> orders = orderRepository.findByUser(userExist);
+            List<OrderDetailsDto> orderDetailsList = new ArrayList<>();
+            for (Orders order : orders) {
+                for (AccountGame accountGame : order.getAccountGames()) {
+                    OrderDetailsDto details = new OrderDetailsDto();
+                    details.setGameName(accountGame.getGame().getGameName());
+                    details.setUsername(accountGame.getUsername());
+                    details.setPassword(accountGame.getPassword());
+                    details.setPrice(accountGame.getGame().getPrice());
+                    orderDetailsList.add(details);
+                }
+            }
+            model.addAttribute("orderDetailsList", orderDetailsList);
+        }
+
+        List<Category> categoryList = categoryService.getAllCategoryList();
+        model.addAttribute("categoryList", categoryList);
+
+        model.addAttribute("activeTab", activeTab);
+        return "user";
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "Lỗi khi lấy thông tin người dùng: " + e.getMessage());
+        return "redirect:/register_login";
     }
+}
+
 
 
     @PostMapping("/updateUserInfo")
@@ -83,20 +102,16 @@ public class UserController {
 
             if (userExist == null) {
                 redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng để cập nhật!");
-                return "redirect:/register_login"; // Hoặc một trang khác phù hợp
+                return "redirect:/register_login";
             }
 
-            // Gọi service để cập nhật thông tin người dùng
             userService.updateUser(userExist.getUserId(), userDto);
 
-            // Thêm thông báo thành công
             redirectAttributes.addFlashAttribute("success", "Cập nhật thông tin thành công!");
         } catch (Exception e) {
-            // Thêm thông báo lỗi
             redirectAttributes.addFlashAttribute("error", "Cập nhật thông tin thất bại: " + e.getMessage());
         }
 
-        // Chuyển hướng về trang thông tin người dùng
         return "redirect:/userInfo";
     }
 
@@ -111,16 +126,14 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName(); // Lấy email từ Authentication
 
-        // Tìm user từ email
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new RuntimeException("Không tìm thấy người dùng với email: " + email);
         }
 
-        // Lấy danh sách đơn hàng của người dùng
         List<Orders> orders = orderRepository.findByUser(user);
 
-        // Lấy thông tin mỗi ordẻ
+        // Lấy thông tin mỗi order
         List<OrderDetailsDto> orderDetailsList = new ArrayList<>();
         for (Orders order : orders) {
             for (AccountGame accountGame : order.getAccountGames()) {
@@ -136,7 +149,7 @@ public class UserController {
 
         model.addAttribute("orderDetailsList", orderDetailsList);
 
-        return "orders";
+        return "user";
     }
 
 
