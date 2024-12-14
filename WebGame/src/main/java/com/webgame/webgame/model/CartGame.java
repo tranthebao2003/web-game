@@ -11,17 +11,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartGame {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Primary key auto-generated
     @Column(name = "cart_game_id")
     private Long cartGameId;
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
