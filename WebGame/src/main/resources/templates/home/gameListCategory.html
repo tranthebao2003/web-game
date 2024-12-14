@@ -76,7 +76,7 @@
         <div class="product-display" id="list-newest">
             <h1>Thể Loại: [[${category.categoryName}]]</h1>
             <div class="product-display-list">
-                <a class="product-item" th:each="game: ${gamesListCategory}">
+                <a th:href="@{/game/{id}(id=${game.gameId})}" class="product-item" th:each="game: ${gamesListCategory}">
                     <img th:src="@{'/uploadImgGame/' + ${game.gameImg}}" alt="lỗi hiển thị" class="product-item-image"/>
                     <div class="product-item-infor">
                         <p class="product-item-name" th:text="${game.gameName}"></p>

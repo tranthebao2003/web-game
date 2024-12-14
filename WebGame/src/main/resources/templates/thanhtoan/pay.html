@@ -23,8 +23,15 @@
 
         </div>
         <div class="search">
-            <input type="text" name="inputName" autofocus placeholder="Bạn thích tựa game nào nhỉ ?">
-            <a href="#"><img src="/img/home/search.png" alt="Lỗi hiển thị"></a>
+            <form th:action="@{/search/}" method="GET">
+                <label for="searchInput">
+                    <input id="searchInput" type="text" name="searchInput" autofocus
+                           placeholder="Bạn thích tựa game nào nhỉ ?">
+                </label>
+                <button type="submit">
+                    <img th:src="@{/img/home/search.png}" alt="Tìm kiếm">
+                </button>
+            </form>
         </div>
         <a href="#">Theo dõi đơn hàng</a>
     </div>
@@ -32,14 +39,9 @@
     <div class="main-header">
         <div class="logo">
             <img src="/img/home/logo.png" alt="logo">
+            <a th:href="@{/}">
             <p>BDLV <span>gaming</span></p>
         </div>
-        <nav class="nav-menu">
-            <a href="#">Trang chủ</a>
-            <a href="#">Game bán chạy</a>
-            <a href="#">Game mới ra mắt</a>
-            <a href="#">Thể loại</a>
-        </nav>
         <div class="icons">
             <a href="/user_info"><img src="/img/home/user.png" alt="Lỗi hiển thị"></a>
             <a href="/cart"><img src="/img/home/cart.png" alt="Lỗi hiển thị"></a>
@@ -48,10 +50,7 @@
 </header>
 
 <div class="header-pay">
-    <h1>Thông tin đơn hàng</h1>
-    <div class="breadcrumb">
-        <a href="/">Trang chủ</a> | <a href="/cart">Giỏ hàng</a>
-    </div>
+    <h1>XÁC NHẬN THÔNG TIN ĐƠN HÀNG</h1>
 </div>
 
 <div class="checkout-container">
@@ -59,24 +58,35 @@
         <thead>
         <tr>
             <th>Sản phẩm</th>
-            <th>Phân loại</th>
+            <th>Mô tả</th>
             <th>Giá tiền</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="img-game"><a href=""><img src="/img/imgGame/game1.jpg" alt="Lỗi hiển thị"></a>Minimalistic shop for multipurpose use</td>
-            <td>Bắn súng, Đối kháng, Sinh tồn</td>
-            <td>$360.00</td>
-        </tr>
-        <tr>
-            <td class="img-game"><a href=""><img src="/img/imgGame/game2.jpg" alt="Lỗi hiển thị"></a>Minimalistic shop for multipurpose use</td>
-            <td>Bắn súng, Đối kháng, Sinh tồn</td>
-            <td>$360.00</td>
+        <!-- Lặp qua danh sách cartGames -->
+        <tr th:each="game : ${result.selectedGames}">
+            <td class="img-game">
+                <div style="display: flex; align-items: center;">
+
+                    <!-- Hiển thị ảnh của game -->
+                    <a href="">
+                        <img th:src="${'/uploadImgGame/'+game.gameImg}" alt="Lỗi hiển thị" style="display: inline-block;">
+                    </a>
+                </div>
+                <!-- Hiển thị tên game -->
+                <span th:text="${game.gameName}"></span>
+            </td>
+            <!-- Hiển thị miêu tả -->
+            <td th:text="${game.description}">Miêu tả</td>
+            <!-- Hiển thị giá tiền -->
+            <td th:text="${game.price} + ' VNĐ'">Giá tiền</td>
             <td></td>
         </tr>
         </tbody>
     </table>
+
 
 </div>
 
@@ -84,15 +94,17 @@
 
 <div class="pay-section">
     <div class="pay-item">
-        <p>Tổng thanh toán (2 sản phẩm):</p> <p class="price">$2100.00</p>
+
+        <p>Tổng thanh toán (<span th:text="${result.selectedGames.size()}"></span> sản phẩm):</p>
+        <p class="price" th:text="${result.tongia}+' VNĐ'"></span> sản phẩm)>$2100.00</p>
     </div>
 </div>
 
 <div class="btn-order-confirm">
-    <button>Hủy thanh toán</button>
-    <button>Thanh toán</button>
-
+    <button onclick="window.location.href='/huythanhtoan'">Hủy thanh toán</button>
+    <button onclick="window.location.href='/thanhtoan'">Xác nhận thanh toán</button>
 </div>
+
 
 </body>
 </html>

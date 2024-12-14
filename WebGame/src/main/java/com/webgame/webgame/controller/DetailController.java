@@ -2,8 +2,13 @@ package com.webgame.webgame.controller;
 
 import com.webgame.webgame.model.Game;
 import com.webgame.webgame.model.Review;
+import com.webgame.webgame.repository.CartGameRepository;
+import com.webgame.webgame.service.cart.CartGameService;
+import com.webgame.webgame.service.userLogin.CustomUserLoginDetail;
 import com.webgame.webgame.sevice.detailGame.DetailGameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +21,11 @@ public class DetailController {
 
     @Autowired
     private DetailGameService detailGameService;
+    @Autowired
+    private CartGameService cartGameService;
+
+    @Autowired
+    CartGameRepository cartGameRepository;
 
     @GetMapping("/game/{gameId}")
     public String getGameDetails(@PathVariable Long gameId, Model model) {
@@ -50,4 +60,25 @@ public class DetailController {
         // Trả về view (file HTML nằm trong thư mục templates)
         return "chitietsanpham/chitietsanpham"; // Tương ứng với file templates/gameDetail.html
     }
+
+
+    @GetMapping("/game/add/{gameId}")
+    public String addGame(@PathVariable Long gameId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+        if (isLoggedIn) {
+        Object principal = authentication.getPrincipal();
+        CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
+        Long userId= userDetails.getId();
+
+        if (!cartGameRepository.existsByGameAndUser(gameId, userId)) {
+            model.addAttribute("message","Game đã được thêm vào giỏ hàng trước đó rồi");
+            cartGameService.saveCartGame(gameId, userId);
+        }
+        return  "redirect:/cart";}
+        else return "redirect:/register_login";
+    }
+
 }

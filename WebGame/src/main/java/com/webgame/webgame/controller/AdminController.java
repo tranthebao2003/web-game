@@ -1,10 +1,12 @@
 package com.webgame.webgame.controller;
 
+import com.webgame.webgame.dto.OrderDetailsAdmin;
+import com.webgame.webgame.dto.OrderDetailsDto;
 import com.webgame.webgame.dto.gameDto.GameFormDto;
-import com.webgame.webgame.model.Category;
-import com.webgame.webgame.model.Game;
-import com.webgame.webgame.model.User;
+import com.webgame.webgame.model.*;
+import com.webgame.webgame.repository.OrderRepository;
 import com.webgame.webgame.repository.UserRepository;
+import com.webgame.webgame.service.admin.ListOrderService;
 import com.webgame.webgame.service.admin.ListUserService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
@@ -34,6 +36,8 @@ public class AdminController {
     // này đơn giản khỏi cần service dùng thẳng repository
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     @GetMapping("/admin")
@@ -227,6 +231,8 @@ public class AdminController {
     public String findUserByRole(@RequestParam("role") String role,Model model) {
         List<User> users = listUserService.getUsersByRoleId(role);
         model.addAttribute("users", users);
+
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName(); // Lấy email từ Authentication
 
@@ -289,5 +295,89 @@ public class AdminController {
         model.addAttribute("admin", user);
         return "admin/listUser";
     }
+
+    @GetMapping("listOrders")
+    public String listOrders(Model model) {
+        // Lấy danh sách đơn hàng từ repository
+        List<Orders> orders = orderRepository.findAll();
+
+        // Tạo danh sách DTO chứa thông tin cần thiết
+        List<OrderDetailsAdmin> orderDetailsList = new ArrayList<>();
+        for (Orders order : orders) {
+            for (AccountGame accountGame : order.getAccountGames()) {
+                // Tạo DTO để trả về thông tin cần thiết
+                OrderDetailsAdmin details = new OrderDetailsAdmin();
+                details.setOrderId(order.getOrderId()); // Gán orderId
+                details.setUserId(order.getUser().getUserId());
+                details.setFullName(order.getUser().getFullName());// Gán userId từ user liên kết
+                details.setGameName(accountGame.getGame().getGameName()); // Lấy tên game từ AccountGame
+                details.setUsername(accountGame.getUsername()); // Lấy username từ AccountGame
+                details.setPassword(accountGame.getPassword()); // Lấy password từ AccountGame
+                details.setPrice(accountGame.getGame().getPrice()); // Lấy giá từ Game
+                orderDetailsList.add(details);
+            }
+        }
+
+        // Đưa danh sách vào model để hiển thị trong view
+        model.addAttribute("orderDetailsList", orderDetailsList);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
+
+        // Tìm uer từ email
+        User user = userRepository.findByEmail(email);
+
+        // check kĩ tránh lỗi, không có cũng được
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        model.addAttribute("admin", user);
+
+        return "admin/listOrder"; // Trả về tên view (file Thymeleaf)
+    }
+
+    @Autowired
+    ListOrderService listOrderService;
+    @GetMapping("findOrderByUserId")
+    public String findOrderByUserId(@RequestParam("id") Long id,Model model) {
+
+        List<Orders> orders = listOrderService.getOrderByUserId(id);
+
+        List<OrderDetailsAdmin> orderDetailsList = new ArrayList<>();
+        for (Orders order : orders) {
+            for (AccountGame accountGame : order.getAccountGames()) {
+
+                OrderDetailsAdmin details = new OrderDetailsAdmin();
+                details.setOrderId(order.getOrderId()); // Gán orderId
+                details.setUserId(order.getUser().getUserId());
+                details.setFullName(order.getUser().getFullName());// Gán userId từ user liên kết
+                details.setGameName(accountGame.getGame().getGameName()); // Lấy tên game từ AccountGame
+                details.setUsername(accountGame.getUsername()); // Lấy username từ AccountGame
+                details.setPassword(accountGame.getPassword()); // Lấy password từ AccountGame
+                details.setPrice(accountGame.getGame().getPrice()); // Lấy giá từ Game
+                orderDetailsList.add(details);
+            }
+        }
+
+
+        model.addAttribute("orderDetailsList", orderDetailsList);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
+
+        // Tìm uer từ email
+        User user = userRepository.findByEmail(email);
+
+        // check kĩ tránh lỗi, không có cũng được
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        model.addAttribute("admin", user);
+
+        return "admin/listOrder"; // Trả về tên view (file Thymeleaf)
+    }
+
+
 
 }

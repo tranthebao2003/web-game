@@ -26,7 +26,7 @@
                 </div>
             </nav>
             <div class="icons">
-<!--                để xem profile-->
+                <!--                để xem profile-->
                 <a href="#"><img th:src="@{/img/admin/admin.png}" alt="Lỗi hiển thị"></a>
                 <p th:text="${admin.email}"></p>
             </div>
@@ -61,67 +61,61 @@
         <div class="popup-overlay" id="popup">
             <div class="popup-box">
                 <h2>Thông báo</h2>
-                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>
-                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>
+                <!--                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>-->
+                <!--                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>-->
             </div>
         </div>
 
-        <!--  form add game
-            enctype="multipart/form-data": để upload đc file img
-        -->
-        <form class="add-game" action="#"
-              th:action="@{/saveGame}"
-              th:object="${newGame}"
-              method="POST"
-              enctype="multipart/form-data">
-            <div class="game-name-price-des">
-                <label for="gameName">
-                    Tên game
-                    <input type="text" th:field="*{gameName}"
-                           class="form-control mb-4 col-4"
-                           id="gameName"
-                           required
-                    >
-                </label>
-                <label for="price">
-                    Giá game
-                    <input type="text" th:field="*{price}"
-                           class="form-control mb-4 col-4"
-                           id="price"
-                           required
-                    >
-                </label>
-
-                <label>
-                    Mô tả
-                    <textarea rows="10" th:field="*{description}" class="form-control mb-4 col-4" id="description"
-                    ></textarea>
-                </label>
-            </div>
-            <div class="game-img-category-btn">
-                <div class="image-container">
-                    <p>Ảnh game</p>
-                    <div id="imagePreview" class="image-preview" title="Nhấp để thay đổi ảnh"></div>
-<!--                accept="image/*": Thuộc tính này chỉ định rằng chỉ những tệp hình ảnh (tất cả các định dạng hình ảnh) mới được phép chọn.-->
-                    <input type="file" id="imageInput" accept="image/*" class="hidden" th:field="*{gameImg}" required>
-                </div>
-
-                <div class="category-checkbox">
-                    <p class="category">Thể loại</p>
-                    <div class="category-checkbox-detail">
-                        <div th:each="category:${categoryList}" class="checkbox-label">
-                            <input type="checkbox"
-                                   th:id="${category.categoryId}"
-                                   th:field="*{categoryIds}"
-                                   th:value="${category.categoryId}">
-                            <label th:for="${category.categoryId}">[[${category.categoryName}]]</label>
-                        </div>
-                    </div>
-                </div>
-                <button id="btn-save" type="submit" class="btn btn-info col-2">Save game</button>
-            </div>
-
+        <form class="list-user" action="#">
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Full Name</th>
+                    <th>Tên Game</th>
+                    <th>Tài khoản</th>
+                    <th>Mật khẩu</th>
+                    <th>Giá tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Lặp qua danh sách đơn hàng -->
+                <tr th:each="orderDetail : ${orderDetailsList}">
+                    <td th:text="${orderDetail.orderId}"></td>
+                    <td th:text="${orderDetail.userId}"></td>
+                    <td th:text="${orderDetail.fullName}"></td>
+                    <td th:text="${orderDetail.gameName}"></td>
+                    <td th:text="${orderDetail.username}"></td>
+                    <td th:text="${orderDetail.password}"></td>
+                    <td th:text="${orderDetail.price}"></td>
+                </tr>
+                </tbody>
+            </table>
         </form>
+        <div class="edit-user">
+            <h1>Danh sách User</h1>
+            <div>
+                <form
+                        th:action="@{/findOrderByUserId}"
+                        method="get"
+                >
+                    <input name="id" type="text" placeholder="Tìm kiếm bằng userID">
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+
+<!--                <form>-->
+<!--                    <input type="text" name="role" placeholder="Tìm kiếm bằng role" />-->
+<!--                    <button type="submit">Tìm kiếm</button>-->
+<!--                </form>-->
+
+<!--                <p>Cấp quyền Admin</p>-->
+<!--                <form>-->
+<!--                    <input type="text" name="id" placeholder="Nhập ID User">-->
+<!--                    <button type="submit" >Cấp quyền</button>-->
+<!--                </form>-->
+            </div>
+        </div>
 
     </div>
 

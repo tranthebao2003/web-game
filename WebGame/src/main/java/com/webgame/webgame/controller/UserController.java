@@ -34,6 +34,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @Autowired
     GameService gameService;
 
@@ -85,6 +86,7 @@ public String showFormUpdateUser(
     } catch (Exception e) {
         redirectAttributes.addFlashAttribute("error", "Lỗi khi lấy thông tin người dùng: " + e.getMessage());
         return "redirect:/register_login";
+
     }
 }
 

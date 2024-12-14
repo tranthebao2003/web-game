@@ -2,10 +2,17 @@ package com.webgame.webgame.controller;
 
 import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.UserRepository;
+import com.webgame.webgame.service.user.UserService;
 import com.webgame.webgame.service.userLogin.UserLoginService;
 import com.webgame.webgame.dto.UserLoginDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -103,5 +110,15 @@ public class UserLoginController {
         model.addAttribute("username",email);
         return "login/login";
     }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        if (authentication != null) {
+            // Hủy authentication và session
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        // Chuyển hướng đến trang đăng nhập hoặc trang khác sau khi đăng xuất
+        return "redirect:/";
+    }
+
 
 }

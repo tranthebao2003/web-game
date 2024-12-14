@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +34,13 @@ public class EmailController {
         // Kiểm tra email có tồn tại trong cơ sở dữ liệu không
         User user = userRepository.findByEmail(email);
 
-        while (user == null) {
-            model.addAttribute("error", "Email chưa đăng kí hoặc không tồn tại !");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean isPasswordMatch = passwordEncoder.matches("GOOGLE", user.getPassword());
+        while (user == null || isPasswordMatch) {
+            if(isPasswordMatch) {
+                model.addAttribute("error", "Đây là tài khoản đăng kí bằng Google");
+            }
+            else model.addAttribute("error", "Email chưa đăng kí hoặc không tồn tại !");
             return "login/confirmEmail"; // Quay lại trang xác nhận email với thông báo lỗi
         }
 

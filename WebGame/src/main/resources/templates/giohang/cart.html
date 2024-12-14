@@ -21,9 +21,17 @@
                 <img src="/img/home/twitter.png" alt="Lỗi hiển thị">
             </a>
         </div>
-        <div class="search">
-            <input type="text" name="inputName" autofocus placeholder="Bạn thích tựa game nào nhỉ ?">
-            <a href="#"><img src="/img/home/search.png" alt="Lỗi hiển thị"></a>
+
+        <div class="search" >
+            <form th:action="@{/search/}" method="GET">
+                <label for="searchInput">
+                    <input style="padding:12px 0px 20px 10px" id="searchInput" type="text" name="searchInput" autofocus
+                           placeholder="Bạn thích tựa game nào nhỉ ?">
+                </label>
+                <button type="submit">
+                    <img th:src="@{/img/home/search.png}" alt="Tìm kiếm">
+                </button>
+            </form>
         </div>
         <a href="#">Theo dõi đơn hàng</a>
     </div>
@@ -31,14 +39,9 @@
     <div class="main-header">
         <div class="logo">
             <img src="/img/home/logo.png" alt="logo">
+            <a th:href="@{/}">
             <p>BDLV <span>gaming</span></p>
         </div>
-        <nav class="nav-menu">
-            <a href="#">Trang chủ</a>
-            <a href="#">Game bán chạy</a>
-            <a href="#">Game mới ra mắt</a>
-            <a href="#">Thể loại</a>
-        </nav>
         <div class="icons">
             <a href="/user_info"><img src="/img/home/user.png" alt="Lỗi hiển thị"></a>
             <a href="/cart"><img src="/img/home/cart.png" alt="Lỗi hiển thị"></a>
@@ -53,12 +56,14 @@
     </div>
 </div>
 
+
+<form th:action="@{/xacnhandonhang}" method="get">
 <div class="cart-container">
     <table>
         <thead>
         <tr>
             <th>Sản phẩm</th>
-            <th>Phân loại</th>
+            <th>Mô tả</th>
             <th>Giá tiền</th>
             <th></th>
             <th></th>
@@ -69,9 +74,11 @@
         <tr th:each="cartGame : ${cartGames}">
             <td class="img-game">
                 <div style="display: flex; align-items: center;">
+
+                    <input type="checkbox" name="selectedGames" th:value="${cartGame.game.gameId}" style="margin-right: 10px;" class="game-checkbox">
                     <!-- Hiển thị ảnh của game -->
                     <a href="">
-                        <img th:src="${cartGame.game.gameImg}" alt="Lỗi hiển thị" style="display: inline-block;">
+                        <img th:src="${'/uploadImgGame/'+cartGame.game.gameImg}" alt="Lỗi hiển thị" style="display: inline-block;">
                     </a>
                 </div>
                 <!-- Hiển thị tên game -->
@@ -85,9 +92,7 @@
             <td>
                 <div class="edit-control">
                     <div class="edit-control">
-                        <button type="button" class="btn-delete">
                             <a th:href="@{/cart/delete(gameId=${cartGame.getGame().getGameId()})}">Xóa</a>
-                        </button>
                     </div>
 
                 </div>
@@ -100,19 +105,38 @@
 
 <hr>
 
-<!-- Phần tổng thanh toán -->
-<div class="cart-section">
-    <div class="cart-item">
-        <p>
-            Tổng thanh toán (<span th:text="${soluonggame}">0</span> sản phẩm):
-        </p>
-        <p class="price" th:text="${tongtien} + ' VNĐ'">0 VNĐ</p>
+<!--&lt;!&ndash; Phần tổng thanh toán &ndash;&gt;-->
+<!--<div class="cart-section">-->
+<!--    <div class="cart-item">-->
+<!--        <p>-->
+<!--            Tổng thanh toán (<span th:text="${soluonggame}">0</span> sản phẩm):-->
+<!--        </p>-->
+<!--        <p class="price" th:text="${tongtien} + ' VNĐ'">0 VNĐ</p>-->
+<!--    </div>-->
+<!--</div>-->
+
+    <div class="btn-order">
+        <button type="submit" class="btn-purchase" id="purchaseButton" disabled> Mua hàng </button>
     </div>
-</div>
+</form>
+<script>
+    // Lấy tất cả các checkbox và nút thanh toán
+    const checkboxes = document.querySelectorAll('.game-checkbox');
+    const purchaseButton = document.getElementById('purchaseButton');
 
-<div class="btn-order">
-    <a href="/cart/pay"><button>Mua hàng</button></a>
-</div>
+    // Hàm kiểm tra xem có ít nhất 1 checkbox được chọn không
+    function togglePurchaseButton() {
+        const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        purchaseButton.disabled = !isAnyChecked; // Vô hiệu hóa nút nếu không có checkbox nào được chọn
+    }
 
+    // Lắng nghe sự thay đổi của checkbox
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', togglePurchaseButton);
+    });
+
+    // Đảm bảo nút mua hàng được kiểm tra khi load trang
+    togglePurchaseButton();
+</script>
 </body>
 </html>
