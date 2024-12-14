@@ -73,6 +73,8 @@
             <div class="icons">
                 <a th:href="@{/user_info}"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
                 <a th:href="@{/cart}"><img th:src="@{/img/home/cart.png}" alt="Lỗi hiển thị"></a>
+                <a th:if="${checkLogin}" th:href="@{/logout}">Đăng xuất</a>
+                <a th:if="${!checkLogin}" th:href="@{/register_login}">Đăng nhập</a>
             </div>
         </div>
     </header>

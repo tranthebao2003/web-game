@@ -52,6 +52,13 @@ public class SecurityLoginConfig {
                         .permitAll())
                 .formLogin(form -> form.loginPage("/register_login").loginProcessingUrl("/login")
                         .successHandler(customSuccessHandler).permitAll())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // URL để đăng xuất
+                        .logoutSuccessUrl("/") // Trang chuyển hướng sau khi đăng xuất thành công
+                        .deleteCookies("JSESSIONID") // Xóa cookie session
+                        .invalidateHttpSession(true) // Vô hiệu hóa session
+                        .clearAuthentication(true) // Clear thông tin authentication
+                        .permitAll()) // Cho phép truy cập chức năng logout mà không cần đăng nhập
                 .oauth2Login(oauth2login->{
                     oauth2login.successHandler(new AuthenticationSuccessHandler() {
                         @Override
@@ -59,7 +66,11 @@ public class SecurityLoginConfig {
                             response.sendRedirect("/login-email");
                         }
                     });
+
                 });
+
+
+
 
 
         return http.build();

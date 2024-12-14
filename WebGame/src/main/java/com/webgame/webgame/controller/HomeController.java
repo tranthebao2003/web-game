@@ -3,11 +3,16 @@ package com.webgame.webgame.controller;
 import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
+import com.webgame.webgame.model.User;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
+import com.webgame.webgame.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +33,9 @@ public class HomeController {
 
     @Autowired
     AccountGameService accountGameService;
+
+    @Autowired
+    UserService userService;
 
     //   /page/?page=1
     @GetMapping("/")
@@ -67,6 +75,14 @@ public class HomeController {
 
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+        model.addAttribute("checkLogin", isLoggedIn);
+
         return "home/home";
     }
 
