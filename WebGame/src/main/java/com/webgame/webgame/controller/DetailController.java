@@ -65,6 +65,10 @@ public class DetailController {
     @GetMapping("/game/add/{gameId}")
     public String addGame(@PathVariable Long gameId, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+        if (isLoggedIn) {
         Object principal = authentication.getPrincipal();
         CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
         Long userId= userDetails.getId();
@@ -73,7 +77,8 @@ public class DetailController {
             model.addAttribute("message","Game đã được thêm vào giỏ hàng trước đó rồi");
             cartGameService.saveCartGame(gameId, userId);
         }
-        return  "redirect:/cart";
+        return  "redirect:/cart";}
+        else return "redirect:/register_login";
     }
 
 }

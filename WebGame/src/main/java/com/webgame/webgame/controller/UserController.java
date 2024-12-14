@@ -39,19 +39,29 @@ public class UserController {
 
     @GetMapping("/user_info")
     public String getUser(Model model) {
-        // Lấy đối tượng User hiện tại từ SecurityContextHolder
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = userDetails.getUsername(); // Giả sử email là username
 
-        // Lấy thông tin chi tiết của người dùng từ cơ sở dữ liệu bằng email
-        User user = userService.getUserByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+        if (isLoggedIn) {
+
+            // Lấy đối tượng User hiện tại từ SecurityContextHolder
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String email = userDetails.getUsername(); // Giả sử email là username
+
+            // Lấy thông tin chi tiết của người dùng từ cơ sở dữ liệu bằng email
+            User user = userService.getUserByEmail(email);
+
+            if (user == null) {
+                throw new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email);
+            }
+            // Đưa thông tin người dùng vào model
+            model.addAttribute("userInfo", user);
+            return "user"; // Tên template Thymeleaf
+
         }
-
-        // Đưa thông tin người dùng vào model
-        model.addAttribute("userInfo", user);
-        return "user"; // Tên template Thymeleaf
+        else return "redirect:/register_login";
     }
     @Autowired
     UserRepository userRepository;
