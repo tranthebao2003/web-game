@@ -26,23 +26,29 @@ public class CartController {
     public String viewCart(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
-        Long userId= userDetails.getId();
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+        if (isLoggedIn) {
+            Object principal = authentication.getPrincipal();
+            CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
+            Long userId= userDetails.getId();
 
 
-        List<CartGame> cartGames = cartGameService.getCartGamesByUserId(userId);
+            List<CartGame> cartGames = cartGameService.getCartGamesByUserId(userId);
 //        cartGameService.saveCartGame(10L,userId);
 //        cartGameService.deleteCartGame(10L,userId);
 
-        Long soluonggame= cartGameService.countGameByUserIdInCart(userId);
-        BigDecimal tongtien=cartGameService.calculateTotalPrice(userId);
+            Long soluonggame= cartGameService.countGameByUserIdInCart(userId);
+            BigDecimal tongtien=cartGameService.calculateTotalPrice(userId);
 
-        model.addAttribute("cartGames", cartGames);
-        model.addAttribute("soluonggame",soluonggame);
-        model.addAttribute("tongtien", tongtien);
-
-        return "giohang/cart";
+            model.addAttribute("cartGames", cartGames);
+            model.addAttribute("soluonggame",soluonggame);
+            model.addAttribute("tongtien", tongtien);
+            return "giohang/cart";
+        }
+        else return "redirect:/register_login";
     }
 
     @GetMapping("/cart/delete")

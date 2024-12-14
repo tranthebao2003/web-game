@@ -30,6 +30,10 @@ public class BuyController {
     public String xacnhanbuyincart(@RequestParam(value = "selectedGames", required = false) List<Long> selectedGames, Model model, HttpSession session){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+        if (isLoggedIn) {
         Object principal = authentication.getPrincipal();
         CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
         Long userId= userDetails.getId();
@@ -39,7 +43,9 @@ public class BuyController {
 
         Map<String, Object> result = buyService.xacNhanDonHang(selectedGames);
         model.addAttribute("result", result);
-        return "thanhtoan/pay";
+        return "thanhtoan/pay";}
+
+        else return "redirect:/register_login";
     }
 
     @GetMapping("/thanhtoan")
