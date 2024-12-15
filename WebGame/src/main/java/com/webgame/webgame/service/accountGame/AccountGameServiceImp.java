@@ -2,7 +2,6 @@ package com.webgame.webgame.service.accountGame;
 
 import com.webgame.webgame.dto.AccountGameDto;
 import com.webgame.webgame.dto.gameDto.GameFormDto;
-import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.model.AccountGame;
 import com.webgame.webgame.model.Game;
 import com.webgame.webgame.repository.AccountGameRepository;
@@ -10,6 +9,7 @@ import com.webgame.webgame.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class AccountGameServiceImp implements AccountGameService {
     private GameRepository gameRepository;
 
     @Override
-    public Page<GameSaleDto> totalAccountGameSold(int page, int size) {
+    public Page<Object[]> totalAccountGameSold(int page, int size) {
         return accountGameRepository.findTopSellingGames(PageRequest.of(page, size));
     }
 
