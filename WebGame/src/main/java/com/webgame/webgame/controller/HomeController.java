@@ -31,9 +31,6 @@ public class HomeController {
     @Autowired
     AccountGameService accountGameService;
 
-    @Autowired
-    UserService userService;
-
     //   /page/?page=1
     @GetMapping("/")
     public String findPaginated(
