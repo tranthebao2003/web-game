@@ -1,6 +1,5 @@
 package com.webgame.webgame.repository;
 
-import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.model.AccountGame;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,17 +19,30 @@ public interface AccountGameRepository extends JpaRepository<AccountGame, Long> 
     @Query("SELECT a FROM AccountGame a WHERE a.status = :status")
     List<AccountGame> findAccountGamesByStatus(@Param("status") boolean status);
 
-    // vì câu query này làm việc với entity nên sẽ khác 1 chút
-    // so với câu query làm vc với database
-    // giải thích có ghi trong file note web game
-
-    @Query("SELECT new com.webgame.webgame.dto.gameDto.GameSaleDto(" +
-            "ag.game.gameId, ag.game.gameName, ag.game.price, ag.game.gameImg, COUNT(ag.game.gameId)) " +
-            "FROM AccountGame ag " +
-            "WHERE ag.status = true " +
-            "GROUP BY ag.game.gameId, ag.game.gameName, ag.game.price, ag.game.gameImg " +
-            "ORDER BY COUNT(ag.game.gameId) DESC")
-    Page<GameSaleDto> findTopSellingGames(Pageable pageable);
+    // mình dùng câu query native và sắp xếp theo cả 2 trường
+    // đầu tiên ưu tiên sắp xếp theo total_accounts đã bán
+    // sau đó nếu số lượng account đã bán bằng nhau thì sắp xếp
+    // tăng dần theo theo gameId nếu ko có 1 trường sắp xếp phụ
+    // thì dữ liệu trả về sẽ bị trùng lặp
+    @Query(value = """
+     SELECT
+            game.game_id,
+            game.game_name,
+            game.price,
+            game.game_img,
+            COUNT(account_game.account_game_id) AS total_accounts
+        FROM
+            game
+        LEFT JOIN
+            account_game
+        ON
+            game.game_id = account_game.game_id AND account_game.status = 1
+        GROUP BY
+            game.game_id, game.game_name, game.price, game.game_img
+        ORDER BY
+            total_accounts DESC, game.game_id ASC
+   """, nativeQuery = true)
+    Page<Object[]> findTopSellingGames(Pageable pageable);
 
 
 //    lấy danh sách acccount chưa bán để showw cho khách hàng
