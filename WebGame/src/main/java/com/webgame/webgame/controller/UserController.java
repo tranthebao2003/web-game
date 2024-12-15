@@ -24,10 +24,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
-    @Autowired
-    GameService gameService;
-
     @Autowired
     CategoryService categoryService;
 
