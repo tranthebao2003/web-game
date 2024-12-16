@@ -58,7 +58,9 @@ public class BuyController {
 
         String result = buyService.buyInCart(userId, selectedGames,tonggia);
         model.addAttribute("message", result);
+
         return "redirect:/userInfo?activeTab=orders";
+
     }
 
     @GetMapping("/huythanhtoan")
