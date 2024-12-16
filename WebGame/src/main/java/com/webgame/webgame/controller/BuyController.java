@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -27,14 +28,15 @@ public class BuyController {
         boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
                 !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
         if (isLoggedIn) {
-        Object principal = authentication.getPrincipal();
-        CustomUserLoginDetail userDetails = (CustomUserLoginDetail) principal;
-        Long userId= userDetails.getId();
-        session.setAttribute("selectedGames", selectedGames);
+
         System.out.println(selectedGames);
 //        [1, 3]
 
+            /*Gọi cái service này ra là để trả về tổng gía và danh sách game đã được chọn để hiển thị lên cái xác nhận đơn hàng*/
         Map<String, Object> result = buyService.xacNhanDonHang(selectedGames);
+        session.setAttribute("selectedGames", selectedGames);
+        session.setAttribute("tonggia", result.get("tongia"));
+
         model.addAttribute("result", result);
         return "thanhtoan/pay";}
 
@@ -49,10 +51,14 @@ public class BuyController {
         Long userId= userDetails.getId();
 
         List<Long> selectedGames = (List<Long>) session.getAttribute("selectedGames");
-        System.out.println("cai nay o cai thanh toan" +selectedGames);
-        String result = buyService.buyInCart(userId, selectedGames);
+        BigDecimal tonggia = (BigDecimal) session.getAttribute("tonggia");
+
+//        System.out.println("cai nay o cai thanh toan" +selectedGames);
+//        System.out.println("cai nay o cai thanh toan" +tonggia);
+
+        String result = buyService.buyInCart(userId, selectedGames,tonggia);
         model.addAttribute("message", result);
-        return "redirect:/user_info";
+        return "redirect:/userInfo?activeTab=orders";
     }
 
     @GetMapping("/huythanhtoan")
