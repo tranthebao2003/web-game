@@ -30,6 +30,12 @@ public class DetailController {
     @GetMapping("/game/{gameId}")
     public String getGameDetails(@PathVariable Long gameId, Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+
         // Tìm game theo ID
         Game game = detailGameService.findGameById(gameId);
 
@@ -55,6 +61,7 @@ public class DetailController {
         model.addAttribute("getAverageScore", getAverageScore);
         model.addAttribute("getTotalReviews", getTotalReviews);
         model.addAttribute("soluonggamechuaban", soluonggamechuaban);
+        model.addAttribute("isLoggedIn", isLoggedIn);
 
 
         // Trả về view (file HTML nằm trong thư mục templates)

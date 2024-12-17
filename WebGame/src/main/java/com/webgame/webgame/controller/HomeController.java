@@ -1,9 +1,7 @@
 package com.webgame.webgame.controller;
 
-import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
-import com.webgame.webgame.model.User;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +31,6 @@ public class HomeController {
     @Autowired
     AccountGameService accountGameService;
 
-    @Autowired
-    UserService userService;
-
     //   /page/?page=1
     @GetMapping("/")
     public String findPaginated(
@@ -48,7 +42,8 @@ public class HomeController {
         // số lượng mỗi game mỗi trang
         int size = 8;
         List<Game> gameListTmp = new ArrayList<>();
-        List<GameSaleDto> gameListTmp2 = new ArrayList<>();
+//        List<GameSaleDto> gameListTmp2 = new ArrayList<>();
+        List<Object[]> gameListTmp2 = new ArrayList<>();
 
         // vòng for này mình sẽ duyệt qua từ trang đầu đến
         // trang user đang ấn xem thêm, sau đó lưu vào gameListTmp
@@ -60,7 +55,7 @@ public class HomeController {
 
         // cơ chế tương tự như ở trên
         for (int j = 0; j <= pageSale; j++) {
-            Page<GameSaleDto> totalAccountGameSold = accountGameService.totalAccountGameSold(j, size);
+            Page<Object[]> totalAccountGameSold = accountGameService.totalAccountGameSold(j, size);
             gameListTmp2.addAll(totalAccountGameSold.getContent());
         }
 

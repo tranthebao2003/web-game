@@ -281,6 +281,10 @@ a:hover{
     margin-left: 10%;
 }
 
+.tab-pane h2 {
+    margin-bottom: 20px;
+}
+
 .gender-container {
     display: flex; /* Đảm bảo các phần tử nằm ngang */
     margin-left: 10%;
@@ -540,3 +544,19 @@ hr {
 .col2 input {
     margin-left: 15%;
 }
+
+table {
+    width: 100%; /* Chiếm toàn bộ chiều ngang */
+    border-collapse: collapse; /* Xoá khoảng cách giữa các hàng và cột */
+    text-align: center; /* Căn giữa các dữ liệu */
+}
+
+th, td {
+    padding: 8px; /* Giãn cách giữa các hàng và cột */
+    border: 1px solid #ddd; /* Dòng kẻ giữa các ô */
+}
+
+thead {
+    background-color: #f4f4f4; /* Màu nền cho hàng tiêu đề */
+}
+

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae099885-deb1-4262-b28c-937c15201b82" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/WebGame/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WebGame/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="ae099885-deb1-4262-b28c-937c15201b82" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,9 +38,10 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "test",
+    "git-widget-placeholder": "bao",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/WebNangCao/web-game",
+    "last_opened_file_path": "D:/khac/nam_4/lapTrinhWeb/finalProject/WebGame",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -63,8 +62,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -79,6 +78,7 @@
       <workItem from="1732589722876" duration="10000" />
       <workItem from="1732589742410" duration="74000" />
       <workItem from="1732589821695" duration="47000" />
+      <workItem from="1734194307842" duration="91000" />
     </task>
     <servers />
   </component>
