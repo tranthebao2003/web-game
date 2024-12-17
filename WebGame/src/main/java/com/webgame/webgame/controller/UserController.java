@@ -78,9 +78,6 @@ public String showFormUpdateUser(
             model.addAttribute("orderDetailsList", orderDetailsList);
         }
 
-        List<Category> categoryList = categoryService.getAllCategoryList();
-        model.addAttribute("categoryList", categoryList);
-
         model.addAttribute("activeTab", activeTab);
         return "user";
     } catch (Exception e) {

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BDLV Gaming</title>
     <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/adminAG.css}">
 </head>
 <body>
 
@@ -47,8 +48,12 @@
                     <p>Thêm game</p>
                 </a>
                 <a th:href='@{/listUsers}' class="sidebar-option">
-                    <img th:src="@{/img/admin/customer.png}" alt="Lỗi hiển thị"/>
+                    <img th:src="@{/img/admin/listUser.png}" alt="Lỗi hiển thị"/>
                     <p>Thông tin User</p>
+                </a>
+                <a th:href='@{/listOrders}' class="sidebar-option">
+                    <img th:src="@{/img/admin/listOrder.png}" alt="Lỗi hiển thị"/>
+                    <p>Quản lý Order</p>
                 </a>
             </div>
         </div>
@@ -63,16 +68,17 @@
             </div>
         </div>
 
-        <div class="listGameAdmin" style="position: relative;">
-            <p>Danh sách account game hiện có</p>
-            <a th:href="@{/addAccount/{gameId}(gameId=${gameId})}"><button>Add account</button></a>
+        <div class="listGameAdminAG" style="position: relative;">
+
+                <p>Danh sách account game hiện có</p>
+                <a th:href="@{/addAccount/{gameId}(gameId=${gameId})}"><button>Add account</button></a>
 
             <div class="list-table">
-                <div class="list-table-format title">
+                <div class="list-table-format-ag title">
                     <h3>Username</h3>
-                    <div class="field-name">Password</div>
+                    <div class="field-name-ag">Password</div>
                 </div>
-                <div class='list-table-format' th:each="account:${listAccount}">
+                <div class='list-table-format-ag' th:each="account:${listAccount}">
                     <p th:text="${account.username}"></p>
                     <p th:text="${account.password}"></p>
 

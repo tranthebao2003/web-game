@@ -59,7 +59,7 @@ public class BuyController {
         System.out.println("cai nay o cai thanh toan" +selectedGames);
         String result = buyService.buyInCart(userId, selectedGames);
         model.addAttribute("message", result);
-        return "redirect:/user_info";
+        return "redirect:/userInfo";
     }
 
     @GetMapping("/huythanhtoan")
