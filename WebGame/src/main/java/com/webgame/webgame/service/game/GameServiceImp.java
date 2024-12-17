@@ -9,8 +9,10 @@ import com.webgame.webgame.repository.CategoryGameRepository;
 import com.webgame.webgame.repository.CategoryRepository;
 import com.webgame.webgame.repository.GameRepository;
 import com.webgame.webgame.repository.UserRepository;
+import com.webgame.webgame.service.accountGame.AccountGameService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,9 @@ public class GameServiceImp implements GameService {
 
     @Autowired
     CategoryGameRepository categoryGameRepository;
+
+    @Autowired
+    private AccountGameService accountGameService;
 
     //Vy them
     @Autowired
@@ -74,7 +79,8 @@ public class GameServiceImp implements GameService {
     @Override
     public void deleteGameById(Long id) {
         this.categoryGameRepository.deleteByGameId(id);
-        this.gameRepository.deleteById(id);
+        this.accountGameService.deleteAccountGameByGameid(id);
+        this.gameRepository.deleteGameById(id);
     }
 
     @Override

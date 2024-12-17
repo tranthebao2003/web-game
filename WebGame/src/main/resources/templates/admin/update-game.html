@@ -47,24 +47,16 @@
                     <p>Thêm game</p>
                 </a>
                 <a th:href='@{/listUsers}' class="sidebar-option">
-                    <img th:src="@{/img/admin/list.png}" alt="Lỗi hiển thị"/>
+                    <img th:src="@{/img/admin/listUser.png}" alt="Lỗi hiển thị"/>
                     <p>Thông tin User</p>
                 </a>
                 <a th:href='@{/listOrders}' class="sidebar-option">
-                    <img th:src="@{/img/admin/list.png}" alt="Lỗi hiển thị"/>
+                    <img th:src="@{/img/admin/listOrder.png}" alt="Lỗi hiển thị"/>
                     <p>Quản lý Order</p>
                 </a>
                 <a th:href="@{/logout}">
                     <p>Đăng xuất</p>
                 </a>
-            </div>
-        </div>
-        <!-- Popup -->
-        <div class="popup-overlay" id="popup">
-            <div class="popup-box">
-                <h2>Thông báo</h2>
-                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>
-                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>
             </div>
         </div>
         <!--  form add game-->
@@ -98,7 +90,7 @@
                 <div class="image-container">
                     <p>Ảnh game</p>
                     <div id="imagePreview" class="image-preview" title="Nhấp để thay đổi ảnh"></div>
-                    <input type="file" id="imageInput" accept="image/*" class="hidden" th:field="*{gameImg}" required>
+                    <input type="file" id="imageInput" accept="image/*" class="hidden" th:field="*{gameImg}">
                 </div>
 
                 <div class="category-checkbox">

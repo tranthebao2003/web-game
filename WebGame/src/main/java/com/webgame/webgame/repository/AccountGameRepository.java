@@ -70,10 +70,12 @@ public interface AccountGameRepository extends JpaRepository<AccountGame, Long> 
     @Modifying
     @Transactional
     @Query("DELETE FROM AccountGame ag WHERE ag.accountGameId = :accountGameId")
-    void deleteAccountGamrById(@Param("accountGameId") Long accountGameId);
+    void deleteAccountGameById(@Param("accountGameId") Long accountGameId);
 
     AccountGame findByUsername(String username);
 
-
-
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM AccountGame ag WHERE ag.game.gameId = :gameId")
+    void deleteAccountGameByGameId(@Param("gameId") Long gameId);
 }
