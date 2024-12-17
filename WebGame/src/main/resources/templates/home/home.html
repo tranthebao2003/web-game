@@ -42,7 +42,7 @@
                     </button>
                 </form>
             </div>
-            <a href="#" class="track-order">Đơn hàng của bạn</a>
+            <a href="http://localhost:8080/userInfo?activeTab=orders" class="track-order">Game của bạn</a>
         </div>
 
         <div class="main-header">
@@ -152,7 +152,7 @@
         <div class="product-display" id="best-seller">
             <h1>Danh Sách Game Bán Chạy</h1>
             <div class="product-display-list best-seller">
-                <a class="product-item" th:each="game: ${gameListSale}">
+                <a th:href="@{/game/{id}(id=${game[0]})}" class="product-item" th:each="game: ${gameListSale}">
                     <!--              game[3]: cột game_img      -->
                     <img th:src="@{'/uploadImgGame/' + ${game[3]}}" alt="lỗi hiển thị" class="product-item-image"/>
                     <div class="product-item-infor">

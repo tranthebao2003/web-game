@@ -12,6 +12,6 @@ public interface CategoryGameRepository extends JpaRepository<CategoryGame, Long
     // Phương thức deleteByGameId dùng để xóa tất cả các liên kết giữa một gameId và các thể loại trong bảng CategoryGame.
     @Transactional // Đảm bảo quá trình xóa thực thi trong một giao dịch (transaction). Nếu có lỗi xảy ra, toàn bộ thay đổi sẽ được rollback.
     @Modifying // Thông báo cho JPA rằng đây là một truy vấn Cập nhật (UPDATE) hoặc Xóa (DELETE), không phải truy vấn lấy dữ liệu (SELECT).
-    @Query("DELETE FROM CategoryGame cg WHERE cg.id.gameId = :gameId")
+    @Query(value = "DELETE FROM category_game cg WHERE cg.game_id = :gameId", nativeQuery = true)
     void deleteByGameId(@Param("gameId") Long gameId);
 }

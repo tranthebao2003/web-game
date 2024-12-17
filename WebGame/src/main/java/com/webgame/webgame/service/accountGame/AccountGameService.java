@@ -15,4 +15,5 @@ public interface AccountGameService {
     AccountGameDto getAccountById(Long id);
     void updateAccount(Long id, AccountGameDto accountGameDto);
     void deleteAccountGameById(Long id);
+    void deleteAccountGameByGameid(Long gameId);
 }

@@ -56,23 +56,6 @@
                 </a>
             </div>
         </div>
-
-        <!-- Popup -->
-        <div class="popup-overlay" id="popup">
-            <div class="popup-box">
-                <h2>Thông báo</h2>
-                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>
-                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>
-            </div>
-        </div>
-
-        <!--  form add game
-            enctype="multipart/form-data": để upload đc file img
-        -->
-        <!--        <form class="add-game" action="#"-->
-        <!--              th:action="@{/saveAccount}"-->
-        <!--              th:object="${newAccount}"-->
-        <!--              method="POST">-->
         <form class="add-game" action="#"
               th:action="@{/editAccount/{gameId}/{accountId}(gameId=${updateAccount.gameId}, accountId=${accountId})}"
               th:object="${updateAccount}" method="post">
