@@ -47,16 +47,12 @@
                     <p>Thêm game</p>
                 </a>
                 <a th:href='@{/listUsers}' class="sidebar-option">
-
                     <img th:src="@{/img/admin/listUser.png}" alt="Lỗi hiển thị"/>
                     <p>Thông tin User</p>
                 </a>
                 <a th:href='@{/listOrders}' class="sidebar-option">
                     <img th:src="@{/img/admin/listOrder.png}" alt="Lỗi hiển thị"/>
                     <p>Quản lý Order</p>
-                </a>
-                <a th:href="@{/logout}">
-                    <p>Đăng xuất</p>
                 </a>
             </div>
         </div>
@@ -65,61 +61,43 @@
         <div class="popup-overlay" id="popup">
             <div class="popup-box">
                 <h2>Thông báo</h2>
-<!--                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>-->
-<!--                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>-->
+                <p class="container text-center" th:if="${success != null}" th:text="${success}"></p>
+                <p class="container text-center" th:if="${error != null}" th:text="${error}"></p>
             </div>
         </div>
 
-        <form class="list-user" action="#">
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Full Name</th>
-                <th>Phone Number</th>
-                <th>Role</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Duyệt qua danh sách người dùng -->
-            <tr th:each="user : ${users}">
-                <td th:text="${user.userId}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.fullName}"></td>
-                <td th:text="${user.phone}"></td>
-                <td th:text="${user.role}"></td>
-            </tr>
-            </tbody>
-        </table>
+        <!--  form add game
+            enctype="multipart/form-data": để upload đc file img
+        -->
+<!--        <form class="add-game" action="#"-->
+<!--              th:action="@{/saveAccount}"-->
+<!--              th:object="${newAccount}"-->
+<!--              method="POST">-->
+        <form class="add-game" action="#"
+              th:action="@{/saveAccount/{gameId}(gameId=${gameId})}" th:object="${newAccount}" method="post">
+            <div class="game-name-price-des">
+                <label for="gameName">
+                    Tên tài khoản
+                    <input type="text" th:field="*{username}"
+                           class="form-control mb-4 col-4"
+                           id="gameName"
+                           required
+                    >
+                </label>
+                <label for="price">
+                    Mật khẩu
+                    <input type="text" th:field="*{password}"
+                           class="form-control mb-4 col-4"
+                           id="price"
+                           required
+                    >
+                </label>
+            </div>
+            <div class="listGameAdmin">
+                <button id="btn-save" type="submit">Save account</button>
+            </div>
+
         </form>
-        <div class="edit-user">
-            <h1>Danh sách User</h1>
-            <div>
-                <form
-                th:action="@{/findUserById}"
-                method="get"
-                >
-                    <input name="id" type="text" placeholder="Tìm kiếm bằng ID">
-                    <button type="submit">Tìm kiếm</button>
-                </form>
-
-                <form
-                      th:action="@{/findUserByRole}"
-                      method="get">
-                    <input type="text" name="role" placeholder="Tìm kiếm bằng role" />
-                    <button type="submit">Tìm kiếm</button>
-                </form>
-
-                <p>Cấp quyền Admin</p>
-                <form
-                th:action="@{/addAdmin}"
-                method="get">
-                    <input type="text" name="id" placeholder="Nhập ID User">
-                    <button type="submit" >Cấp quyền</button>
-                </form>
-            </div>
-        </div>
 
     </div>
 

@@ -60,4 +60,8 @@ public class Game {
     @ToString.Exclude
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
+
+    public Game(Long gameId) {
+        this.gameId = gameId;
+    }
 }

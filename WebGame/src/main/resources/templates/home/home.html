@@ -71,7 +71,7 @@
                 </div>
             </nav>
             <div class="icons">
-                <a th:href="@{/user_info}"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
+                <a th:href="@{/userInfo}"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
                 <a th:href="@{/cart}"><img th:src="@{/img/home/cart.png}" alt="Lỗi hiển thị"></a>
                 <a th:if="${checkLogin}" th:href="@{/logout}">Đăng xuất</a>
                 <a th:if="${!checkLogin}" th:href="@{/register_login}">Đăng nhập</a>
@@ -153,11 +153,14 @@
             <h1>Danh Sách Game Bán Chạy</h1>
             <div class="product-display-list best-seller">
                 <a class="product-item" th:each="game: ${gameListSale}">
-                    <img th:src="@{'/uploadImgGame/' + ${game.gameImg}}" alt="lỗi hiển thị" class="product-item-image"/>
+                    <!--              game[3]: cột game_img      -->
+                    <img th:src="@{'/uploadImgGame/' + ${game[3]}}" alt="lỗi hiển thị" class="product-item-image"/>
                     <div class="product-item-infor">
-                        <p class="product-item-name" th:text="${game.gameName}"></p>
+                        <!--              game[1]: cột game_name      -->
+                        <p class="product-item-name" th:text="${game[1]}"></p>
+                        <!--              game[2]: cột game_price      -->
                         <p class="product-item-price"
-                           th:text="${#strings.replace(game.price, '000.00', '.000 ')} + Đ"></p>
+                           th:text="${#strings.replace(game[2], '000.00', '.000 ')} + Đ"></p>
                     </div>
                 </a>
             </div>

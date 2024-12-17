@@ -2,15 +2,12 @@ package com.webgame.webgame.controller;
 
 import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.UserRepository;
-import com.webgame.webgame.service.user.UserService;
 import com.webgame.webgame.service.userLogin.UserLoginService;
 import com.webgame.webgame.dto.UserLoginDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -46,7 +43,7 @@ public class UserLoginController {
 
     @GetMapping("user")
     public String userPage(){
-        return "home";
+        return "home/home";
     }
 
 //    @GetMapping("admin")
