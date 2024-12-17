@@ -250,21 +250,6 @@ thêm class active vào */
 
 }
 
-button{
-    text-decoration: none;
-    color: #007bff;
-    font-size: 18px; /* Kích thước chữ */
-    padding: 10px 10px; /* Khoảng cách bên trong */
-    border: 1px solid #007bff; /* Viền màu xanh lam */
-    border-radius: 4px; /* Bo tròn góc */
-    background-color: #fff; /* Nền trắng */
-}
-
-button:hover {
-    background-color: #007bff; /* Nền xanh lam khi hover */
-    color: #fff; /* Chữ màu trắng khi hover */
-}
-
 .list-table {
     display: flex;
     align-items: center;
@@ -809,4 +794,20 @@ label{
     font-size: 24px; /* Kích thước chữ tiêu đề */
     margin-top: 30px;
     font-weight: bold;
+}
+
+button{
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px; /* Kích thước chữ */
+    padding: 10px 10px; /* Khoảng cách bên trong */
+    border: 1px solid #007bff; /* Viền màu xanh lam */
+    border-radius: 4px; /* Bo tròn góc */
+    background-color: #fff; /* Nền trắng */
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #007bff; /* Nền xanh lam khi hover */
+    color: #fff; /* Chữ màu trắng khi hover */
 }
