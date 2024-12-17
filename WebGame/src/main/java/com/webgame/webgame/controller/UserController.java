@@ -2,25 +2,15 @@ package com.webgame.webgame.controller;
 
 import com.webgame.webgame.dto.OrderDetailsDto;
 import com.webgame.webgame.dto.UserDto;
-import com.webgame.webgame.dto.UserLoginDto;
-import com.webgame.webgame.dto.gameDto.GameFormDto;
-import com.webgame.webgame.dto.gameDto.GameSaleDto;
 import com.webgame.webgame.model.*;
 import com.webgame.webgame.repository.OrderRepository;
 import com.webgame.webgame.repository.UserRepository;
-import com.webgame.webgame.service.accountGame.AccountGameService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
 import com.webgame.webgame.service.user.UserService;
-import com.webgame.webgame.service.user.UserServiceImp;
-import com.webgame.webgame.service.userLogin.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +23,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-
-
-    @Autowired
-    GameService gameService;
 
     @Autowired
     CategoryService categoryService;

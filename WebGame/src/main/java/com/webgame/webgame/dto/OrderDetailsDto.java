@@ -1,7 +1,15 @@
 package com.webgame.webgame.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 
+// thay thế cho getter, setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderDetailsDto {
     private String gameName;
     private String username;
