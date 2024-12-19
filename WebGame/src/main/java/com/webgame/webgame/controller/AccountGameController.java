@@ -52,6 +52,7 @@ public class AccountGameController {
         AccountGameDto newAccount = new AccountGameDto();
         newAccount.setGameId(gameId); // Gán gameId vào DTO
         model.addAttribute("newAccount", newAccount);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName(); // Lấy email từ Authentication
 
@@ -119,6 +120,7 @@ public class AccountGameController {
         AccountGameDto accountDto = accountGameService.getAccountById(accountId); // Lấy thông tin account
 
         model.addAttribute("updateAccount", accountDto);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName(); // Lấy email từ Authentication
 
