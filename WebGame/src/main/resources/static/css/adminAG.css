@@ -1,33 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
-    text-decoration: none;
-    outline: none;
-    scroll-behavior: smooth;
-    font-family: 'Roboto', sans-serif;
-    /*min-height: 100vh;*/
-}
-
-:root {
-    --main-color: rgb(0, 155, 192);
-    --text-color: rgb(1, 96, 109);
-    --fontSize-main: 16px;
-    --banner-color: rgb(217, 235, 254);
-    --color-text-a: #232323;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--main-color);
-    background: linear-gradient(-45deg, rgba(34, 199, 237, 0.15), rgba(203, 166, 51, 0.15));
-}
-
 .listGameAdminAG {
     margin-top: 40px;
     display: flex;
@@ -39,7 +11,7 @@ body {
 .list-table-format-ag {
     display: grid;
     width: 95%;
-    grid-template-columns: 4.5fr 4.5fr 0.5fr; /* 3 cột bằng nhau */
+    grid-template-columns: 4fr 4fr 1fr 0.5fr; /* 3 cột bằng nhau */
     align-items: center;
     gap: 15px;
     padding: 8px 10px;
@@ -62,7 +34,7 @@ body {
 
 .field-name-ag {
     text-align: center;
-    margin-left: -40px;
+    /*margin-left: -40px;*/
 }
 
 .listGameAdminAG > p {
@@ -74,7 +46,7 @@ body {
 
 .list-table-format-ag.title {
     background-color: rgba(35, 210, 251, 0.05);
-
+    text-align: center;
 }
 
 .list-table-format-ag.title a {

@@ -3,10 +3,13 @@ package com.webgame.webgame.controller;
 import com.webgame.webgame.dto.AccountGameDto;
 import com.webgame.webgame.model.AccountGame;
 import com.webgame.webgame.model.Game;
+import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.AccountGameRepository;
 import com.webgame.webgame.repository.UserRepository;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +32,19 @@ public class AccountGameController {
 
         model.addAttribute("listAccount", accountGameService.listAccountByGameId(gameId));
 
-        model.addAttribute("admin", userRepository.findByRole("admin"));
+//        model.addAttribute("admin", userRepository.findByRole("admin"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
+
+        // Tìm uer từ email
+        User user = userRepository.findByEmail(email);
+
+        // check kĩ tránh lỗi, không có cũng được
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        model.addAttribute("admin", user);
         return "accountGame/listGameAccount";
     }
 
@@ -38,7 +53,19 @@ public class AccountGameController {
         AccountGameDto newAccount = new AccountGameDto();
         newAccount.setGameId(gameId); // Gán gameId vào DTO
         model.addAttribute("newAccount", newAccount);
-        model.addAttribute("admin", userRepository.findByRole("admin"));
+//        model.addAttribute("admin", userRepository.findByRole("admin"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
+
+        // Tìm uer từ email
+        User user = userRepository.findByEmail(email);
+
+        // check kĩ tránh lỗi, không có cũng được
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        model.addAttribute("admin", user);
         return "accountGame/new-account";
     }
 
@@ -94,7 +121,19 @@ public class AccountGameController {
         AccountGameDto accountDto = accountGameService.getAccountById(accountId); // Lấy thông tin account
 
         model.addAttribute("updateAccount", accountDto);
-        model.addAttribute("admin", userRepository.findByRole("admin"));
+//        model.addAttribute("admin", userRepository.findByRole("admin"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Lấy email từ Authentication
+
+        // Tìm uer từ email
+        User user = userRepository.findByEmail(email);
+
+        // check kĩ tránh lỗi, không có cũng được
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        model.addAttribute("admin", user);
         return "accountGame/update-account"; // View form sửa account
     }
 

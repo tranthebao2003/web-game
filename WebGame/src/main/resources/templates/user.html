@@ -50,18 +50,8 @@
           </a>
 
         </div>
-<!--        <div class="search">-->
-<!--          <form th:action="@{/search/}" method="GET">-->
-<!--            <label for="searchInput">-->
-<!--              <input id="searchInput" type="text" name="searchInput" autofocus-->
-<!--                     placeholder="Bạn thích tựa game nào nhỉ ?">-->
-<!--            </label>-->
-<!--            <button type="submit">-->
-<!--              <img th:src="@{/img/home/search.png}" alt="Tìm kiếm">-->
-<!--            </button>-->
-<!--          </form>-->
-<!--        </div>-->
-        <a href="#" class="track-order">Đơn hàng của bạn</a>
+
+          <a href="http://localhost:8080/userInfo?activeTab=orders" class="track-order">Game của bạn</a>
       </div>
 
       <div class="main-header">
@@ -120,7 +110,7 @@
                     <label for="username">Tên đăng nhập</label>
                     <input type="text" id="username" th:field="*{username}" required>
                     <label for="email">Email</label>
-                    <input type="text" id="email" th:field="*{email}" required>
+                    <input type="text" id="email" th:field="*{email}" readonly>
                     <label for="phone">Số điện thoại</label>
                     <input type="text" id="phone" th:field="*{phone}" required>
                     <button type="submit" class="save-btn">Lưu</button>
