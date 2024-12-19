@@ -71,6 +71,7 @@ a:hover{
     font-size: 18px;
     align-items: center;
     transition: All 0.3s ease-in-out;
+    padding-right: 30px;
 }
 
 .top-header a {
