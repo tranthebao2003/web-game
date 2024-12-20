@@ -689,23 +689,22 @@ label{
     }
 
 }
-/* Đảm bảo bảng chiếm toàn bộ chiều rộng màn hình */
+
 .list-user table {
-    width: 100%; /* Bảng chiếm toàn bộ chiều ngang màn hình */
-    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    width: 100%;
+    border-collapse: collapse;
     margin: 20px 0;
 }
 
-/* Căn chỉnh các cột trong bảng */
 .list-user th, .list-user td {
     padding: 10px;
     text-align: left;
-    border: 1px solid #ddd; /* Viền nhẹ cho bảng */
+    border: 1px solid #ddd;
 }
 
-/* Gạch ngang phân biệt mỗi user */
+
 .list-user tr {
-    border-bottom: 2px solid #ddd; /* Tạo gạch ngang giữa các dòng người dùng */
+    border-bottom: 2px solid #ddd;
 }
 
 .list-user th {
@@ -721,40 +720,25 @@ label{
     background-color: #f9f9f9;
 }
 
-/* Đảm bảo bảng không có viền ngoài */
 .list-user table, .list-user th, .list-user td {
     border: none;
 }
 
 
-/* Đảm bảo form nằm trên một dòng và căn chỉnh theo chiều dọc */
 .edit-user {
-    display: flex;        /* Sử dụng Flexbox */
-    flex-direction: column; /* Sắp xếp theo chiều dọc */
-    align-items: center;   /* Căn giữa các form */
-    gap: 20px;             /* Khoảng cách giữa các form */
-    width: 20%;           /* Chiếm toàn bộ chiều rộng */
-    max-width: 600px;      /* Giới hạn chiều rộng của form */
-    margin: 0 auto;        /* Căn giữa form */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 20%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-/* Đảm bảo mỗi form chiếm toàn bộ chiều rộng của container */
 .edit-user div {
-    width: 100%; /* Chiếm toàn bộ chiều ngang */
+    width: 100%;
     align-items: center;
 }
-
-/* Căn chỉnh các input và button */
-/*.edit-user button {*/
-/*     !* Chiếm toàn bộ chiều ngang *! !* Khoảng cách giữa input/button và các thành phần khác *!*/
-/*    background-color: #eee;*/
-/*    border: none;*/
-/*    margin: 8px 0;*/
-/*    padding: 10px 15px;*/
-/*    font-size: 13px;*/
-/*    border-radius: 8px;*/
-/*    outline: none;*/
-/*}*/
 .edit-user input {
     background-color: #d6d4d4;
     border: none;
@@ -765,7 +749,7 @@ label{
     outline: none;
     width: 100%;
 }
-    /* Style cho button */
+
 .edit-user button {
     background-color: rgb(95, 172, 244);
     color: #ffffff;
@@ -781,17 +765,17 @@ label{
 }
 
 .edit-user button:hover {
-    background-color: rgb(39, 145, 243); /* Màu nền button khi hover */
+    background-color: rgb(39, 145, 243);
 }
 
 .edit-user h1 {
-    text-align: center; /* Căn giữa tiêu đề */
-    font-size: 30px; /* Kích thước chữ tiêu đề */
+    text-align: center;
+    font-size: 30px;
     margin-top: 30px;
 }
 .edit-user p {
-    text-align: center; /* Căn giữa tiêu đề */
-    font-size: 24px; /* Kích thước chữ tiêu đề */
+    text-align: center;
+    font-size: 24px;
     margin-top: 30px;
     font-weight: bold;
 }
@@ -799,15 +783,15 @@ label{
 button{
     text-decoration: none;
     color: #007bff;
-    font-size: 18px; /* Kích thước chữ */
-    padding: 10px 10px; /* Khoảng cách bên trong */
-    border: 1px solid #007bff; /* Viền màu xanh lam */
-    border-radius: 4px; /* Bo tròn góc */
-    background-color: #fff; /* Nền trắng */
+    font-size: 18px;
+    padding: 10px 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #fff;
     margin-bottom: 20px;
 }
 
 button:hover {
-    background-color: #007bff; /* Nền xanh lam khi hover */
-    color: #fff; /* Chữ màu trắng khi hover */
+    background-color: #007bff;
+    color: #fff;
 }
