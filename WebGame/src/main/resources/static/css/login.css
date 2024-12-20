@@ -12,12 +12,6 @@
     /*min-height: 100vh;*/
 }
 
-/*:root{*/
-/*    --main-color: rgb(37, 211, 250);*/
-/*    --text-color: rgb(1, 96, 109);*/
-/*    --fontSize-main: 16px;*/
-/*    --banner-color: rgb(95, 172, 244);*/
-/*}*/
 :root{
      --main-color: rgb(0, 174, 215);
      --text-color: rgb(1, 96, 109);
@@ -250,9 +244,9 @@ body{
     z-index: 2000;
 }
 a.disabled {
-    pointer-events: none; /* Ngừng kích hoạt sự kiện click */
-    color: gray; /* Đổi màu của liên kết */
-    text-decoration: none; /* Xóa gạch chân */
+    pointer-events: none;
+    color: gray;
+    text-decoration: none;
 }
 .message2 {
     background-color: rgb(250, 62, 62);
