@@ -15,8 +15,6 @@ import java.util.List;
 
 @Repository
 public interface AccountGameRepository extends JpaRepository<AccountGame, Long> {
-
-//    void deleteAccountGamesByAccountGameId(Long accountGameId);
     
     @Query(value = """
     SELECT ag
@@ -71,6 +69,8 @@ public interface AccountGameRepository extends JpaRepository<AccountGame, Long> 
 
     AccountGame findByUsername(String username);
 
+    // phục vụ cho việc xóa game, bởi vì xóa game thì phải xóa những
+    // dữ liệu có tham chiếu đến game đó
     @Modifying
     @Transactional
     @Query("DELETE FROM AccountGame ag WHERE ag.game.gameId = :gameId")
