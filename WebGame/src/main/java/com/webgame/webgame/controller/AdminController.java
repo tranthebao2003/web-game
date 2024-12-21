@@ -114,9 +114,9 @@ public class AdminController {
     }
 
     @PostMapping("/saveGame")
-//    @ModelAttribute("employee") Employee employee: mình lấy employee từ ModelAttribute
-//    rồi gán cho biến employee
-    public String saveEmployee(@ModelAttribute("newGame") GameFormDto gameFormDto,
+//    @ModelAttribute("newGame") GameFormDto gameFormDto: mình lấy newGame từ ModelAttribute
+//    rồi gán cho biến gameFormDto
+    public String saveGame(@ModelAttribute("newGame") GameFormDto gameFormDto,
                                RedirectAttributes redirectAttributes) {
         try {
             gameService.saveGame(gameFormDto); // Lưu game vào database
@@ -131,8 +131,8 @@ public class AdminController {
     }
 
     @GetMapping("/deleteGame/{id}")
-    public String deleteEmployee(@PathVariable(value = "id") Long id) {
-//        call delete employee method
+    public String deleteGame(@PathVariable(value = "id") Long id) {
+//        call delete game method
         gameService.deleteGameById(id);
         return "redirect:/admin";
     }
@@ -143,7 +143,7 @@ public class AdminController {
 //    cho GameFromDto để nhận giữ liệu mới và cuối cùng lưu lại
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") Long id, Model model) {
-//        get employee from the service by id
+//        get game from the service by id
         Game gameExist = gameService.getGameById(id);
 
         // Chuyển đổi Game thành GameFormDto để dễ xử lý trong form
