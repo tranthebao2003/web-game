@@ -1,8 +1,6 @@
 package com.webgame.webgame.repository;
 
 import com.webgame.webgame.model.AccountGame;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
