@@ -17,8 +17,6 @@ public class Category {
     @Column(name = "category_id")
     private Long categoryId;
 
-
-
     @Column(nullable = false)
     private String categoryName;
 
@@ -31,6 +29,5 @@ public class Category {
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "category", fetch = FetchType.EAGER)
     private Collection<CategoryGame> categoryGames;
-
 
 }
