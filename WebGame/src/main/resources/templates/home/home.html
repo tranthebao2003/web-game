@@ -62,7 +62,8 @@
                     </div>
                     <div class="category-detail">
                         <!-- /category/{id}: Đây là một URL mẫu, trong đó {id} là một phần động của URL.
-                             (id=${category.categoryId}): Phần này sẽ thay thế {id} trong URL mẫu bằng giá trị của employee.id.
+                             (id=${category.categoryId}): Phần này sẽ thay thế {id} trong URL mẫu bằng giá trị của
+                             category.categoryId
                         -->
                         <a th:href="@{/category/{id}(id=${category.categoryId})}" th:each="category:${categoryList}">
                             [[${category.categoryName}]]
