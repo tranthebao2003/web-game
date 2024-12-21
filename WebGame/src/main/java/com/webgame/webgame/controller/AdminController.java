@@ -67,8 +67,7 @@ public class AdminController {
 
         model.addAttribute("listGame", listGame);
 
-//        model.addAttribute("admin", userRepository.findByRole("admin"));
-
+        // Diệu Linh viết
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName(); // Lấy email từ Authentication
 
@@ -201,6 +200,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    // Toàn bộ phần dưới là của Diệu Linh Viết
     @Autowired
     private ListUserService listUserService;
 
