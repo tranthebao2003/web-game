@@ -9,9 +9,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(
-//        uniqueConstraints = {@UniqueConstraint(columnNames = "username")}
-//)
+
 public class AccountGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +25,10 @@ public class AccountGame {
 //    status = 0: chua ban, 1 la da ban
     private boolean status;
 
+    // loại bỏ hàm @ToString đối với thuộc tính này
     @ToString.Exclude
     @ManyToOne
+    // liên kết đến bảng order và tham chiếu đến order_id
     @JoinColumn(name = "order_id")
     private Orders order;
 

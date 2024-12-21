@@ -579,11 +579,12 @@ hr{
         height: 32vh;
     }
 }
-@media (max-width: 750px) {
+@media (max-width: 790px) {
     .top-header{
         padding: 10px 5px;
     }
     .top-icons .icons img{
+        margin-right: 10px;
         width: 20px;
         height: 20px;
     }
