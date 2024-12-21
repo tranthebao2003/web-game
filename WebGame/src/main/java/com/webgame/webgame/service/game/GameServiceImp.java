@@ -141,7 +141,7 @@ public class GameServiceImp implements GameService {
 
         // Xóa các liên kết cũ giữa category và game bên trong CategoryGame
         this.categoryGameRepository.deleteByGameId(id);
-        // Clear context to avoid những thực thể cũ, dòng dưới rất quan trong
+        // Clear context to avoid những thực thể cũ
         entityManager.clear();
 
         // Lưu lại thông tin đã cập nhật
