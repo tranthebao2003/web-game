@@ -1,7 +1,5 @@
 package com.webgame.webgame.repository;
 
-
-
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
 import jakarta.transaction.Transactional;
@@ -12,9 +10,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 @Repository
@@ -24,7 +19,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     // ko phân biệt hoa thường
     List<Game> findGamesByGameNameContainingIgnoreCase(String searchInput);
     List<Game> findByCategoryGames_Category(Category category);
-
 
 
     @Query("SELECT g FROM Game g WHERE g.gameId = :gameId")
@@ -53,7 +47,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
         """)
     List<Category> findCategoriesByGameId(@Param("gameId") Long gameId);
 
-    //    Xóa hết game trong một giỏ hàng dựa vào userID (tại vì khi mua xong thì xóa giỏ hàng đi)
+   // xóa game theo gameId
     @Modifying
     @Transactional
     @Query("DELETE FROM Game g WHERE g.gameId = :gameId")

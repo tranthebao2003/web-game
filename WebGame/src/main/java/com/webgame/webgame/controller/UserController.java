@@ -6,7 +6,6 @@ import com.webgame.webgame.model.*;
 import com.webgame.webgame.repository.OrderRepository;
 import com.webgame.webgame.repository.UserRepository;
 import com.webgame.webgame.service.category.CategoryService;
-import com.webgame.webgame.service.game.GameService;
 import com.webgame.webgame.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,9 +22,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-
-    @Autowired
-    CategoryService categoryService;
 
 
 @GetMapping("/userInfo")
