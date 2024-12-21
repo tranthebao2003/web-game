@@ -41,7 +41,7 @@ public class HomeController {
         // số lượng mỗi game mỗi trang
         int size = 8;
         List<Game> gameListTmp = new ArrayList<>();
-//        List<GameSaleDto> gameListTmp2 = new ArrayList<>();
+
         List<Object[]> gameListTmp2 = new ArrayList<>();
 
         // vòng for này mình sẽ duyệt qua từ trang đầu đến
@@ -80,6 +80,7 @@ public class HomeController {
         return "home/home";
     }
 
+    // searchInput chính là giá trị của thuộc tính name của thẻ input
     @GetMapping("/search/")
     public String searchGame(
             @RequestParam(value = "searchInput") String searchInput,

@@ -7,7 +7,6 @@ import com.webgame.webgame.model.Game;
 import com.webgame.webgame.repository.CategoryGameRepository;
 import com.webgame.webgame.repository.CategoryRepository;
 import com.webgame.webgame.repository.GameRepository;
-import com.webgame.webgame.repository.UserRepository;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -70,9 +69,26 @@ public class GameServiceImp implements GameService {
         return gameRepository.findGamesAndQuantityCategory(pageable);
     }
 
+    // xóa ảnh phục vụ cho việc xóa game và sửa game
+    public void deleteFile(String fileName) {
+        // Đường dẫn tới thư mục chứa ảnh
+        Path filePath = Paths.get("src/main/java/com/webgame/webgame/uploadImgGame/", fileName);
+        try {
+            // Xóa file
+            Files.delete(filePath);
+            System.out.println("File deleted successfully: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Failed to delete file: " + fileName + ". Error: " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void deleteGameById(Long id) {
+        // lấy gameImg để xóa ảnh của game đó trong server trước khi xóa
+        // game trong databse
+        Game game = getGameById(id);
+        deleteFile(game.getGameImg());
         this.categoryGameRepository.deleteByGameId(id);
         this.accountGameService.deleteAccountGameByGameid(id);
         this.gameRepository.deleteGameById(id);
@@ -137,10 +153,14 @@ public class GameServiceImp implements GameService {
     public void updateGame(Long id, GameFormDto gameFormDto) throws IOException {
         // nhận game cần update
         Game gameExist = getGameById(id);
+
+        // xóa ảnh cũ trong server trước khi thêm ảnh mới
+        deleteFile(gameExist.getGameImg());
         gameExist = getGameFromDto(gameExist, gameFormDto);
 
         // Xóa các liên kết cũ giữa category và game bên trong CategoryGame
         this.categoryGameRepository.deleteByGameId(id);
+
         // Clear context to avoid những thực thể cũ
         entityManager.clear();
 
