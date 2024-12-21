@@ -64,7 +64,6 @@ public interface AccountGameRepository extends JpaRepository<AccountGame, Long> 
     @Query("SELECT COUNT(a) FROM AccountGame a WHERE a.game.gameId = :gameId AND a.status = false")
     long countGamechuaban(@Param("gameId") Long gameId);
 
-    //    Xóa hết game trong một giỏ hàng dựa vào userID (tại vì khi mua xong thì xóa giỏ hàng đi)
     @Modifying
     @Transactional
     @Query("DELETE FROM AccountGame ag WHERE ag.accountGameId = :accountGameId")
