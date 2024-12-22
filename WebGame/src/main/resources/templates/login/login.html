@@ -42,7 +42,6 @@
             <h1>Đăng nhập</h1>
             <div class="social-icons">
                 <a th:href="@{/oauth2/authorization/google}" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
             <input type="hidden" name="password" th:value="${password}" th:if="${checkGG}"/>
             <input type="hidden" name="username" th:value="${username}" th:if="${checkGG}"/>

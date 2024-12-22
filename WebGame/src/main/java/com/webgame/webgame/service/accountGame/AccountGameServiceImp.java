@@ -66,8 +66,12 @@ public class AccountGameServiceImp implements AccountGameService {
     @Override
     public void deleteAccountGameById(Long id) {
         System.out.println("Đang thực hiện xóa tài khoản: " + id);
-        accountGameRepository.deleteAccountGamrById(id);
+        accountGameRepository.deleteAccountGameById(id);
     }
 
+    @Override
+    public void deleteAccountGameByGameid(Long gameId) {
+        accountGameRepository.deleteAccountGameByGameId(gameId);
+    }
 
 }
