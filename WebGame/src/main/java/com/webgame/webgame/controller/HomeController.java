@@ -30,6 +30,16 @@ public class HomeController {
     @Autowired
     AccountGameService accountGameService;
 
+
+    public boolean checkLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+        return isLoggedIn;
+    }
+
     //   /page/?page=1
     @GetMapping("/")
     public String findPaginated(
@@ -70,10 +80,7 @@ public class HomeController {
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
-
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
-                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+        boolean isLoggedIn = checkLogin();
 
         model.addAttribute("checkLogin", isLoggedIn);
 
@@ -94,6 +101,11 @@ public class HomeController {
 
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
+
+        boolean isLoggedIn = checkLogin();
+
+        model.addAttribute("checkLogin", isLoggedIn);
         return "home/searchResult";
     }
 
@@ -112,6 +124,9 @@ public class HomeController {
 
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
+
+        boolean isLoggedIn = checkLogin();
+        model.addAttribute("checkLogin", isLoggedIn);
 
         return "home/gameListCategory"; // Trả về view hiển thị danh sách game
     }
