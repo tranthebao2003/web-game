@@ -67,7 +67,7 @@
             <div class="list-table">
                 <div class="list-table-format title">
                     <h3>Hình</h3>
-                    <!--                    bây giờ mình truy suất trực tiếp tới database nên field sắp xếp
+                    <!-- bây giờ mình truy suất trực tiếp tới database nên field sắp xếp
                     cũng là tên của các cột trong database chứ ko còn là của thực thể nữa còn quantity
                     là alias của cột COUNT(ag.account_game_id)-->
                     <a th:href="@{'/page/'
@@ -105,26 +105,26 @@
                         Số lượng tài khoản
                         <img th:src="@{/img/admin/sort.png}" alt="Lỗi hiển thị">
                     </a>
-                    <!--                    khỏi sắp xếp-->
+                    <!--  khỏi sắp xếp-->
                     <h3>Thể loại</h3>
                 </div>
                 <div class='list-table-format' th:each="game:${listGame}">
-                    <!--                 game[0]: gameImg   -->
+                    <!-- game[0]: gameImg   -->
                     <img th:src="@{'/uploadImgGame/' + ${game[0]}}" alt="Lỗi hiển thị"/>
-                    <!--                 game[0]: gameName   -->
+                    <!-- game[0]: gameName   -->
                     <p th:text="${game[1]}"></p>
-                    <!--                 game[0]: description   -->
+                    <!-- game[0]: description   -->
                     <p th:text="${game[2]}"></p>
-                    <!--                 game[4] : price-->
+                    <!-- game[4] : price-->
                     <p th:text="${#strings.replace(game[4], '000.00', '.000 ')} + Đ"></p>
-                    <!--                 game[5] là quantity-->
+                    <!-- game[5] là quantity-->
                     <p th:text="${game[5]}">
                     </p>
-                    <!--                 game[6] là category_list-->
+                    <!-- game[6] là category_list-->
                     <p th:text="${game[6]}">
                     </p>
 
-                    <!--                game[3] là id nhưng mình ko xài, -->
+                    <!-- game[3] là id nhưng mình ko xài, -->
                     <div class="update-remove">
                         <a th:href="@{/deleteGame/{id}(id=${game[3]})}" class="btn btn-primary">
                             <img th:src="@{/img/admin/remove.png}" alt="Lỗi hiển thị">

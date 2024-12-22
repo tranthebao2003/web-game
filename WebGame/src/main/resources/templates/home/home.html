@@ -19,8 +19,8 @@
     <header>
         <div class="top-header">
             <div class="top-icons">
-                <!--                target="_blank": yêu cầu trình duyệt mở tab mới-->
-                <a href="https://www.facebook.com/" target="_blank" class="icons">
+                <!-- target="_blank": yêu cầu trình duyệt mở tab mới-->
+                <a href="https://www.facebook.com/kybac.ba.5/" target="_blank" class="icons">
                     <img th:src="@{/img/home/facebook.png}" alt="Lỗi hiển thị">
                 </a>
                 <a href="https://www.tiktok.com/@kiki_000000?_t=8rqGWTUu1y5&_r=1" target="_blank" class="icons">
@@ -153,6 +153,7 @@
         <div class="product-display" id="best-seller">
             <h1>Danh Sách Game Bán Chạy</h1>
             <div class="product-display-list best-seller">
+                <!--              game[0]: cột game_id      -->
                 <a th:href="@{/game/{id}(id=${game[0]})}" class="product-item" th:each="game: ${gameListSale}">
                     <!--              game[3]: cột game_img      -->
                     <img th:src="@{'/uploadImgGame/' + ${game[3]}}" alt="lỗi hiển thị" class="product-item-image"/>
@@ -165,15 +166,15 @@
                     </div>
                 </a>
             </div>
-            <!-- nếu currentPage nhỏ hơn totalPage thì mới show thẻ a để user xêm
+            <!-- nếu currentPage nhỏ hơn totalPage thì mới show thẻ a để user xem
              thêm game
-             mỗi khi user ấn xêm thêm mình sẽ gọi request
+             mỗi khi user ấn xem thêm mình sẽ gọi request
              /page/?page=currentPage + 1, để show ra game của trang
              tiêp theo và cả trang trước
              currentPage < totalPage - 1: ví dụ tổng số trang là 2
              ban đầu đã load trang 0, sau đó load trang 1 đủ 2 trang,
              currentPage là 1 còn totalPage là 2 1 < 1 ko đúng
-             đã xuất hế số trang có
+             đã xuất hết số trang có
              -->
             <a
                     th:if="${currentPageSale < totalPageSale - 1}"
