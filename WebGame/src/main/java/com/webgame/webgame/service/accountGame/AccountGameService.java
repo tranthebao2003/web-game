@@ -11,7 +11,6 @@ public interface AccountGameService {
     // sp bán được nữa vì mình đã sắp xếp trong câu query rồi
     Page<Object[]> totalAccountGameSold(int page, int size);
     List<AccountGame> listAccountByGameId(Long gameId);
-    void saveAccount(AccountGameDto accountGameDto) throws IOException;
     AccountGameDto getAccountById(Long id);
     void updateAccount(Long id, AccountGameDto accountGameDto);
     void deleteAccountGameById(Long id);

@@ -42,28 +42,6 @@ public class AccountGameServiceImp implements AccountGameService {
     }
 
 
-    @Override
-    public void saveAccount(AccountGameDto accountGameDto) {
-        if (accountGameDto.getGameId() == null) {
-            throw new IllegalArgumentException("Game ID must not be null");
-        }
-
-        // Nạp thực thể Game từ repository bằng gameId
-        Game game = gameRepository.findById(accountGameDto.getGameId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Game ID: " + accountGameDto.getGameId()));
-
-
-        // Ánh xạ từ DTO sang thực thể
-        AccountGame accountGame = new AccountGame();
-        accountGame.setGame(game);
-        accountGame.setUsername(accountGameDto.getUsername());
-        accountGame.setPassword(accountGameDto.getPassword());
-
-        // Lưu thực thể vào database
-        accountGameRepository.save(accountGame);
-    }
-
-
     public void updateAccount(Long id, AccountGameDto accountGameDto) {
         // Kiểm tra xem gameId trong DTO có hợp lệ không
         if (accountGameDto.getGameId() == null) {
