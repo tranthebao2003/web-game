@@ -1,6 +1,5 @@
 package com.webgame.webgame.service.cart;
 
-import com.webgame.webgame.model.AccountGame;
 import com.webgame.webgame.model.CartGame;
 import com.webgame.webgame.model.Game;
 import com.webgame.webgame.model.User;
@@ -8,14 +7,10 @@ import com.webgame.webgame.repository.AccountGameRepository;
 import com.webgame.webgame.repository.CartGameRepository;
 import com.webgame.webgame.repository.GameRepository;
 import com.webgame.webgame.repository.UserRepository;
-import com.webgame.webgame.service.game.GameService;
-import com.webgame.webgame.service.user.UserService;
-import com.webgame.webgame.sevice.detailGame.DetailGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

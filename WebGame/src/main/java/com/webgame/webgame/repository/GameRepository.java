@@ -1,7 +1,5 @@
 package com.webgame.webgame.repository;
 
-
-
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.Game;
 import jakarta.transaction.Transactional;
@@ -12,9 +10,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 @Repository
@@ -26,12 +21,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findByCategoryGames_Category(Category category);
 
 
-
     @Query("SELECT g FROM Game g WHERE g.gameId = :gameId")
     Game findGameById(@Param("gameId") Long gameId);
 
 
     // ở đây là mình tương tác trực tiếp với database ko phải thực thể vì nativeQuery = true
+    // dùng trong danh sách game ở admin
     @Query(value = """
     SELECT g.game_img, g.game_name, g.description, g.game_id, g.price,COUNT(DISTINCT ag.account_game_id) AS quantity,
            GROUP_CONCAT(DISTINCT c.category_name SEPARATOR ', ') AS category_list
@@ -53,7 +48,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
         """)
     List<Category> findCategoriesByGameId(@Param("gameId") Long gameId);
 
-    //    Xóa hết game trong một giỏ hàng dựa vào userID (tại vì khi mua xong thì xóa giỏ hàng đi)
+   // xóa game theo gameId
     @Modifying
     @Transactional
     @Query("DELETE FROM Game g WHERE g.gameId = :gameId")

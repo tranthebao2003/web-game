@@ -1,6 +1,5 @@
 package com.webgame.webgame.configurations;
 
-//import com.webgame.webgame.service.userLogin.CustomAuthenticationFailureHandler;
 import com.webgame.webgame.service.userLogin.CustomSuccessLoginHandler;
 import com.webgame.webgame.service.userLogin.CustomUserLoginDetailService;
 import jakarta.servlet.ServletException;
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -43,22 +42,32 @@ public class SecurityLoginConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(c -> c.disable())
-//                .authorizeHttpRequests(requests -> requests.requestMatchers("/admin")
-//                        .hasAuthority("admin").requestMatchers("/home").permitAll()
-//                        .requestMatchers("/register_login", "/css/**","/img/**","/", "/cart","/user_info","/user", "/get_user_info","send-email","forgot-password","login-email").permitAll()
-//                        .anyRequest().authenticated())
                 .authorizeHttpRequests(requests -> requests
-                        .anyRequest()
-                        .permitAll())
+                        .requestMatchers("/listAccountGame/{gameId}","/addAccount/{gameId}","/saveAccount/{gameId}","/showFormEditAccount/{accountId}",
+                                "/editAccount/{gameId}/{accountId}","/deleteAccount/{accountGameId}","/admin","/page/{pageNo}","/addGameForm","/saveGame",
+                                "/deleteGame/{id}","/showFormForUpdate/{id}","/updateGame/{id}", "listUsers","findUserByRole","findUserById","addAdmin",
+                                "listOrders","findOrderByUserId").hasAuthority("admin")
+                        .requestMatchers("/home", "/","/css/**", "/img/**","/chitietsanpham/**","/register_login","/login","/login-email","/send-email","/forgot-password",
+                                "/save-phone","/search/","/category/{id}","/game/{gameId}","/uploadImgGame/**").permitAll()
+                        .requestMatchers("/xacnhandonhang","/thanhtoan","/huythanhtoan","/cart","/cart/delete",
+                                "/game/add/{gameId}","/product/review","/userInfo","/updateUserInfo","/user/orders").hasAuthority("user")
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(accessDeniedHandler()) // Cấu hình xử lý từ chối quyền truy cập
+                )
+//                .authorizeHttpRequests(requests -> requests
+//                        .anyRequest()
+//                        .permitAll())
                 .formLogin(form -> form.loginPage("/register_login").loginProcessingUrl("/login")
                         .successHandler(customSuccessHandler).permitAll())
                 .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // URL để đăng xuất
-                        .logoutSuccessUrl("/") // Trang chuyển hướng sau khi đăng xuất thành công
-                        .deleteCookies("JSESSIONID") // Xóa cookie session
-                        .invalidateHttpSession(true) // Vô hiệu hóa session
-                        .clearAuthentication(true) // Clear thông tin authentication
-                        .permitAll()) // Cho phép truy cập chức năng logout mà không cần đăng nhập
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/")
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll())
                 .oauth2Login(oauth2login->{
                     oauth2login.successHandler(new AuthenticationSuccessHandler() {
                         @Override
@@ -68,12 +77,13 @@ public class SecurityLoginConfig {
                     });
 
                 });
-
-
-
-
-
         return http.build();
+    }
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        AccessDeniedHandlerImpl accessDeniedHandler = new AccessDeniedHandlerImpl();
+        accessDeniedHandler.setErrorPage("/error");
+        return accessDeniedHandler;
     }
     @Autowired
     public void configure (AuthenticationManagerBuilder auth) throws Exception{

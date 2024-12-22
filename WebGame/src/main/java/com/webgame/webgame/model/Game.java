@@ -48,11 +48,6 @@ public class Game {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
     private Collection<CartGame> cartGames;
 
-    @ToString.Exclude
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "game", fetch = FetchType.EAGER)
-    private Collection<ImageGame> imageGames;
-
-
     // đối với cột có qua hệ nhìu nhìu với cột khác thì
     // thêm dòng @ToString.Exclude bỏ ToString đi
     // tránh vòng lặp vô hạn

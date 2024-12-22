@@ -3,7 +3,6 @@ package com.webgame.webgame.sevice.detailGame;
 import com.webgame.webgame.model.AccountGame;
 import com.webgame.webgame.model.Game;
 import com.webgame.webgame.model.Review;
-import com.webgame.webgame.model.ImageGame;
 import com.webgame.webgame.repository.AccountGameRepository;
 import com.webgame.webgame.repository.GameRepository;
 import com.webgame.webgame.repository.ReviewRepository;
@@ -11,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class DetailGameService {

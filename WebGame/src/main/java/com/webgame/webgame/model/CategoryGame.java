@@ -15,13 +15,11 @@ public class CategoryGame {
     @EmbeddedId
     private CategoryGameId id; // Composite key
 
-
     @ToString.Exclude
     @ManyToOne
     @MapsId("gameId") // Tham chiếu đến gameId trong CategoryGameId
     @JoinColumn(name = "game_id")
     private Game game;
-
 
     @ToString.Exclude
     @ManyToOne

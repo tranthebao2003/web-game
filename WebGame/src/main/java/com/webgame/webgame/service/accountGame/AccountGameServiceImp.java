@@ -41,7 +41,6 @@ public class AccountGameServiceImp implements AccountGameService {
         return accountDto;
     }
 
-
     public void updateAccount(Long id, AccountGameDto accountGameDto) {
         // Kiểm tra xem gameId trong DTO có hợp lệ không
         if (accountGameDto.getGameId() == null) {

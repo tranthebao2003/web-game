@@ -113,8 +113,11 @@ public class UserLoginController {
             // Hủy authentication và session
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        // Chuyển hướng đến trang đăng nhập hoặc trang khác sau khi đăng xuất
         return "redirect:/";
+    }
+    @GetMapping("/error")
+    public String errorPage() {
+        return "error";
     }
 
 

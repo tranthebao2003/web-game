@@ -30,7 +30,7 @@
 
             </div>
             <div class="search">
-                <form th:action="@{/search/}" method="GEt">
+                <form th:action="@{/search/}" method="GET">
                     <label for="searchInput">
                         <input id="searchInput" type="text" name="searchInput" autofocus
                                placeholder="Bạn thích tựa game nào nhỉ ?">
@@ -40,7 +40,7 @@
                     </button>
                 </form>
             </div>
-            <a href="#" class="track-order">Đơn hàng của bạn</a>
+            <a href="http://localhost:8080/userInfo?activeTab=orders" class="track-order">Game của bạn</a>
         </div>
 
         <div class="main-header">
@@ -66,8 +66,10 @@
                 </div>
             </nav>
             <div class="icons">
-                <a href="#"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
-                <a href="#"><img th:src="@{/img/home/cart.png}" alt="Lỗi hiển thị"></a>
+                <a th:href="@{/userInfo}"><img th:src="@{/img/home/user.png}" alt="Lỗi hiển thị"></a>
+                <a th:href="@{/cart}"><img th:src="@{/img/home/cart.png}" alt="Lỗi hiển thị"></a>
+                <a th:if="${checkLogin}" th:href="@{/logout}">Đăng xuất</a>
+                <a th:if="${!checkLogin}" th:href="@{/register_login}">Đăng nhập</a>
             </div>
         </div>
     </header>

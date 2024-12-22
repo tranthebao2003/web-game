@@ -5,7 +5,6 @@ import com.webgame.webgame.model.Game;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import com.webgame.webgame.service.category.CategoryService;
 import com.webgame.webgame.service.game.GameService;
-import com.webgame.webgame.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -31,6 +30,16 @@ public class HomeController {
     @Autowired
     AccountGameService accountGameService;
 
+
+    public boolean checkLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
+
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+
+        return isLoggedIn;
+    }
+
     //   /page/?page=1
     @GetMapping("/")
     public String findPaginated(
@@ -42,7 +51,7 @@ public class HomeController {
         // số lượng mỗi game mỗi trang
         int size = 8;
         List<Game> gameListTmp = new ArrayList<>();
-//        List<GameSaleDto> gameListTmp2 = new ArrayList<>();
+
         List<Object[]> gameListTmp2 = new ArrayList<>();
 
         // vòng for này mình sẽ duyệt qua từ trang đầu đến
@@ -71,16 +80,14 @@ public class HomeController {
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
-
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() &&
-                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+        boolean isLoggedIn = checkLogin();
 
         model.addAttribute("checkLogin", isLoggedIn);
 
         return "home/home";
     }
 
+    // searchInput chính là giá trị của thuộc tính name của thẻ input
     @GetMapping("/search/")
     public String searchGame(
             @RequestParam(value = "searchInput") String searchInput,
@@ -94,6 +101,11 @@ public class HomeController {
 
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //lấy authentication
+
+        boolean isLoggedIn = checkLogin();
+
+        model.addAttribute("checkLogin", isLoggedIn);
         return "home/searchResult";
     }
 
@@ -112,6 +124,9 @@ public class HomeController {
 
         List<Category> categoryList = categoryService.getAllCategoryList();
         model.addAttribute("categoryList", categoryList);
+
+        boolean isLoggedIn = checkLogin();
+        model.addAttribute("checkLogin", isLoggedIn);
 
         return "home/gameListCategory"; // Trả về view hiển thị danh sách game
     }

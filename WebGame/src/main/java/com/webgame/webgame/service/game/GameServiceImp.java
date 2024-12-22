@@ -4,15 +4,12 @@ import com.webgame.webgame.dto.gameDto.GameFormDto;
 import com.webgame.webgame.model.Category;
 import com.webgame.webgame.model.CategoryGame;
 import com.webgame.webgame.model.Game;
-import com.webgame.webgame.model.User;
 import com.webgame.webgame.repository.CategoryGameRepository;
 import com.webgame.webgame.repository.CategoryRepository;
 import com.webgame.webgame.repository.GameRepository;
-import com.webgame.webgame.repository.UserRepository;
 import com.webgame.webgame.service.accountGame.AccountGameService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -45,9 +42,6 @@ public class GameServiceImp implements GameService {
     @Autowired
     private AccountGameService accountGameService;
 
-    //Vy them
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public Page<Game> getGameList(int page, int size, String sortField) {
@@ -75,9 +69,26 @@ public class GameServiceImp implements GameService {
         return gameRepository.findGamesAndQuantityCategory(pageable);
     }
 
+    // xóa ảnh phục vụ cho việc xóa game và sửa game
+    public void deleteFile(String fileName) {
+        // Đường dẫn tới thư mục chứa ảnh
+        Path filePath = Paths.get("src/main/java/com/webgame/webgame/uploadImgGame/", fileName);
+        try {
+            // Xóa file
+            Files.delete(filePath);
+            System.out.println("File deleted successfully: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Failed to delete file: " + fileName + ". Error: " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void deleteGameById(Long id) {
+        // lấy gameImg để xóa ảnh của game đó trong server trước khi xóa
+        // game trong databse
+        Game game = getGameById(id);
+        deleteFile(game.getGameImg());
         this.categoryGameRepository.deleteByGameId(id);
         this.accountGameService.deleteAccountGameByGameid(id);
         this.gameRepository.deleteGameById(id);
@@ -142,11 +153,15 @@ public class GameServiceImp implements GameService {
     public void updateGame(Long id, GameFormDto gameFormDto) throws IOException {
         // nhận game cần update
         Game gameExist = getGameById(id);
+
+        // xóa ảnh cũ trong server trước khi thêm ảnh mới
+        deleteFile(gameExist.getGameImg());
         gameExist = getGameFromDto(gameExist, gameFormDto);
 
         // Xóa các liên kết cũ giữa category và game bên trong CategoryGame
         this.categoryGameRepository.deleteByGameId(id);
-        // Clear context to avoid những thực thể cũ, dòng dưới rất quan trong
+
+        // Clear context to avoid những thực thể cũ
         entityManager.clear();
 
         // Lưu lại thông tin đã cập nhật
@@ -160,17 +175,5 @@ public class GameServiceImp implements GameService {
     public List<Category> findCategoriesByGameId(Long gameId) {
         return gameRepository.findCategoriesByGameId(gameId);
     }
-
-    //Vy them
-//    public List<Game> getGamesByUser(String email) {
-//        // Lấy thông tin user từ email
-//        User user = userRepository.findByEmail(email);
-//        if (user == null) {
-//            throw new IllegalArgumentException("Không tìm thấy người dùng với email: " + email);
-//        }
-//
-//        // Lấy danh sách game của user
-//        return gameRepository.findGamesByUserId(user.getUserId());
-//    }
 
 }
